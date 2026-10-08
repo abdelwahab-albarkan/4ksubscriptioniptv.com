@@ -94,7 +94,7 @@ for (const f of walkImg(path.join(PUB, 'images'))) {
   const st = fs.statSync(f);
   if (st.size < 2048) { skipped++; continue; }
   if (fs.existsSync(out) && fs.statSync(out).mtimeMs >= st.mtimeMs) { skipped++; continue; }
-  const buf = await sharp(fs.readFileSync(f), { failOn: 'none' }).webp({ quality: 80, alphaQuality: 90, effort: 5 }).toBuffer();
+  const buf = await sharp(fs.readFileSync(f), { failOn: 'none' }).resize({ width: 1200, withoutEnlargement: true }).webp({ quality: 72, alphaQuality: 85, effort: 5 }).toBuffer();
   if (buf.length >= st.size) { skipped++; continue; } // keep the original when WebP is not smaller
   fs.writeFileSync(out, buf); made++; saved += st.size - buf.length;
 }
