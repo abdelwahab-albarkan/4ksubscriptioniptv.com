@@ -1,0 +1,211 @@
+---
+const locations = [
+  {
+    name: "StreamB4 Global & USA",
+    currency: "USD $",
+    badgeClass: "badge-blue",
+    icon: "fa-flag-usa",
+    description: "Flagship global streaming hub with NFL Sunday Ticket, NBA League Pass, UFC PPV events, USA local network feeds, 51,000+ live channels, and 200,000+ VOD titles in 4K UHD.",
+    domain: "streamb4.com",
+    url: "https://streamb4.com",
+    localLink: "/pricing"
+  },
+  {
+    name: "UK Stream 4K",
+    currency: "GBP £",
+    badgeClass: "badge-gold",
+    icon: "fa-landmark-flag",
+    description: "UK IPTV services engineered for 3PM Premier League blackout bypass, Sky Sports Main Event, TNT Sports 4K UHD, BBC iPlayer, ITVX, and PPV Boxing in GBP.",
+    domain: "ukstream4k.com",
+    url: "https://ukstream4k.com",
+    localLink: "/uk/pricing"
+  },
+  {
+    name: "Ultra 8K IPTV",
+    currency: "USD / EUR",
+    badgeClass: "badge-green",
+    icon: "fa-gem",
+    description: "Ultra-high-definition 8K & 4K streaming network with up to 5 multi-room connections, low latency sports feeds, worldwide language audio tracks, and 99.9% uptime SLA.",
+    domain: "ultra8kiptv.org",
+    url: "https://ultra8kiptv.org",
+    localLink: "/all-locations"
+  },
+  {
+    name: "4K German IPTV",
+    currency: "EUR €",
+    badgeClass: "badge-gold",
+    icon: "fa-earth-europe",
+    description: "Dedicated DACH region streaming infrastructure for Germany, Austria, and Switzerland. Bundesliga UHD, Sky DE, DAZN, ORF, and extensive German cinema libraries.",
+    domain: "4kgermaniptv.com",
+    url: "https://4kgermaniptv.com",
+    localLink: "/all-locations"
+  },
+  {
+    name: "IPTV Smarters FR",
+    currency: "EUR €",
+    badgeClass: "badge-blue",
+    icon: "fa-tower-broadcast",
+    description: "France & Francophone premium streaming network. Ligue 1, Canal+, RMC Sport, beIN Sports, TF1, and complete French cinema and international bouquets.",
+    domain: "iptvsmarters-tv.fr",
+    url: "https://iptvsmarters-tv.fr",
+    localLink: "/all-locations"
+  }
+];
+---
+
+<!-- ==================== LOCATIONS SECTION ==================== -->
+<section class="locations-section section-padding-lg" id="locations-section">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-badge"><i class="fa-solid fa-location-dot"></i> Location-Based IPTV Markets</span>
+      <h2 class="section-title">Target High-Intent IPTV Markets by Geographic Location</h2>
+      <p class="section-description">
+        Location-specific IPTV pages rank faster in search engines and convert significantly better with local audiences. We've built dedicated IPTV hubs for the five strongest global markets: Europe, USA, UK, Canada, and Australia.
+      </p>
+    </div>
+
+    <div class="location-grid">
+      {locations.map((loc) => (
+        <div class="location-card glass-card">
+          <div class="loc-card-header">
+            <div class="loc-icon-wrap">
+              <i class={`fa-solid ${loc.icon}`}></i>
+            </div>
+            <span class={`loc-badge ${loc.badgeClass}`}>{loc.currency}</span>
+          </div>
+
+          <h3>{loc.name}</h3>
+          <p>{loc.description}</p>
+
+          <div class="loc-card-actions">
+            <a href={loc.url} class="location-external-link" target="_blank" rel="noopener nofollow sponsored">
+              Explore {loc.domain} <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+            <a href={loc.localLink} class="location-internal-link">
+              View Local Plans &rarr;
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .locations-section {
+    padding: 80px 0;
+  }
+
+  .location-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 24px;
+  }
+
+  .location-card {
+    background: rgba(13, 20, 38, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+  }
+
+  .location-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .loc-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .loc-icon-wrap {
+    width: 44px;
+    height: 44px;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #38bdf8;
+    font-size: 1.25rem;
+  }
+
+  .loc-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 9999px;
+  }
+
+  .badge-gold {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+  }
+
+  .badge-blue {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.35);
+  }
+
+  .badge-green {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+  }
+
+  .location-card h3 {
+    font-size: 1.25rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+  }
+
+  .location-card p {
+    font-size: 0.88rem;
+    color: #94a3b8;
+    line-height: 1.55;
+    margin-bottom: 20px;
+  }
+
+  .loc-card-actions {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .location-external-link {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: #38bdf8;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+
+  .location-external-link:hover {
+    color: #60a5fa;
+  }
+
+  .location-internal-link {
+    font-size: 0.8rem;
+    color: #cbd5e1;
+    font-weight: 500;
+  }
+
+  .location-internal-link:hover {
+    color: #ffffff;
+  }
+</style>

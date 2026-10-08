@@ -1,0 +1,291 @@
+---
+// Page-specific guide for the programmatic /iptv/* pages.
+// Content is generated into pages-data.json by scripts/enrich-seo-pages.mjs.
+import siteConfig from '../data/site-config.json';
+
+interface Section {
+  h: string;
+  p?: string[];
+  ol?: string[];
+  ul?: string[];
+}
+interface Content {
+  intro: string;
+  facts?: { k: string; v: string }[];
+  sections: Section[];
+  faqs?: { q: string; a: string }[];
+  nearby?: { slug: string; label: string }[];
+  nearbyLabel?: string;
+  hub?: { label: string; name: string; path: string };
+  links?: { href: string; text: string }[];
+}
+
+interface Props {
+  content?: Content;
+  heading?: string;
+}
+
+const { content, heading } = Astro.props;
+---
+
+{content && (
+  <section class="local-guide" aria-label="Guide">
+    <div class="container">
+      <article class="lg-article glass-card">
+        {heading && <h2 class="lg-title">{heading}</h2>}
+        <p class="lg-intro">{content.intro}</p>
+
+        {content.facts && content.facts.length > 0 && (
+          <dl class="lg-facts">
+            {content.facts.map((f) => (
+              <div class="lg-fact">
+                <dt>{f.k}</dt>
+                <dd>{f.v}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+
+        {content.sections.map((s) => (
+          <div class="lg-block">
+            <h3>{s.h}</h3>
+            {s.p?.map((t) => <p>{t}</p>)}
+            {s.ol && <ol>{s.ol.map((t) => <li>{t}</li>)}</ol>}
+            {s.ul && <ul>{s.ul.map((t) => <li>{t}</li>)}</ul>}
+          </div>
+        ))}
+
+        {content.faqs && content.faqs.length > 0 && (
+          <div class="lg-block">
+            <h3>Common questions</h3>
+            <div class="lg-faqs">
+              {content.faqs.map((f) => (
+                <details class="lg-faq">
+                  <summary>{f.q}</summary>
+                  <p>{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {content.links && content.links.length > 0 && (
+          <div class="lg-block">
+            <h3>Helpful next steps</h3>
+            <ul class="lg-links">
+              {content.links.map((l) => <li><a href={l.href}>{l.text}</a></li>)}
+            </ul>
+          </div>
+        )}
+
+        <div class="lg-cta">
+          <p>Want to test it on your own device? Ask {siteConfig.siteName} for a free trial.</p>
+          <a href={siteConfig.whatsappUrl} class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i> Request a free trial
+          </a>
+        </div>
+
+        {content.nearby && content.nearby.length > 0 && (
+          <nav class="lg-nearby" aria-label={content.nearbyLabel || 'Related guides'}>
+            <h3>{content.nearbyLabel || 'Related guides'}</h3>
+            <ul>
+              {content.hub && <li><a href={content.hub.path} class="lg-hub">{content.hub.label}</a></li>}
+              {content.nearby.map((n) => (
+                <li><a href={`/iptv/${n.slug}`}>{n.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+        )}
+      </article>
+    </div>
+  </section>
+)}
+
+<style>
+  .local-guide {
+    padding: clamp(32px, 6vw, 64px) 0;
+  }
+
+  .lg-article {
+    padding: clamp(20px, 4vw, 40px);
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  .lg-title {
+    margin-bottom: 14px;
+  }
+
+  .lg-intro {
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    color: #dbe4f0;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .lg-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .lg-fact {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    padding: 12px 14px;
+    min-width: 0;
+  }
+
+  .lg-fact dt {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #38bdf8;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .lg-fact dd {
+    font-size: 0.92rem;
+    color: #e2e8f0;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .lg-block {
+    margin-top: 28px;
+  }
+
+  .lg-block h3 {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    margin-bottom: 10px;
+  }
+
+  .lg-block p,
+  .lg-block li {
+    color: #b6c2d4;
+    line-height: 1.75;
+    font-size: 0.98rem;
+  }
+
+  .lg-block p + p {
+    margin-top: 10px;
+  }
+
+  .lg-block ol,
+  .lg-block ul {
+    margin: 10px 0 0 1.2rem;
+    display: grid;
+    gap: 6px;
+  }
+
+  .lg-faqs {
+    display: grid;
+    gap: 10px;
+  }
+
+  .lg-faq {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 0 16px;
+  }
+
+  .lg-faq summary {
+    cursor: pointer;
+    padding: 14px 0;
+    font-weight: 600;
+    color: #f1f5f9;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .lg-faq summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .lg-faq summary::after {
+    content: '+';
+    color: #38bdf8;
+    font-weight: 700;
+  }
+
+  .lg-faq[open] summary::after {
+    content: '\2212';
+  }
+
+  .lg-faq p {
+    padding: 0 0 14px;
+  }
+
+  .lg-cta {
+    margin-top: 32px;
+    padding: 20px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(79, 140, 255, 0.14), rgba(34, 211, 238, 0.08));
+    border: 1px solid rgba(79, 140, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .lg-cta p {
+    color: #e2e8f0;
+    font-weight: 600;
+    flex: 1 1 240px;
+  }
+
+  .lg-nearby {
+    margin-top: 32px;
+  }
+
+  .lg-nearby h3 {
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+  }
+
+  .lg-nearby ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .lg-nearby a {
+    display: inline-block;
+    padding: 7px 14px;
+    border-radius: 9999px;
+    font-size: 0.86rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    transition: all 0.2s ease;
+  }
+
+  .lg-links { list-style: none; margin: 10px 0 0 !important; padding: 0; display: flex !important; flex-wrap: wrap; gap: 10px; }
+  .lg-links a { display: inline-block; padding: 10px 16px; border-radius: 12px; background: rgba(34, 211, 238, 0.08); border: 1px solid rgba(34, 211, 238, 0.3); color: #cffafe; font-weight: 600; font-size: 0.92rem; }
+  .lg-links a:hover { background: rgba(34, 211, 238, 0.18); color: #fff; }
+  .lg-nearby a.lg-hub { background: rgba(79, 140, 255, 0.18); border-color: rgba(79, 140, 255, 0.5); color: #fff; font-weight: 600; }
+
+  .lg-nearby a:hover {
+    background: rgba(79, 140, 255, 0.18);
+    border-color: rgba(79, 140, 255, 0.5);
+    color: #fff;
+  }
+
+  @media (max-width: 600px) {
+    .lg-cta {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .lg-cta .btn {
+      width: 100%;
+    }
+  }
+</style>

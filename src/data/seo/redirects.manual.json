@@ -1,0 +1,4 @@
+{
+  "_readme": "Add your own 301 redirects here when you change a permalink or remove a page. Format: \"/old-path\": \"/new-path\". Rebuilt automatically by npm run build (public/_redirects and vercel.json).",
+  "_example": "Rename: \"/old-slug\": \"/new-slug\" (delete the underscore keys in real use)"
+}

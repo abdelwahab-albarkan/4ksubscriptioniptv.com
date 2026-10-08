@@ -1,0 +1,112 @@
+---
+import siteConfig from '../data/site-config.json';
+---
+
+<!-- ANNOUNCEMENT BAR - SINGLE LINE SCROLLING / PROMO TICKER -->
+<div class="announcement-bar" id="announcementBar">
+  <div class="announcement-track">
+    <div class="announcement-content">
+      <i class="fa-solid fa-gift"></i>
+      <strong>Limited Time 2026:</strong>
+      <span>Get exclusive reseller panel discounts &amp; wholesale credit rates on 15+ premium IPTV providers</span>
+      <span class="sep">|</span>
+      <span>Support Desk 24/7 on WhatsApp: <strong>{siteConfig.whatsappDisplay}</strong></span>
+      <span class="sep">|</span>
+      <a href="/#providers" class="announcement-cta">Claim Offer <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .announcement-bar {
+    background: linear-gradient(90deg, #0d1527 0%, #1e1b4b 30%, #064e3b 70%, #0d1527 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 8px 16px;
+    font-size: 0.82rem;
+    color: #e2e8f0;
+    position: relative;
+    z-index: 1001;
+  }
+
+  .announcement-track {
+    max-width: 1260px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .announcement-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .announcement-content i.fa-gift {
+    color: #f59e0b;
+    font-size: 0.95rem;
+    animation: pulse 2s infinite;
+  }
+
+  .announcement-content strong {
+    color: #fde047;
+    font-weight: 700;
+  }
+
+  .sep {
+    color: rgba(255, 255, 255, 0.25);
+  }
+
+  .announcement-cta {
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.45);
+    color: #fbbf24;
+    padding: 3px 12px;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.76rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.25s ease;
+  }
+
+  .announcement-cta:hover {
+    background: #f59e0b;
+    color: #0f172a;
+    transform: translateX(2px);
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  @media (max-width: 768px) {
+    .announcement-bar {
+      font-size: 0.75rem;
+      padding: 6px 10px;
+    }
+    .sep {
+      display: none;
+    }
+    .announcement-content > span {
+      display: none;
+    }
+    .announcement-content {
+      flex-wrap: nowrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    .announcement-bar {
+      padding: 6px 10px;
+    }
+    .announcement-content {
+      gap: 8px 12px;
+    }
+  }
+</style>

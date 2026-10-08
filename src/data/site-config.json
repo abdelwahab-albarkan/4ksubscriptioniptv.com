@@ -1,0 +1,131 @@
+{
+  "siteName": "4KSubscriptionIPTV",
+  "brandShort": "4KSubscription",
+  "domain": "https://4ksubscriptioniptv.com",
+  "trailingSlash": false,
+  "tagline": "Enterprise 4K & 8K IPTV Streaming & Wholesale Reseller Network",
+  "whatsappNumber": "+212625218443",
+  "whatsappRaw": "212625218443",
+  "whatsappDisplay": "+212 625 218 443",
+  "whatsappUrl": "https://wa.me/212625218443?text=Hello!%20I%20would%20like%20to%20get%20a%2024-hour%20IPTV%20Free%20Trial%20and%20order%20a%20subscription.",
+  "whatsappMessage": "Hello! I would like to get a 24-hour IPTV Free Trial and order a subscription.",
+  "supportEmail": "support@streamb4.com",
+  "googleSiteVerification": "",
+  "analytics": {
+    "ga4MeasurementId": "",
+    "plausibleDomain": "",
+    "plausibleScriptId": "pa-zsxfcjvexg4J4ND_8lXE9",
+    "clarityProjectId": ""
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/streamb4tv/",
+    "facebook": "https://www.facebook.com/profile.php?id=61591545360371",
+    "telegram": "",
+    "youtube": "",
+    "x": "https://x.com/streamb4t",
+    "discord": "https://discord.gg/BFr5HSZfk"
+  },
+  "stats": {
+    "channels": "51,000+",
+    "vodMovies": "150,000+",
+    "vodSeries": "50,000+",
+    "totalVod": "200,000+",
+    "uptime": "99.99%",
+    "activeUsers": "68,400+",
+    "rating": "4.94",
+    "reviewCount": "14,820",
+    "deliveryTime": "Instant (Under 3 Mins)"
+  },
+  "claims": {
+    "channelsCount": "51,000+",
+    "vodCount": "200,000+",
+    "uptime": "99.99%"
+  },
+  "pricing": [
+    {
+      "id": "1m",
+      "duration": "1 Month",
+      "priceUsd": 12.99,
+      "priceGbp": 10.99,
+      "priceEur": 11.99,
+      "originalUsd": 24.99,
+      "badge": "Standard",
+      "connections": "1 Connection",
+      "isPopular": false,
+      "features": [
+        "51,000+ Live Channels (US, UK, CA, World)",
+        "200,000+ Movies & TV Series (VOD)",
+        "4K UHD, FHD & 60FPS Stream Quality",
+        "Anti-Freeze Technology v9.2 CDN",
+        "7-Day Catch-Up & TV Guide (EPG)",
+        "Compatible with all Devices & Apps",
+        "Instant Xtream Codes & M3U Delivery",
+        "24/7 WhatsApp & Email Support"
+      ]
+    },
+    {
+      "id": "3m",
+      "duration": "3 Months",
+      "priceUsd": 29.99,
+      "priceGbp": 24.99,
+      "priceEur": 27.99,
+      "originalUsd": 59.99,
+      "badge": "Save 30%",
+      "connections": "1 Connection",
+      "isPopular": false,
+      "features": [
+        "51,000+ Live Channels (US, UK, CA, World)",
+        "200,000+ Movies & TV Series (VOD)",
+        "4K UHD, FHD & 60FPS Stream Quality",
+        "Anti-Freeze Technology v9.2 CDN",
+        "7-Day Catch-Up & TV Guide (EPG)",
+        "Free PPV Events Included (UFC, Boxing)",
+        "Instant Xtream Codes & M3U Delivery",
+        "Priority 24/7 VIP Support"
+      ]
+    },
+    {
+      "id": "6m",
+      "duration": "6 Months",
+      "priceUsd": 45.99,
+      "priceGbp": 39.99,
+      "priceEur": 42.99,
+      "originalUsd": 99.99,
+      "badge": "Save 45%",
+      "connections": "2 Simultaneous Connections",
+      "isPopular": false,
+      "features": [
+        "2 Connections (Watch on 2 Devices)",
+        "51,000+ Live Channels & 200,000+ VODs",
+        "4K 60FPS Ultra HD Streams",
+        "Anti-Freeze 9.2 + Dedicated High-Speed CDN",
+        "All Live Sports & PPV (Premier League, NFL)",
+        "Adult Channels (18+ Optional with PIN)",
+        "Fast 3-Minute Activation",
+        "7-Day Money-Back Guarantee"
+      ]
+    },
+    {
+      "id": "12m",
+      "duration": "12 Months (1 Year)",
+      "priceUsd": 64.99,
+      "priceGbp": 54.99,
+      "priceEur": 59.99,
+      "originalUsd": 149.99,
+      "badge": "BEST VALUE - SAVE 60%",
+      "connections": "2 Simultaneous Connections (Free Upgrade)",
+      "isPopular": true,
+      "features": [
+        "2 Devices Multi-Room Simultaneous Stream",
+        "Full Access to 51,000+ 4K/FHD Channels",
+        "Complete 200,000+ VOD Library",
+        "Premier League 3PM + NFL Sunday Ticket + UFC",
+        "Ultra Low Latency Dedicated Private Server",
+        "Full 7-Day Catch-up & Real-time EPG Guide",
+        "Free App Setup Assistance on WhatsApp",
+        "100% 7-Day Money-Back Guarantee"
+      ]
+    }
+  ],
+  "indexNowKey": "ae43b354e44f6e136191ca13f1c2c52d"
+}

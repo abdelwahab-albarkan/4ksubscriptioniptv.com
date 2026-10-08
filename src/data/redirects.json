@@ -1,0 +1,14 @@
+{
+  "/iptv/chelsea-fc": "/iptv/chelsea",
+  "/iptv/chelsea-f-c": "/iptv/chelsea",
+  "/iptv/chelsea-football-club-standings": "/iptv/chelsea-standings",
+  "/iptv/madrid-vs": "/iptv/real-madrid-vs",
+  "/iptv/madrid-game": "/iptv/real-madrid-vs",
+  "/iptv/r-madrid-game": "/iptv/real-madrid-vs",
+  "/iptv/real-madrid-games": "/iptv/real-madrid-vs",
+  "/iptv/real-madrid-fc-football": "/iptv/real-madrid-vs",
+  "/iptv/futbol-at-madrid": "/iptv/real-madrid-vs",
+  "/iptv/play-for-real-madrid": "/iptv/real-madrid-vs",
+  "/iptv/calendar-of-real-madrid": "/iptv/real-madrid-schedule",
+  "/iptv/real-madrid-vs-fc-barcelona-stats": "/iptv/fc-barcelona-vs-real-madrid-stats"
+}

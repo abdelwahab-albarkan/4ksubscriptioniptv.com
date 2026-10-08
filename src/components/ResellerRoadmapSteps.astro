@@ -1,0 +1,126 @@
+---
+const steps = [
+  {
+    num: "01",
+    icon: "fa-magnifying-glass",
+    title: "Choose Your IPTV Provider",
+    desc: "Compare our official reviewed IPTV networks. Look for stable panels, large channel libraries (200,000+ movies, 8,000+ to 51,000+ channels), VOD content, multi-device support, and responsive customer service. Our top recommendations are StreamB4, UK Stream 4K, Ultra 8K IPTV, and Agency Fluxly."
+  },
+  {
+    num: "02",
+    icon: "fa-user-plus",
+    title: "Get Reseller Panel Access",
+    desc: "Contact your chosen provider directly via WhatsApp support desk. Request reseller panel credentials and choose your initial credit package that fits your startup budget."
+  },
+  {
+    num: "03",
+    icon: "fa-paint-brush",
+    title: "Brand Your IPTV Business",
+    desc: "Set up your own brand name, logo, and retail pricing structure. The reseller panel allows complete white-label customization so your customers see only your brand."
+  },
+  {
+    num: "04",
+    icon: "fa-bullhorn",
+    title: "Market Your IPTV Service",
+    desc: "Use SEO-optimized pages, local search intent, word-of-mouth, and location-based hubs to attract recurring subscribers in USA, UK, Europe, Canada, and Australia."
+  },
+  {
+    num: "05",
+    icon: "fa-chart-line",
+    title: "Scale & Grow Monthly Revenue",
+    desc: "Manage subscriptions, process automated renewals, create sub-resellers, and scale your IPTV empire to achieve sustainable recurring monthly income."
+  }
+];
+---
+
+<!-- ==================== RESELLER BUSINESS GUIDE SECTION ==================== -->
+<section class="guide-section section-padding-lg" id="steps-guide">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-badge"><i class="fa-solid fa-book-open"></i> Reseller Success Roadmap</span>
+      <h2 class="section-title">How to Start Your IPTV Reseller Business in 5 Simple Steps</h2>
+      <p class="section-description">
+        Follow this proven blueprint to launch your profitable IPTV reseller business in 2026. Zero technical coding or server maintenance required.
+      </p>
+    </div>
+
+    <div class="steps-grid">
+      {steps.map((s) => (
+        <div class="step-card glass-card">
+          <div class="step-number">{s.num}</div>
+          <div class="step-icon-wrap">
+            <i class={`fa-solid ${s.icon}`}></i>
+          </div>
+          <h3>{s.title}</h3>
+          <p>{s.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .guide-section {
+    padding: 80px 0;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 22px;
+  }
+
+  .step-card {
+    background: rgba(13, 20, 38, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 28px 22px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+  }
+
+  .step-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .step-number {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.06);
+    line-height: 1;
+  }
+
+  .step-icon-wrap {
+    width: 46px;
+    height: 46px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #38bdf8;
+    font-size: 1.2rem;
+    margin-bottom: 18px;
+  }
+
+  .step-card h3 {
+    font-size: 1.15rem;
+    color: #ffffff;
+    margin-bottom: 12px;
+  }
+
+  .step-card p {
+    font-size: 0.86rem;
+    color: #94a3b8;
+    line-height: 1.55;
+  }
+</style>

@@ -1,0 +1,335 @@
+---
+// Live Streaming Gallery Showcase with Real Pack Photography
+const galleryItems = [
+  { 
+    title: "Living Room 4K Cinema", 
+    sub: "OLED 65-Inch uncompressed 60FPS broadcast in ultra-modern home setup", 
+    img: "/images/packimages2/lucid-origin_Photorealistic_wide_shot_of_a_modern_living_room_at_night_with_a_large_65-inch_4-0.jpg", 
+    category: "living-room",
+    tag: "4K Living Room", 
+    quality: "4K HDR 60FPS",
+    icon: "fa-solid fa-tv"
+  },
+  { 
+    title: "Premier League & UEFA Champions League", 
+    sub: "Every live fixture in true 4K 60FPS with Sky Sports & TNT audio tracks", 
+    img: "/images/packimages2/lucid-origin_Epic_night_football_scene_from_low_angle_a_player_striking_the_ball_under_bright-0.jpg", 
+    category: "sports",
+    tag: "Live Football", 
+    quality: "60FPS Low-Lag",
+    icon: "fa-solid fa-futbol"
+  },
+  { 
+    title: "NFL Sunday Ticket & Super Bowl 4K", 
+    sub: "Out-of-market blackout bypass across all 32 NFL franchises & RedZone", 
+    img: "/images/packimages2/lucid-origin_American_football_stadium_at_night_quarterback_about_to_throw_linemen_in_motion_-0.jpg", 
+    category: "sports",
+    tag: "NFL Sunday", 
+    quality: "Zero Blackouts",
+    icon: "fa-solid fa-football"
+  },
+  { 
+    title: "NBA League Pass & Courtside Action", 
+    sub: "Full season pass, buzzer-beaters and high-framerate courtside cams", 
+    img: "/images/packimages2/lucid-origin_Basketball_arena_a_player_in_generic_plain_jersey_dunking_dramatic_spotlights_a_-0.jpg", 
+    category: "sports",
+    tag: "NBA Basketball", 
+    quality: "Courtside 4K",
+    icon: "fa-solid fa-basketball"
+  },
+  { 
+    title: "UFC Main Cards & Championship Boxing", 
+    sub: "All numbered UFC events and Riyadh Season heavyweight title fights live", 
+    img: "/images/packimages2/lucid-origin_Fighter_in_a_boxing_ring_seen_from_behind_glove_raised_arena_lights_and_smoke_cr-0.jpg", 
+    category: "sports",
+    tag: "Combat PPV", 
+    quality: "All PPV Free",
+    icon: "fa-solid fa-hand-fist"
+  },
+  { 
+    title: "Formula 1 Night Grand Prix 4K", 
+    sub: "Sky Sports F1 4K, team radio audio feeds and uncompressed pit-lane cams", 
+    img: "/images/packimages2/lucid-origin_Formula-style_open-wheel_racing_car_at_night_on_a_city_circuit_motion_blur_neon_-0.jpg", 
+    category: "sports",
+    tag: "F1 Motorsport", 
+    quality: "F1 Ultra HD",
+    icon: "fa-solid fa-car-burst"
+  },
+  { 
+    title: "200,000+ Cinema VOD & Series Library", 
+    sub: "Latest 2026 theatrical blockbusters, Netflix, Disney+, and HBO Max", 
+    img: "/images/packimages2/photo_2025-08-23_12-37-32_cleanup.webp", 
+    category: "cinema",
+    tag: "Cinema VOD", 
+    quality: "Dolby Atmos 5.1",
+    icon: "fa-solid fa-film"
+  },
+  { 
+    title: "Multi-Screen TV Wall System", 
+    sub: "Simultaneous multi-view feeds for live sports fanaticism & multi-room", 
+    img: "/images/packimages2/Gemini_Generated_Image_cavt4dcavt4dcavt.jpg", 
+    category: "multiscreen",
+    tag: "Multi-Room", 
+    quality: "5 Multi-Screens",
+    icon: "fa-solid fa-table-cells-large"
+  }
+];
+---
+
+<!-- ==================== LIVE SHOWCASE GALLERY ==================== -->
+<section class="gallery-section section-padding-lg" id="gallery">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-badge"><i class="fa-solid fa-camera"></i> Studio Visual Proof</span>
+      <h2 class="section-title">Live 4K HDR <span class="gradient-text">Broadcast Quality Showcase</span></h2>
+      <p class="section-description">
+        Real uncompressed broadcast snapshots captured directly from our subscriber network. Zero pixelation, silky-smooth 60FPS motion, and deep cinematic HDR color contrast.
+      </p>
+    </div>
+
+    <!-- Gallery Category Filter Buttons -->
+    <div class="gallery-filters" id="gallery-filters-container">
+      <button class="filter-btn active" data-filter="all"><i class="fa-solid fa-border-all"></i> All Snapshots</button>
+      <button class="filter-btn" data-filter="sports"><i class="fa-solid fa-trophy"></i> Live 4K Sports</button>
+      <button class="filter-btn" data-filter="cinema"><i class="fa-solid fa-film"></i> 200k+ VOD Cinema</button>
+      <button class="filter-btn" data-filter="living-room"><i class="fa-solid fa-couch"></i> 4K OLED Living Rooms</button>
+      <button class="filter-btn" data-filter="multiscreen"><i class="fa-solid fa-table-cells-large"></i> Multi-Screen Wall</button>
+    </div>
+
+    <!-- Responsive Showcase Grid -->
+    <div class="gallery-grid" id="gallery-grid-cards">
+      {galleryItems.map((item) => (
+        <div class="gallery-card glass-card" data-category={item.category}>
+          <div class="gallery-img-wrap">
+            <img src={item.img} alt={item.title} class="gallery-img" loading="lazy" />
+            <div class="gallery-img-overlay">
+              <span class="gallery-quality-badge"><i class="fa-solid fa-bolt text-warning"></i> {item.quality}</span>
+              <span class="gallery-tag"><i class={item.icon}></i> {item.tag}</span>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <div class="gallery-title-row">
+              <h4>{item.title}</h4>
+            </div>
+            <p>{item.sub}</p>
+            <div class="gallery-card-footer">
+              <span class="stream-protocol"><i class="fa-solid fa-shield-halved"></i> Anti-Freeze v9.2</span>
+              <span class="stream-fps"><i class="fa-solid fa-gauge-high"></i> 60 FPS</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const filterButtons = document.querySelectorAll('#gallery-filters-container .filter-btn');
+  const galleryCards = document.querySelectorAll('#gallery-grid-cards .gallery-card');
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+
+      filterButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      galleryCards.forEach((card) => {
+        const cat = card.getAttribute('data-category');
+        if (filter === 'all' || cat === filter) {
+          (card as HTMLElement).style.display = 'flex';
+          card.classList.add('fade-in');
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .gallery-section {
+    padding: 85px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gallery-filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 32px 0 42px 0;
+  }
+
+  .filter-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    padding: 9px 18px;
+    border-radius: 9999px;
+    font-size: 0.86rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+  }
+
+  .filter-btn:hover {
+    background: rgba(59, 130, 246, 0.15);
+    color: #ffffff;
+    border-color: rgba(59, 130, 246, 0.35);
+  }
+
+  .filter-btn.active {
+    background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%);
+    color: #ffffff;
+    border-color: rgba(59, 130, 246, 0.6);
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: 26px;
+  }
+
+  .gallery-card {
+    background: rgba(13, 20, 38, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(10px);
+  }
+
+  .gallery-card:hover {
+    transform: translateY(-7px);
+    border-color: rgba(59, 130, 246, 0.45);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55), 0 0 25px rgba(59, 130, 246, 0.2);
+  }
+
+  .gallery-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: #000000;
+  }
+
+  .gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
+  }
+
+  .gallery-card:hover .gallery-img {
+    transform: scale(1.08);
+  }
+
+  .gallery-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(7, 10, 20, 0.85) 0%, rgba(7, 10, 20, 0.1) 60%, transparent 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 14px;
+    pointer-events: none;
+  }
+
+  .gallery-quality-badge {
+    background: rgba(15, 23, 42, 0.88);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: #fbbf24;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    letter-spacing: 0.3px;
+  }
+
+  .gallery-tag {
+    background: rgba(7, 10, 20, 0.88);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    color: #38bdf8;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .gallery-info {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .gallery-title-row h4 {
+    font-size: 1.15rem;
+    color: #ffffff;
+    font-weight: 800;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .gallery-info p {
+    font-size: 0.86rem;
+    color: #94a3b8;
+    line-height: 1.55;
+    margin-bottom: 16px;
+    flex-grow: 1;
+  }
+
+  .gallery-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    font-size: 0.74rem;
+    color: #64748b;
+    font-weight: 600;
+  }
+
+  .stream-protocol i { color: #10b981; }
+  .stream-fps i { color: #38bdf8; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.35s ease;
+  }
+
+  @media (max-width: 600px) {
+    .gallery-img-wrap {
+      height: 190px;
+    }
+    .gallery-filters {
+      gap: 6px;
+    }
+    .filter-btn {
+      font-size: 0.78rem;
+      padding: 7px 14px;
+    }
+  }
+</style>

@@ -1,0 +1,299 @@
+---
+// Quick Search Modal Component
+---
+
+<div class="search-modal-backdrop" id="search-modal-overlay">
+  <div class="search-modal-box glass-card">
+    <div class="search-modal-header">
+      <div class="search-input-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input 
+          type="text" 
+          id="search-input" 
+          placeholder="Search 1500+ Cities (e.g. London, New York, Firestick, Premier League, TiviMate)..." 
+          autocomplete="off"
+        />
+      </div>
+      <button class="modal-close-btn" id="close-search-btn">&times;</button>
+    </div>
+
+    <!-- Quick Filter Tags -->
+    <div class="quick-tags">
+      <span class="tag-hint">Popular Searches:</span>
+      <button class="search-tag" data-query="London">🇬🇧 London</button>
+      <button class="search-tag" data-query="New York">🇺🇸 New York</button>
+      <button class="search-tag" data-query="Firestick">🔥 Firestick</button>
+      <button class="search-tag" data-query="Premier League">⚽ Premier League</button>
+      <button class="search-tag" data-query="NFL">🏈 NFL RedZone</button>
+      <button class="search-tag" data-query="TiviMate">📱 TiviMate</button>
+      <button class="search-tag" data-query="Manchester">🇬🇧 Manchester</button>
+      <button class="search-tag" data-query="California">🇺🇸 California</button>
+    </div>
+
+    <!-- Search Results List -->
+    <div class="search-results-list" id="search-results-container">
+      <div class="search-placeholder">
+        <p>Type any US/UK city, state, streaming device, or sport to jump directly to its dedicated IPTV guide.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .search-modal-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(4, 6, 15, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 80px 20px 20px 20px;
+  }
+
+  .search-modal-backdrop.open {
+    display: flex;
+  }
+
+  .search-modal-box {
+    width: 100%;
+    max-width: 720px;
+    background: #0f172a;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 35px var(--primary-glow);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+  }
+
+  .search-modal-header {
+    display: flex;
+    align-items: center;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    gap: 16px;
+  }
+
+  .search-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    color: #38bdf8;
+  }
+
+  .search-input-wrap input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: #ffffff;
+  }
+
+  .search-input-wrap input::placeholder {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+  }
+
+  .modal-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .modal-close-btn:hover {
+    color: #ffffff;
+  }
+
+  .quick-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tag-hint {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .search-tag {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: #cbd5e1;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .search-tag:hover {
+    background: #2563eb;
+    color: #ffffff;
+  }
+
+  .search-results-list {
+    padding: 16px 24px;
+    overflow-y: auto;
+    max-height: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .search-placeholder {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+  }
+
+  .result-item-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+  }
+
+  .result-item-link:hover {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.4);
+    transform: translateX(4px);
+  }
+
+  .res-title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .res-category {
+    font-size: 0.72rem;
+    padding: 3px 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    color: #38bdf8;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+</style>
+
+<script>
+  import { withPolicy } from '../lib/url';
+  let pagesCache: any[] = [];
+
+  const openBtns = document.querySelectorAll('#open-search-btn, #openSearchBtn, [data-open-search]');
+  const closeBtn = document.getElementById('close-search-btn');
+  const overlay = document.getElementById('search-modal-overlay');
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const resultsContainer = document.getElementById('search-results-container');
+  const tagBtns = document.querySelectorAll('.search-tag');
+
+  async function loadSearchData() {
+    if (pagesCache.length === 0) {
+      try {
+        const res = await fetch('/data/pages-mini.json');
+        if (res.ok) {
+          pagesCache = await res.json();
+        }
+      } catch (e) {
+        console.error('Could not load search index', e);
+      }
+    }
+  }
+
+  function doSearch(q: string) {
+    if (!resultsContainer) return;
+    const query = q.toLowerCase().trim();
+    if (!query) {
+      resultsContainer.innerHTML = '<div class="search-placeholder"><p>Type any US/UK city, state, streaming device, or sport...</p></div>';
+      return;
+    }
+
+    const matches = pagesCache.filter(p => 
+      p.title.toLowerCase().includes(query) || 
+      p.slug.toLowerCase().includes(query)
+    ).slice(0, 15);
+
+    if (matches.length === 0) {
+      resultsContainer.innerHTML = `<div class="search-placeholder"><p>No pages found for "<strong>${q}</strong>". Try searching for London, New York, Firestick, or Premier League.</p></div>`;
+      return;
+    }
+
+    resultsContainer.innerHTML = matches.map(m => `
+      <a href="${withPolicy('/iptv/' + m.slug)}" class="result-item-link">
+        <span class="res-title">${m.title}</span>
+        <span class="res-category">${m.category}</span>
+      </a>
+    `).join('');
+  }
+
+  if (overlay && closeBtn) {
+    openBtns.forEach((btn) => btn.addEventListener('click', () => {
+      overlay.classList.add('open');
+      loadSearchData();
+      if (searchInput) {
+        setTimeout(() => searchInput.focus(), 50);
+      }
+    }));
+
+    closeBtn.addEventListener('click', () => {
+      overlay.classList.remove('open');
+    });
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.classList.remove('open');
+      }
+    });
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', async (e) => {
+      await loadSearchData();
+      doSearch((e.target as HTMLInputElement).value);
+    });
+  }
+
+  tagBtns.forEach(t => {
+    t.addEventListener('click', () => {
+      const q = t.getAttribute('data-query');
+      if (q && searchInput) {
+        searchInput.value = q;
+        loadSearchData().then(() => doSearch(q));
+      }
+    });
+  });
+
+  // ESC shortcut to close
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay) {
+      overlay.classList.remove('open');
+    }
+  });
+</script>

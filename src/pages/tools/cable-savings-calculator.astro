@@ -1,0 +1,120 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolShell from '../../components/ToolShell.astro';
+import siteConfig from '../../data/site-config.json';
+import { absUrl } from '../../lib/url';
+
+// Plans come from site-config.json so the calculator always matches the pricing page.
+const plans = (siteConfig as any).pricing.map((p: any) => ({
+  id: p.id,
+  label: p.duration,
+  months: parseInt(p.id, 10) || 1,
+  usd: p.priceUsd,
+  gbp: p.priceGbp,
+  eur: p.priceEur,
+}));
+
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Tools', url: '/tools' }, { name: 'Cable savings calculator', url: '/tools/cable-savings-calculator' }];
+const app = {
+  '@type': 'WebApplication',
+  '@id': `${absUrl('/tools/cable-savings-calculator')}#app`,
+  name: 'Cable vs IPTV savings calculator',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Any (runs in the browser)',
+  description: 'Compare your monthly cable or satellite bill with an IPTV plan and see the yearly saving.',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+
+<Layout
+  title="Cable vs IPTV Savings Calculator: How Much Could You Save?"
+  metaDescription="Enter your cable or satellite bill, box rental and sports fees and compare it with IPTV plan prices. See your monthly and yearly saving in seconds."
+  targetKeyword="cable vs iptv cost calculator"
+  pageType="WebPage"
+  breadcrumbs={crumbs}
+  extraSchema={[app]}
+>
+  <ToolShell h1="Cable vs IPTV: how much could you save?" lead="Add up what you pay today and compare it with an IPTV plan. The numbers use the current prices on our pricing page.">
+    <div class="tool-grid">
+      <form class="tool-card glass-card" id="saveForm" autocomplete="off" onsubmit="return false" data-plans={JSON.stringify(plans)}>
+        <h2>What you pay today (per month)</h2>
+        <div class="tool-field">
+          <label for="cur">Currency</label>
+          <select id="cur"><option value="usd">US dollar ($)</option><option value="gbp">British pound (£)</option><option value="eur">Euro (€)</option></select>
+        </div>
+        <div class="tool-field"><label for="bill">Cable, satellite or TV bundle</label><input id="bill" type="number" min="0" step="0.01" value="100" inputmode="decimal" /></div>
+        <div class="tool-field"><label for="box">Box and equipment rental</label><input id="box" type="number" min="0" step="0.01" value="15" inputmode="decimal" /></div>
+        <div class="tool-field"><label for="fees">Sports, broadcast and other fees</label><input id="fees" type="number" min="0" step="0.01" value="15" inputmode="decimal" /><small>Look at the small print on your bill.</small></div>
+        <div class="tool-field">
+          <label for="plan">IPTV plan to compare</label>
+          <select id="plan">{plans.map((p: any) => <option value={p.id} selected={p.id === '12m'}>{p.label}</option>)}</select>
+        </div>
+      </form>
+
+      <div class="tool-card glass-card tool-result" aria-live="polite">
+        <h2>You could save about</h2>
+        <div class="tool-big" id="out-year">0</div>
+        <div class="tool-unit">per year</div>
+        <ul class="tool-breakdown" id="out-breakdown"></ul>
+        <div class="tool-verdict" id="out-verdict" hidden></div>
+        <p class="tool-note">This is arithmetic on the numbers you enter, not a guarantee. Check which channels and sports you actually watch and test with a free trial before you cancel anything.</p>
+      </div>
+    </div>
+
+    <article class="tool-article">
+      <h2>What to include in your current bill</h2>
+      <ul>
+        <li>The package price after any introductory discount ends.</li>
+        <li>Box, DVR and remote-control rental fees.</li>
+        <li>Regional sports and broadcast TV fees, often shown separately.</li>
+        <li>Taxes and surcharges.</li>
+      </ul>
+      <h2>Before you cancel</h2>
+      <ul>
+        <li>Check the end date of your contract and any early termination fee.</li>
+        <li>Keep your broadband: IPTV needs an internet connection. Use the <a href="/tools/internet-speed-calculator">internet speed calculator</a> to see what you need.</li>
+        <li>Test first with a free trial and run both services side by side for a few weeks.</li>
+      </ul>
+      <h2>Next steps</h2>
+      <ul class="tool-links">
+        <li><a href="/pricing">See IPTV plans (USA)</a></li>
+        <li><a href="/uk/pricing">See IPTV plans (UK)</a></li>
+        <li><a href="/iptv-free-trial">Try a free 24-hour trial</a></li>
+        <li><a href="/alternatives/cable-tv-alternative">Cable TV alternatives</a></li>
+        <li><a href="/blog/iptv-vs-cable-vs-streaming-cost-comparison">Read: IPTV vs cable vs streaming</a></li>
+      </ul>
+    </article>
+  </ToolShell>
+</Layout>
+
+<script>
+  const form = document.getElementById('saveForm') as HTMLFormElement;
+  const plans: any[] = JSON.parse(form.dataset.plans || '[]');
+  const el = (id: string) => document.getElementById(id) as HTMLInputElement;
+  const sym: Record<string, string> = { usd: '$', gbp: '£', eur: '€' };
+  const num = (id: string) => Math.max(0, parseFloat(el(id).value) || 0);
+  function calc() {
+    const cur = el('cur').value;
+    const plan = plans.find((p) => p.id === el('plan').value) || plans[0];
+    const today = num('bill') + num('box') + num('fees');
+    const iptvMonthly = plan[cur] / plan.months;
+    const monthly = today - iptvMonthly;
+    const s = sym[cur];
+    const money = (n: number) => `${n < 0 ? '-' : ''}${s}${Math.abs(n).toFixed(2)}`;
+    el('out-year').textContent = money(Math.max(0, monthly * 12)).replace('-', '');
+    (document.getElementById('out-breakdown') as HTMLElement).innerHTML =
+      `<li><span>Today</span><strong>${money(today)} / mo</strong></li>` +
+      `<li><span>IPTV (${plan.label})</span><strong>${money(iptvMonthly)} / mo</strong></li>` +
+      `<li><span>Difference</span><strong>${money(monthly)} / mo</strong></li>` +
+      `<li><span>Over 3 years</span><strong>${money(monthly * 36)}</strong></li>`;
+    const v = document.getElementById('out-verdict') as HTMLElement;
+    v.hidden = false;
+    if (today === 0) { v.hidden = true; return; }
+    v.className = 'tool-verdict ' + (monthly > 0 ? 'ok' : 'warn');
+    v.textContent = monthly > 0
+      ? `That is about ${Math.round((monthly / today) * 100)}% less than you pay now.`
+      : 'At these numbers IPTV would cost more than your current bill.';
+  }
+  form.addEventListener('input', calc);
+  calc();
+</script>

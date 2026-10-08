@@ -1,0 +1,172 @@
+---
+const libraryCards = [
+  {
+    count: "57",
+    title: "Reseller Academy",
+    desc: "Wholesale credit models, margin calculations, customer management and compliance.",
+    linkText: "Browse 57 pages →",
+    linkUrl: "#pricing"
+  },
+  {
+    count: "162",
+    title: "Program Audits",
+    desc: "Technical due-diligence audits for top IPTV server lines and infrastructure.",
+    linkText: "Browse 162 pages →",
+    linkUrl: "/features/anti-freeze-4k"
+  },
+  {
+    count: "297",
+    title: "Provider Reviews",
+    desc: "Complete review dossiers and streaming quality benchmarks across 15+ brands.",
+    linkText: "Browse 297 pages →",
+    linkUrl: "#providers"
+  },
+  {
+    count: "100",
+    title: "Review Lab",
+    desc: "Repeatable playback, 4K bitrate, anti-freeze buffer, and latency testing protocols.",
+    linkText: "Browse 100 pages →",
+    linkUrl: "/features/anti-freeze-4k"
+  },
+  {
+    count: "104",
+    title: "Comparisons",
+    desc: "Head-to-head server comparisons, player benchmarks, and hardware evaluations.",
+    linkText: "Browse 104 pages →",
+    linkUrl: "#comparison-table"
+  },
+  {
+    count: "45",
+    title: "Device Guides",
+    desc: "Firestick 4K Max, Samsung/LG Smart TVs, Apple TV 4K, Android TV, MAG & PC.",
+    linkText: "Browse 45 pages →",
+    linkUrl: "/devices/firestick"
+  },
+  {
+    count: "55",
+    title: "Player Apps",
+    desc: "Xtream Codes API setup, M3U playlists, TiviMate, Smarters Pro, iMPlayer tutorials.",
+    linkText: "Browse 55 pages →",
+    linkUrl: "/apps/tivimate"
+  },
+  {
+    count: "73",
+    title: "Troubleshooting",
+    desc: "Symptom-first buffering fixes, UK/US ISP throttling unblock guides (1.1.1.1 DNS).",
+    linkText: "Browse 73 pages →",
+    linkUrl: "/alternatives/cable-tv-alternative"
+  },
+  {
+    count: "70",
+    title: "Technical Guides",
+    desc: "HEVC/H.265 video standards, 60FPS sports feeds, and server load-balancing.",
+    linkText: "Browse 70 pages →",
+    linkUrl: "#steps-guide"
+  },
+  {
+    count: "1,000+",
+    title: "City & Geo Hubs",
+    desc: "Programmatic SEO landing pages targeted across major USA, UK & European cities.",
+    linkText: "Browse 1,000+ hubs →",
+    linkUrl: "/all-locations"
+  }
+];
+---
+
+<!-- ==================== EXPANDED RESEARCH LIBRARY ==================== -->
+<section class="kf-section kf-section--tint" id="expanded-research-library">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-badge"><i class="fa-solid fa-layer-group"></i> Expanded 2026 Edition</span>
+      <h2 class="section-title">Explore the 1,600+ Page IPTV &amp; Reseller Research Hub</h2>
+      <p class="section-description">
+        Reseller operations, provider audits, lab protocols, head-to-head comparisons, player apps, device setup guides, and hyper-local UK &amp; US geographic landing pages.
+      </p>
+    </div>
+
+    <div class="kf-grid">
+      {libraryCards.map((c) => (
+        <article class="kf-card glass-card">
+          <div class="kf-card__icon">{c.count}</div>
+          <h3>{c.title}</h3>
+          <p>{c.desc}</p>
+          <a class="kf-card__link" href={c.linkUrl}>{c.linkText}</a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .kf-section--tint {
+    padding: 80px 0;
+    background: rgba(11, 17, 34, 0.6);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .kf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+    gap: 20px;
+  }
+
+  .kf-card {
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+  }
+
+  .kf-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .kf-card__icon {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #38bdf8;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .kf-card h3 {
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+
+  .kf-card p {
+    font-size: 0.84rem;
+    color: #94a3b8;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .kf-card__link {
+    margin-top: auto;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #38bdf8;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.2s;
+  }
+
+  .kf-card__link:hover {
+    color: #60a5fa;
+  }
+</style>

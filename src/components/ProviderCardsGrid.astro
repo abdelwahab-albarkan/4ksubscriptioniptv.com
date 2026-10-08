@@ -1,0 +1,690 @@
+---
+import siteConfig from '../data/site-config.json';
+
+const providers = [
+  {
+    id: "provider-streamb4",
+    rank: "#1 Flagship Enterprise",
+    rankClass: "top-rated",
+    badge: "Most Popular",
+    icon: "fa-bolt-lightning",
+    name: "StreamB4",
+    domain: "streamb4.com",
+    rating: "4.95/5",
+    reviews: "15,800+ Reviews",
+    description: "Our #1 flagship enterprise 4K/8K IPTV streaming platform. StreamB4 delivers 25,000+ live channels, 100,000+ VOD cinema titles, Anti-Freeze v9.2 protocol, all PPVs included free, and automated 3-minute delivery to WhatsApp and email.",
+    highlights: ["10Gbps NVMe Servers", "Anti-Freeze v9.2", "4K 60FPS Bitrate", "Instant 3-Min SLA"],
+    features: [
+      "25,000+ Live Channels Worldwide",
+      "100,000+ 4K Movies & TV Series",
+      "All Premier League, Champions League & NFL",
+      "UFC Main Cards & Boxing PPV Included",
+      "99.99% Server Uptime Guarantee",
+      "Multi-Device Support (Up to 5 Screens)",
+      "Daily XMLTV EPG TV Guide & 7-Day Catchup",
+      "Automated Reseller Panel with Credit System"
+    ],
+    price: "$10.00",
+    period: "/month",
+    trial: "24-Hour Free Trial",
+    url: "https://streamb4.com",
+    featured: true
+  },
+  {
+    id: "provider-ukstream4k",
+    rank: "#2 UK & Sports King",
+    rankClass: "top-choice",
+    badge: "UK Premier",
+    icon: "fa-futbol",
+    name: "UK Stream 4K",
+    domain: "ukstream4k.com",
+    rating: "4.92/5",
+    reviews: "12,400+ Reviews",
+    description: "The premier UK sports & entertainment powerhouse. UK Stream 4K provides complete Saturday 3PM Premier League blackout bypass, Sky Sports UHD, TNT Sports 1-4, BBC iPlayer, and ultra-low 8ms London & Manchester CDN nodes.",
+    highlights: ["3PM Blackout Bypass", "Sky & TNT Sports 4K", "8ms London CDN", "BT/Virgin Unblock"],
+    features: [
+      "All UK & European Sports in 50/60FPS",
+      "Sky Sports Main Event, F1, Football, Cricket",
+      "TNT Sports Ultimate 4K UHD",
+      "1.1.1.1 Encrypted DNS & Port 443 Tunnel",
+      "UK GMT/BST Aligned EPG Guide",
+      "Save £1,000+ vs Traditional Sky Q/Virgin",
+      "Instant WhatsApp Credentials Dispatch",
+      "100% Risk-Free 7-Day Money Back SLA"
+    ],
+    price: "£10.99",
+    period: "/month",
+    trial: "24-Hour UK Test",
+    url: "https://ukstream4k.com",
+    featured: true
+  },
+  {
+    id: "provider-rokustream",
+    rank: "#3 Universal Hardware",
+    rankClass: "standard-rank",
+    badge: "Device Master",
+    icon: "fa-tv",
+    name: "Roku Stream",
+    domain: "rokustream.com",
+    rating: "4.88/5",
+    reviews: "9,600+ Reviews",
+    description: "Engineered for plug-and-play simplicity across Roku, Amazon Firestick 4K, Apple TV, Smart TVs (Samsung & LG), and TiviMate. Features instant M3U & Xtream Codes API playback with hardware GPU decoding (HW+).",
+    highlights: ["Roku & Firestick Ready", "HW+ Video Decoding", "100MB RAM Buffer", "Downloader Code"],
+    features: [
+      "Full Roku & Smart TV Compatibility",
+      "TiviMate & IPTV Smarters Pro Optimized",
+      "Hardware Acceleration (HW+) Enabled",
+      "Fast 2-Minute Setup with Downloader",
+      "Zero Frame Drops & Low CPU Temperature",
+      "Multi-Room Household Synchronization",
+      "Dolby Digital Plus 5.1 Surround Passthrough",
+      "24/7 Dedicated Technical WhatsApp Support"
+    ],
+    price: "$9.99",
+    period: "/month",
+    trial: "24-Hour Free Trial",
+    url: "https://rokustream.com",
+    featured: false
+  },
+  {
+    id: "provider-ultra8kiptv",
+    rank: "#4 Cinema 8K Choice",
+    rankClass: "top-choice",
+    badge: "Ultra 8K UHD",
+    icon: "fa-gem",
+    name: "Ultra 8K IPTV",
+    domain: "ultra8kiptv.org",
+    rating: "4.90/5",
+    reviews: "11,200+ Reviews",
+    description: "Cinema-grade 8K and uncompressed 4K streaming built for home cinema displays. Includes 100,000+ high-bitrate VOD movies, Netflix & HBO releases in Dolby Vision, and dedicated 35Mbps bandwidth streams.",
+    highlights: ["True 8K/4K Resolution", "Dolby Atmos Audio", "100K+ VOD Vault", "5 Connections"],
+    features: [
+      "Uncompressed 4K/8K Video Bitrates",
+      "Dolby Vision & HDR10+ Color Profiles",
+      "Up to 5 Simultaneous Connections",
+      "Complete VOD Cinema Vault Updated Daily",
+      "International Multi-Language Subtitles",
+      "Anti-Freeze v9.2 Dedicated Server Pool",
+      "Instant Wholesale Reseller Provisioning",
+      "Full VPN Compatibility & Direct Routing"
+    ],
+    price: "$11.50",
+    period: "/month",
+    trial: "24-Hour 8K Test",
+    url: "https://ultra8kiptv.org",
+    featured: true
+  },
+  {
+    id: "provider-tvnado2026",
+    rank: "#5 Next-Gen Protocol",
+    rankClass: "standard-rank",
+    badge: "2026 Engine",
+    icon: "fa-gauge-high",
+    name: "Tvnado 2026",
+    domain: "tvnado2026.com",
+    rating: "4.85/5",
+    reviews: "7,800+ Reviews",
+    description: "Next-generation 2026 live broadcasting engine. Tvnado utilizes dynamic packet load-balancing across edge servers in North America and Western Europe, guaranteeing under 8-second live sports delay.",
+    highlights: ["2026 Next-Gen CDN", "Under 8s Delay", "Zero-Packet Loss", "Real-Time EPG"],
+    features: [
+      "Ultra-Low Latency Live Stadium Feeds",
+      "Out-of-Market NFL Sunday Ticket & NBA",
+      "Bally Sports & Regional US Sports RSNs",
+      "Automated Failover Backup Servers",
+      "Full Xtream Codes API & M3U8 Integration",
+      "24/7 VIP Concierge on WhatsApp",
+      "Reseller Panel with 1-Credit System",
+      "100% 7-Day Money-Back Guarantee"
+    ],
+    price: "$10.00",
+    period: "/month",
+    trial: "24-Hour Free Trial",
+    url: "https://tvnado2026.com",
+    featured: false
+  },
+  {
+    id: "provider-iptvsmartersfr",
+    rank: "#6 France & Francophone",
+    rankClass: "standard-rank",
+    badge: "France #1",
+    icon: "fa-tower-broadcast",
+    name: "IPTV Smarters TV FR",
+    domain: "iptvsmarters-tv.fr",
+    rating: "4.87/5",
+    reviews: "8,900+ Reviews",
+    description: "Le serveur IPTV de référence pour la France, la Belgique, la Suisse et le Canada francophone. Chaînes Canal+, RMC Sport, beIN Sports, Pass Ligue 1 et immense vidéothèque VOD en 4K UHD.",
+    highlights: ["France TNT & Canal+", "beIN & RMC Sport", "Serveurs Paris & Lyon", "VOD Française"],
+    features: [
+      "Toutes les chaînes françaises en 4K/FHD",
+      "Canal+ Sport, beIN Sports 1-10, RMC Sport",
+      "Ligue 1 McDonald's & Ligue des Champions",
+      "Guide des programmes EPG français 7 jours",
+      "Compatible IPTV Smarters Pro, IBO & TiviMate",
+      "Activation automatique en 2 minutes",
+      "Support WhatsApp 24/7 en Français",
+      "Garantie satisfait ou remboursé 7 jours"
+    ],
+    price: "10.00 €",
+    period: "/mois",
+    trial: "Test 24H Gratuit",
+    url: "https://iptvsmarters-tv.fr",
+    featured: false
+  },
+  {
+    id: "provider-4kgermaniptv",
+    rank: "#7 Germany & DACH",
+    rankClass: "standard-rank",
+    badge: "DACH Top",
+    icon: "fa-trophy",
+    name: "4K German IPTV",
+    domain: "4kgermaniptv.com",
+    rating: "4.89/5",
+    reviews: "9,100+ Reviews",
+    description: "Premium IPTV für Deutschland, Österreich und die Schweiz. Alle Spiele der Bundesliga live, Sky Sport UHD, DAZN 1 & 2, WOW TV und Formel 1 ohne Unterbrechung in brillanter 4K/60FPS Qualität.",
+    highlights: ["Sky Bundesliga & DAZN", "Frankfurt CDN 6ms", "WOW TV & Cinema", "Kein Vertrag"],
+    features: [
+      "Vollständige DACH Senderliste in 4K UHD",
+      "Sky Sport Bundesliga 1-10, DAZN 1-2 4K",
+      "UEFA Champions League & DFB-Pokal Live",
+      "Deutsche VOD Mediathek (Filme & Serien)",
+      "Deutsche EPG Programmübersicht & 7-Tage Replay",
+      "Sofortige Freischaltung per WhatsApp & E-Mail",
+      "Wholesale Reseller Panel mit Top-Margen",
+      "100% 7-Tage Geld-zurück-Garantie"
+    ],
+    price: "10.99 €",
+    period: "/monat",
+    trial: "24-Stunden Testzugang",
+    url: "https://4kgermaniptv.com",
+    featured: false
+  },
+  {
+    id: "provider-germanystreamtv",
+    rank: "#8 German High-Speed",
+    rankClass: "standard-rank",
+    badge: "Ultra Fast",
+    icon: "fa-shield-halved",
+    name: "Germany Stream TV",
+    domain: "germanystreamtv.com",
+    rating: "4.82/5",
+    reviews: "6,400+ Reviews",
+    description: "Hochgeschwindigkeits-IPTV Server optimiert für deutsche Internetanbieter (Telekom, Vodafone, 1&1, O2). Integrierte Anti-Freeze 9.2 Technologie verhindert Drosselungen bei großen Live-Events.",
+    highlights: ["Telekom & Vodafone Pass", "60FPS Sport-Streams", "7-Tage Replay", "Anti-Freeze 9.2"],
+    features: [
+      "Anti-ISP Throttling für deutsche Provider",
+      "Alle Pay-TV Sender (Sky, DAZN, Magenta TV)",
+      "Unbegrenztes 4K Streaming ohne Drosselung",
+      "Multi-Screen Unterstützung für die Familie",
+      "Kompatibel mit Fire TV Stick & Smart TV",
+      "Automatischer WhatsApp Kundenservice 24/7",
+      "Sichere Zahlung per PayPal, Karte & Krypto",
+      "7 Tage risikofreie Geld-zurück-Garantie"
+    ],
+    price: "9.99 €",
+    period: "/monat",
+    trial: "Kostenloser 24H Test",
+    url: "https://germanystreamtv.com",
+    featured: false
+  },
+  {
+    id: "provider-streamgermany4k",
+    rank: "#9 DACH Cloud Server",
+    rankClass: "standard-rank",
+    badge: "Cloud 4K",
+    icon: "fa-cloud",
+    name: "Stream Germany 4K",
+    domain: "streamgermany4k.com",
+    rating: "4.80/5",
+    reviews: "5,800+ Reviews",
+    description: "Moderne Cloud-Streaming Architektur für deutsches Live-TV, internationale Sportsender, Hollywood Blockbuster und Serien. Schnelle Umschaltzeiten unter 0.5 Sekunden.",
+    highlights: ["Cloud Load Balancing", "0.5s Umschaltzeit", "20.000+ Sender", "Full HD / 4K"],
+    features: [
+      "Über 20.000 deutsche & internationale Sender",
+      "Große VOD Bibliothek mit deutschen Tonspuren",
+      "Formel 1, MotoGP, Boxen & UFC PPV inklusive",
+      "Intuitive Einrichtung mit Xtream Codes API",
+      "Automatischer EPG Datenabgleich täglich",
+      "Reseller Accounts mit flexiblen Credit-Paketen",
+      "24/7 Support via WhatsApp Concierge",
+      "100% Zufriedenheitsgarantie"
+    ],
+    price: "9.50 €",
+    period: "/monat",
+    trial: "24-Stunden Test",
+    url: "https://streamgermany4k.com",
+    featured: false
+  },
+  {
+    id: "provider-4kdeutsch",
+    rank: "#10 Premium Live TV",
+    rankClass: "standard-rank",
+    badge: "Top DACH",
+    icon: "fa-satellite-dish",
+    name: "4K Deutsch",
+    domain: "4kdeutsch.com",
+    rating: "4.84/5",
+    reviews: "7,100+ Reviews",
+    description: "Kompakter deutscher IPTV Service mit Fokus auf Bildqualität, stabile Streams und sofortige Bereitstellung. Ideal für Smart TVs, Android Boxen und Apple TV.",
+    highlights: ["4K HDR Qualität", "Smart TV App Support", "Sofortige Lieferung", "Günstige Tarife"],
+    features: [
+      "Stabile Übertragung aller DACH Sender",
+      "Sky Cinema, Sky Sport, DAZN & Privatsender",
+      "Keine lästigen Werbeunterbrechungen",
+      "Einfache 3-Schritte Installation auf Fire TV",
+      "Multi-Device Konten für 2-3 Fernseher",
+      "WhatsApp Support Desk: Sofortige Hilfe",
+      "Wholesale Reseller Preise ab 50 Credits",
+      "7 Tage Geld-zurück-Garantie"
+    ],
+    price: "9.00 €",
+    period: "/monat",
+    trial: "24H Testzugang",
+    url: "https://4kdeutsch.com",
+    featured: false
+  },
+  {
+    id: "provider-4kspaintv",
+    rank: "#11 Spain & Latin",
+    rankClass: "standard-rank",
+    badge: "España #1",
+    icon: "fa-earth-americas",
+    name: "4K Spain TV",
+    domain: "4kspaintv.com",
+    rating: "4.86/5",
+    reviews: "8,300+ Reviews",
+    description: "Servicio IPTV Premium líder en España y Latinoamérica. Todos los partidos de LaLiga EA Sports, Champions League en Movistar+, DAZN F1, canales autonómicos y cine en 4K UHD sin cortes.",
+    highlights: ["Movistar+ & DAZN F1", "LaLiga EA Sports 4K", "Servidores Madrid/BCN", "Anti-Freeze 9.2"],
+    features: [
+      "Todos los canales de España en 4K y 60FPS",
+      "Movistar LaLiga, Liga de Campeones, DAZN",
+      "Fórmula 1 y MotoGP con comentarios en español",
+      "Catálogo VOD con películas y series en castellano",
+      "Guía EPG actualizada con horarios de España",
+      "Activación instantánea en WhatsApp en 2 minutos",
+      "Panel de Reseller con altos márgenes de ganancia",
+      "Garantía de reembolso de 7 días"
+    ],
+    price: "10.00 €",
+    period: "/mes",
+    trial: "Prueba 24H Gratis",
+    url: "https://4kspaintv.com",
+    featured: false
+  },
+  {
+    id: "provider-agencyfluxly",
+    rank: "#12 Master Reseller Hub",
+    rankClass: "top-rated",
+    badge: "Reseller Agency",
+    icon: "fa-briefcase",
+    name: "Agency Fluxly",
+    domain: "agencyfluxly.com",
+    rating: "4.96/5",
+    reviews: "4,900+ Partner Resellers",
+    description: "The official wholesale IPTV Reseller Agency & Automated Billing Network. Purchase wholesale credits at up to 70% profit margin, generate unlimited 24-hour client trials, and deploy custom DNS white-label panels.",
+    highlights: ["Up to 70% Profit Margin", "Xtream UI & 1-Stream", "White-Label DNS", "Sub-Reseller System"],
+    features: [
+      "Wholesale Credit Packages (10 to 1,000+ Credits)",
+      "Instant Automated Panel Activation (Under 5 Mins)",
+      "Generate Unlimited Free 24-Hour Client Trials",
+      "Complete White-Label Custom DNS Branding",
+      "Multi-Room Household Line Management (1-5 Screens)",
+      "Sub-Reseller Account Creation & Hierarchy",
+      "24/7 VIP Engineering Support Desk on WhatsApp",
+      "100% Risk-Free SLA & Reseller Money-Back Guarantee"
+    ],
+    price: "$5.00",
+    period: "/credit",
+    trial: "Free Reseller Demo",
+    url: "https://agencyfluxly.com",
+    featured: true
+  }
+];
+---
+
+<!-- ==================== PROVIDERS SECTION - ALL 12 DETAILED ==================== -->
+<section class="providers-section section-padding-lg" id="providers">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-badge"><i class="fa-solid fa-server"></i> Official Server Network 2026</span>
+      <h2 class="section-title">Explore Our 12 Global <span class="gradient-text">Streaming Server Clusters</span></h2>
+      <p class="section-description">
+        Access our certified international network of dedicated 4K/8K IPTV nodes, sports streaming servers, and wholesale reseller panels covering the US, UK, Germany, France, Spain, and global markets.
+      </p>
+    </div>
+
+    <div class="provider-grid">
+      {providers.map((p) => (
+        <div class={`provider-card glass-card ${p.featured ? 'featured-provider' : ''}`} id={p.id}>
+          <div class="card-top-badges">
+            <span class={`provider-rank ${p.rankClass}`}>
+              <i class="fa-solid fa-trophy"></i> {p.rank}
+            </span>
+            <span class="provider-badge-premium">
+              <i class="fa-solid fa-fire"></i> {p.badge}
+            </span>
+          </div>
+
+          <div class="provider-icon-wrap">
+            <i class={`fa-solid ${p.icon} provider-icon`}></i>
+          </div>
+
+          <h3>{p.name}</h3>
+
+          <div class="provider-rating">
+            <div class="stars">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <span class="rating-val">{p.rating}</span>
+            <small>({p.reviews})</small>
+          </div>
+
+          <p class="provider-description">{p.description}</p>
+
+          <div class="provider-highlights">
+            {p.highlights.map((h) => (
+              <span class="highlight-tag">
+                <i class="fa-solid fa-server"></i> {h}
+              </span>
+            ))}
+          </div>
+
+          <ul class="provider-features-list">
+            {p.features.map((f) => (
+              <li>
+                <i class="fa-solid fa-check-circle"></i>
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="provider-pricing">
+            <div class="price-tag">
+              <span class="price-amount">{p.price}</span>
+              <span class="price-period">{p.period}</span>
+            </div>
+            <span class="price-trial">
+              <i class="fa-solid fa-clock"></i> {p.trial}
+            </span>
+          </div>
+
+          <div class="provider-actions">
+            <a href={p.url} class="btn btn-primary btn-lg full-width pulse-animation" target="_blank" rel="noopener nofollow sponsored">
+              <i class="fa-solid fa-globe"></i> Visit {p.domain} ↗
+            </a>
+            <a href={siteConfig.whatsappUrl} class="btn btn-outline btn-lg full-width" target="_blank" rel="noopener">
+              <i class="fa-brands fa-whatsapp text-whatsapp"></i> Get 24H Trial on WhatsApp
+            </a>
+            <a href="#pricing" class="btn btn-accent btn-sm full-width">
+              <i class="fa-solid fa-tags"></i> View All Subscription Plans
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- View All Providers CTA -->
+    <div class="view-all-wrap text-center">
+      <a href="#comparison-table" class="btn btn-secondary btn-xl">
+        <i class="fa-solid fa-scale-balanced"></i> Compare Best IPTV 2026 Side-by-Side
+      </a>
+      <a href={siteConfig.whatsappUrl} class="btn btn-primary btn-xl pulse-animation" target="_blank" rel="noopener">
+        <i class="fa-solid fa-headset"></i> Get Reseller Panel Access Now
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .providers-section {
+    padding: 80px 0;
+  }
+
+  .provider-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
+    gap: 30px;
+    margin-top: 50px;
+  }
+
+  .provider-card {
+    background: rgba(13, 20, 38, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 30px 26px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: all 0.35s ease;
+  }
+
+  .provider-card:hover {
+    transform: translateY(-7px);
+    border-color: rgba(59, 130, 246, 0.45);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  }
+
+  .featured-provider {
+    border-color: rgba(59, 130, 246, 0.4);
+    background: linear-gradient(180deg, rgba(20, 32, 60, 0.85) 0%, rgba(13, 20, 38, 0.95) 100%);
+  }
+
+  .card-top-badges {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .provider-rank {
+    font-size: 0.76rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .top-rated {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+  }
+
+  .top-choice {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+  }
+
+  .standard-rank {
+    background: rgba(255, 255, 255, 0.05);
+    color: #cbd5e1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .provider-badge-premium {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    font-size: 0.74rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 9999px;
+  }
+
+  .provider-icon-wrap {
+    width: 54px;
+    height: 54px;
+    background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+  }
+
+  .provider-card h3 {
+    font-size: 1.4rem;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+
+  .provider-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .stars {
+    color: #fbbf24;
+    font-size: 0.88rem;
+    display: flex;
+    gap: 2px;
+  }
+
+  .rating-val {
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 0.88rem;
+  }
+
+  .provider-rating small {
+    color: var(--text-dim);
+    font-size: 0.78rem;
+  }
+
+  .provider-description {
+    font-size: 0.88rem;
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .provider-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 22px;
+  }
+
+  .highlight-tag {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #38bdf8;
+    font-size: 0.74rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .provider-features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 18px;
+  }
+
+  .provider-features-list li {
+    font-size: 0.85rem;
+    color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .provider-features-list li i {
+    color: #10b981;
+    font-size: 0.88rem;
+    flex-shrink: 0;
+  }
+
+  .provider-pricing {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 20px;
+  }
+
+  .price-amount {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #ffffff;
+  }
+
+  .price-period {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  .price-trial {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #34d399;
+    background: rgba(16, 185, 129, 0.15);
+    padding: 3px 10px;
+    border-radius: 9999px;
+  }
+
+  .provider-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .view-all-wrap {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .provider-grid {
+      display: flex;
+      gap: 14px;
+      margin-top: 32px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      margin-left: calc(-1 * clamp(16px, 4vw, 32px));
+      margin-right: calc(-1 * clamp(16px, 4vw, 32px));
+      padding: 6px clamp(16px, 4vw, 32px) 18px;
+    }
+    .provider-grid::-webkit-scrollbar {
+      display: none;
+    }
+    .provider-card {
+      flex: 0 0 min(86vw, 380px);
+      scroll-snap-align: center;
+      padding: 24px 20px;
+    }
+    .featured-provider {
+      margin-top: 0;
+    }
+    .provider-card:hover {
+      transform: none;
+    }
+  }
+</style>

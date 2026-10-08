@@ -1,0 +1,105 @@
+{
+  "_readme": "Override the meta title, meta description, canonical (permalink), robots or social image of ANY page without touching code. Key = page path ('/' for the home page, no trailing slash). All fields are optional: title, description, canonical (path or full URL), noindex (true/false), ogImage, ogImageAlt. Titles: aim for 60 characters or fewer. Descriptions: 120 to 160 characters. After editing run: npm run build && node scripts/validate-seo.mjs",
+  "/": {
+    "title": "4KSubscriptionIPTV: Premium 4K IPTV & Reseller Panels",
+    "description": "Stream live sport, movies and 4K TV on any device with 4KSubscriptionIPTV. Try a free trial, compare plans and set up in minutes with 24/7 WhatsApp support."
+  },
+  "/pricing": {
+    "title": "Best IPTV Subscription USA (2026): Plans & Free Trial",
+    "description": "Compare 1, 3, 6 and 12 month IPTV plans for the USA. Live sport, movies and 4K on any device, with a free 24-hour trial and set-up in minutes."
+  },
+  "/uk": {
+    "title": "Best IPTV Subscription UK (2026): Plans & Free Trial",
+    "description": "IPTV for the UK: Premier League, Sky Sports and TNT Sports channels, movies and 4K on any device. Try a free trial and pay in GBP."
+  },
+  "/uk/pricing": {
+    "title": "UK IPTV Pricing (2026): 1, 3, 6 & 12 Month Plans",
+    "description": "See UK IPTV plan prices in GBP for 1, 3, 6 and 12 months. Live football, movies and 4K on any device, with a free trial before you pay."
+  },
+  "/iptv-free-trial": {
+    "title": "24-Hour IPTV Free Trial USA (2026): Instant Access",
+    "description": "Ask for a 24-hour IPTV free trial on WhatsApp. Test channels, live sport and 4K quality on your own device and internet before you pay."
+  },
+  "/all-locations": {
+    "title": "IPTV Locations: 1,000+ US & UK Cities and States"
+  },
+  "/sports/formula-1": {
+    "title": "Watch Formula 1 Live on IPTV: Sky Sports F1 in 4K"
+  },
+  "/sports/ufc-boxing-ppv": {
+    "title": "Watch UFC PPV & DAZN Boxing Live with IPTV (2026)"
+  },
+  "/uk/alternatives/sky-virgin-media": {
+    "title": "Sky & Virgin Media Alternative UK (2026): IPTV Guide"
+  },
+  "/uk/sports/sky-sports": {
+    "title": "Sky Sports on IPTV UK (2026): Channels in 4K"
+  },
+  "/blog/best-iptv-apps-comparison-tivimate-vs-smarters": {
+    "title": "TiviMate vs IPTV Smarters Pro vs IMPlayer (2026)"
+  },
+  "/blog/how-to-fix-iptv-buffering-isp-throttling": {
+    "title": "How to Stop IPTV Buffering & ISP Throttling (2026)",
+    "description": "Fix IPTV buffering on Virgin Media, Sky, BT, Xfinity and AT&T: change DNS, enable a larger buffer, use Ethernet and test for ISP throttling step by step."
+  },
+  "/blog/how-to-setup-iptv-firestick-2026": {
+    "title": "How to Set Up IPTV on Amazon Firestick 4K (2026)",
+    "description": "Step-by-step tutorial to install IPTV on Amazon Firestick 4K and Fire TV Cube: enable developer options, install Downloader and add your login."
+  },
+  "/blog/start-iptv-reseller-business-guide": {
+    "title": "How to Start an IPTV Reseller Business (2026 Guide)",
+    "description": "How an IPTV reseller business works: wholesale credits, margins, customer panels, renewals and the risks to plan for, step by step."
+  },
+  "/de": {
+    "title": "Bester IPTV Anbieter Deutschland 2026 (4K & 8K)",
+    "description": "Entdecken Sie IPTV in Deutschland, Österreich und der Schweiz: Bundesliga, Champions League und DAZN, Einrichtung auf Firestick und Smart TV, kostenloser Test."
+  },
+  "/es": {
+    "title": "Mejor IPTV España 2026 (4K & 8K Sin Cortes)",
+    "description": "Contrata el mejor IPTV en España y Latinoamérica: LaLiga EA Sports, Champions League, Movistar Plus y DAZN en 4K UHD sin cortes."
+  },
+  "/fr": {
+    "title": "Meilleur Abonnement IPTV France 2026 (4K & 8K)",
+    "description": "Découvrez le meilleur abonnement IPTV en France, Belgique et Suisse : Ligue 1, Canal+, RMC Sport et beIN Sports en 4K sans coupure."
+  },
+  "/alternatives/cable-tv-alternative": {
+    "title": "Best Cable TV Alternative USA (2026): Save with IPTV"
+  },
+  "/apps/tivimate": {
+    "title": "Best IPTV for TiviMate Premium (2026 Xtream Guide)"
+  },
+  "/blog": {
+    "title": "IPTV Guides and Tutorials: Set-up, Speed, Apps (2026)",
+    "description": "Practical IPTV tutorials: device set-up for Firestick, Smart TV and Apple TV, app comparisons, buffering fixes, internet speed advice and buying guides."
+  },
+  "/devices/firestick": {
+    "title": "Best IPTV for Amazon Firestick USA (2026 Setup Guide)"
+  },
+  "/features/anti-freeze-4k": {
+    "title": "Anti-Freeze IPTV: 4K 60FPS Streaming Servers (2026)"
+  },
+  "/features/epg-catchup": {
+    "title": "IPTV with 7-Day Catch-Up and TV Guide EPG (2026)"
+  },
+  "/sports/nfl-sunday-ticket": {
+    "title": "NFL Sunday Ticket & RedZone on IPTV (2026 Guide)"
+  },
+  "/uk/devices/firestick": {
+    "title": "Best IPTV for Amazon Firestick UK (2026 Setup Guide)"
+  },
+  "/uk/iptv-free-trial": {
+    "title": "24-Hour IPTV Free Trial UK (2026): Test Sky & TNT"
+  },
+  "/uk/sports/premier-league": {
+    "title": "Watch Premier League 3PM Matches on IPTV (2026)"
+  },
+  "/cookie-policy": {
+    "description": "How this website uses cookies and similar technologies, what third parties may receive, and how to block or delete them in your browser."
+  },
+  "/refund-policy": {
+    "description": "Our 7-day refund policy: when you can ask for a refund, what we need from you first, what is not covered and how to request one."
+  },
+  "/terms-of-service": {
+    "description": "Terms of service for 4KSubscriptionIPTV subscriptions: free trials, plans, refunds, acceptable use and how to contact support."
+  }
+}

@@ -1,0 +1,449 @@
+---
+import siteConfig from '../data/site-config.json';
+
+const faqList = [
+  {
+    category: "reseller",
+    icon: "fa-server",
+    q: "What is an IPTV reseller panel and how does it work?",
+    a: "An IPTV reseller panel is a professional web-based dashboard that allows you to create, manage, and sell IPTV subscriptions under your own brand name. You purchase subscription credits from a provider at wholesale prices (typically $2-$5/mo per sub), then use the panel to create accounts for your customers at retail prices ($10-$20/mo). The panel handles account creation, trial management, subscription activation, renewals, and customer management — all while the provider handles the technical infrastructure including servers, CDN, and video streaming quality.",
+    highlight: "Pro Tip: Top official networks like StreamB4, UK Stream 4K, and Ultra 8K IPTV offer instant panel activation with zero technical experience required."
+  },
+  {
+    category: "reseller",
+    icon: "fa-user-check",
+    q: "Can I start an IPTV reseller business without technical knowledge?",
+    a: "Absolutely! The IPTV reseller model is designed to be accessible to everyone, regardless of technical background. The providers we list offer ready-to-use reseller panels with intuitive, user-friendly interfaces. You don't need to manage servers, handle video encoding, or maintain infrastructure. The provider handles 100% of the technical backend while you focus on sales, customer relationships, and growing your brand."
+  },
+  {
+    category: "reseller",
+    icon: "fa-paint-brush",
+    q: "Can I sell IPTV under my own brand name?",
+    a: "Yes! White-label reselling is one of the biggest advantages of the IPTV reseller panel model. Most premium providers allow complete branding customization. You can set your own brand name, custom DNS portal URL, logo, pricing structure, and customer communication. Your customers will only see your brand — never the underlying provider."
+  },
+  {
+    category: "providers",
+    icon: "fa-tv",
+    q: "How many channels and movies do these IPTV providers offer?",
+    a: "Most premium providers in our directory offer extensive content libraries. Flagship networks like StreamB4 offer 51,000+ live channels and 200,000+ VOD titles. Other networks range from 8,000 to 51,000+ live channels with VOD libraries of 30,000 to 150,000+ movies and series. Content includes Premier League, Sky Sports, TNT, NFL, NBA, UFC, PPV boxing, news, international channels, movies, TV series, and more."
+  },
+  {
+    category: "providers",
+    icon: "fa-star",
+    q: "Which IPTV provider is the best for resellers in 2026?",
+    a: "The best provider depends on your target market: <strong>StreamB4</strong> is #1 overall for live sports, Premier League, and channel variety (51,000+ channels); <strong>UK Stream 4K</strong> is #1 for UK football and Sky Sports; <strong>Ultra 8K IPTV</strong> is best for premium 8K UHD quality and multi-room connections; <strong>4K German IPTV</strong> is #1 for DACH region; <strong>IPTV Smarters FR</strong> is #1 for Francophone entertainment; and <strong>Roku Stream</strong> is the best multi-device streaming option."
+  },
+  {
+    category: "business",
+    icon: "fa-coins",
+    q: "How much does it cost to start an IPTV reseller business?",
+    a: "Starting an IPTV reseller business is very affordable. Most providers offer flexible starter credit packages starting from as low as $50-$100. You purchase credits at wholesale rates (typically $2-$5 per month per subscription) and resell to customers at retail prices ($10-$20 per month), creating immediate positive cash flow."
+  },
+  {
+    category: "business",
+    icon: "fa-chart-line",
+    q: "How much can I earn as an IPTV reseller?",
+    a: "Your earnings depend on your pricing strategy and customer volume. Most resellers mark up subscriptions 50-100% above wholesale cost: 50 customers at $15/mo generates $750/mo revenue (~$500 profit); 100 customers generates $1,500/mo revenue (~$1,000 profit); and 300 customers generates $4,500/mo revenue (~$3,000 profit)."
+  },
+  {
+    category: "business",
+    icon: "fa-globe",
+    q: "Which markets are most profitable for IPTV reselling?",
+    a: "The strongest IPTV markets in 2026 are: USA (high demand for NFL, NBA, UFC PPV & local channels in USD); UK (high demand for 3PM Premier League, Sky Sports, TNT & BBC in GBP); Europe (multilingual football & entertainment in EUR); Canada (NHL, TSN, Sportsnet in CAD); and Australia (AFL, NRL, Optus Sport in AUD)."
+  },
+  {
+    category: "technical",
+    icon: "fa-mobile-screen",
+    q: "What devices do IPTV services support?",
+    a: "All major IPTV providers support Amazon Firestick (Fire TV 4K / Max), Android TV Boxes (Nvidia Shield, Formuler), Smart TVs (Samsung Tizen, LG webOS), Apple TV (tvOS) / iPhone / iPad, Windows & Mac PCs, and MAG boxes via Xtream Codes API and M3U playlists."
+  },
+  {
+    category: "technical",
+    icon: "fa-shield-virus",
+    q: "Do I need a VPN for IPTV services?",
+    a: "While our Anti-Freeze v9.2 protocol includes built-in SSL tunneling, we recommend using a VPN or Cloudflare 1.1.1.1 DNS when using IPTV services. A VPN prevents aggressive ISP throttling (Sky, BT, Virgin, Comcast, AT&T) during major Premier League or NFL matches and protects customer privacy."
+  },
+  {
+    category: "technical",
+    icon: "fa-rocket",
+    q: "How fast can I start selling IPTV after signing up?",
+    a: "You can start selling IPTV subscriptions on the same day you sign up! Once you contact us via WhatsApp support desk, most providers activate your reseller panel credentials within 10 to 30 minutes."
+  },
+  {
+    category: "reseller",
+    icon: "fa-headset",
+    q: "What kind of support do I get as a reseller?",
+    a: "As an IPTV reseller, you receive 24/7 dedicated provider technical support, direct WhatsApp setup assistance, full panel walkthroughs, marketing resources, and anti-freeze stream monitoring."
+  }
+];
+
+// Schema.org FAQPage JSON-LD
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqList.map((f) => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": f.a.replace(/<[^>]*>?/gm, '')
+    }
+  }))
+};
+---
+
+<!-- ==================== FAQ SECTION ==================== -->
+<section class="faq-section section-padding-lg" id="faq">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-badge"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions</span>
+      <h2 class="section-title">Everything You Need to Know About IPTV Reseller Panels</h2>
+      <p class="section-description">
+        Get answers to common questions about IPTV reseller panels, provider lineups, wholesale pricing, and launching your streaming business in 2026.
+      </p>
+    </div>
+
+    <!-- FAQ Search & Category Tabs -->
+    <div class="faq-search-wrap">
+      <div class="faq-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="faqSearchInput" placeholder="Search for answers... (e.g. reseller panel, pricing, Firestick)" />
+      </div>
+      <div class="faq-categories" id="faqCategories">
+        <button class="faq-cat-btn active" data-cat="all">All Questions</button>
+        <button class="faq-cat-btn" data-cat="reseller">Reseller Panel</button>
+        <button class="faq-cat-btn" data-cat="providers">Providers</button>
+        <button class="faq-cat-btn" data-cat="business">Business &amp; Pricing</button>
+        <button class="faq-cat-btn" data-cat="technical">Technical &amp; Setup</button>
+      </div>
+    </div>
+
+    <!-- FAQ Grid -->
+    <div class="faq-grid" id="faqGrid">
+      {faqList.map((item, idx) => (
+        <div class="faq-item glass-card" data-category={item.category}>
+          <button class="faq-question" aria-expanded={idx === 0 ? "true" : "false"}>
+            <span class="faq-icon"><i class={`fa-solid ${item.icon}`}></i></span>
+            <span class="faq-title">{item.q}</span>
+            <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+          </button>
+          <div class="faq-answer" style={idx === 0 ? "max-height: 500px; opacity: 1; padding: 0 20px 20px 20px;" : ""}>
+            <div class="faq-answer-inner">
+              <p set:html={item.a}></p>
+              {item.highlight && (
+                <div class="faq-highlight">
+                  <i class="fa-solid fa-lightbulb"></i>
+                  <span>{item.highlight}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- FAQ No Results Message -->
+    <div class="faq-no-results" id="faqNoResults" style="display: none;">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <h3>No matching questions found</h3>
+      <p>Try searching with another keyword or contact our WhatsApp support desk directly.</p>
+    </div>
+
+    <!-- FAQ Footer CTA -->
+    <div class="faq-cta text-center">
+      <p>Still have questions? Our team is available 24/7 on WhatsApp!</p>
+      <div class="faq-cta-buttons">
+        <a href={siteConfig.whatsappUrl} class="btn btn-primary btn-xl" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp ({siteConfig.whatsappDisplay})
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Inject Schema.org FAQPage -->
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+<script>
+  // Accordion Toggle
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach((item) => {
+    const btn = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer') as HTMLElement;
+    const icon = item.querySelector('.faq-toggle-icon i');
+
+    if (btn && answer && icon) {
+      btn.addEventListener('click', () => {
+        const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+        // Close other items
+        faqItems.forEach((other) => {
+          const otherBtn = other.querySelector('.faq-question');
+          const otherAns = other.querySelector('.faq-answer') as HTMLElement;
+          const otherIcon = other.querySelector('.faq-toggle-icon i');
+          if (otherBtn && otherAns && otherIcon && other !== item) {
+            otherBtn.setAttribute('aria-expanded', 'false');
+            otherAns.style.maxHeight = '0px';
+            otherAns.style.opacity = '0';
+            otherAns.style.padding = '0 20px';
+            otherIcon.className = 'fa-solid fa-plus';
+          }
+        });
+
+        if (isExpanded) {
+          btn.setAttribute('aria-expanded', 'false');
+          answer.style.maxHeight = '0px';
+          answer.style.opacity = '0';
+          answer.style.padding = '0 20px';
+          icon.className = 'fa-solid fa-plus';
+        } else {
+          btn.setAttribute('aria-expanded', 'true');
+          answer.style.maxHeight = '600px';
+          answer.style.opacity = '1';
+          answer.style.padding = '0 20px 20px 20px';
+          icon.className = 'fa-solid fa-minus';
+        }
+      });
+    }
+  });
+
+  // Filter Categories & Search
+  const catButtons = document.querySelectorAll('.faq-cat-btn');
+  const searchInput = document.getElementById('faqSearchInput') as HTMLInputElement;
+  const noResults = document.getElementById('faqNoResults');
+
+  function filterFaqs() {
+    const activeCatBtn = document.querySelector('.faq-cat-btn.active');
+    const activeCat = activeCatBtn ? activeCatBtn.getAttribute('data-cat') : 'all';
+    const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    let visibleCount = 0;
+
+    faqItems.forEach((item) => {
+      const cat = item.getAttribute('data-category');
+      const text = item.textContent?.toLowerCase() || '';
+
+      const matchesCat = activeCat === 'all' || cat === activeCat;
+      const matchesSearch = query === '' || text.includes(query);
+
+      if (matchesCat && matchesSearch) {
+        (item as HTMLElement).style.display = 'block';
+        visibleCount++;
+      } else {
+        (item as HTMLElement).style.display = 'none';
+      }
+    });
+
+    if (noResults) {
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+  }
+
+  catButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      catButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterFaqs();
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', filterFaqs);
+  }
+</script>
+
+<style>
+  .faq-section {
+    padding: 80px 0;
+    background: rgba(10, 15, 30, 0.5);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .faq-search-wrap {
+    max-width: 780px;
+    margin: 0 auto 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .faq-search {
+    position: relative;
+    width: 100%;
+  }
+
+  .faq-search i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 1rem;
+  }
+
+  .faq-search input {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    padding: 14px 20px 14px 50px;
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.25s ease;
+  }
+
+  .faq-search input:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+  }
+
+  .faq-categories {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .faq-cat-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    font-size: 0.84rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .faq-cat-btn:hover, .faq-cat-btn.active {
+    background: rgba(59, 130, 246, 0.25);
+    border-color: rgba(59, 130, 246, 0.5);
+    color: #ffffff;
+  }
+
+  .faq-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: rgba(13, 20, 38, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+  }
+
+  .faq-item:hover {
+    border-color: rgba(59, 130, 246, 0.35);
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .faq-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #38bdf8;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+
+  .faq-title {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    flex: 1;
+    line-height: 1.35;
+  }
+
+  .faq-toggle-icon {
+    color: #38bdf8;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-answer-inner p {
+    font-size: 0.92rem;
+    color: #cbd5e1;
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+
+  .faq-highlight {
+    background: rgba(245, 158, 11, 0.1);
+    border-left: 3px solid #f59e0b;
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: #fde047;
+    margin-top: 10px;
+  }
+
+  .faq-highlight i {
+    color: #fbbf24;
+    margin-top: 2px;
+  }
+
+  .faq-no-results {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+  }
+
+  .faq-no-results i {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    color: #38bdf8;
+  }
+
+  .faq-cta {
+    margin-top: 50px;
+  }
+
+  .faq-cta p {
+    font-size: 1rem;
+    color: #cbd5e1;
+    margin-bottom: 16px;
+  }
+
+  .faq-cta-buttons {
+    display: flex;
+    justify-content: center;
+  }
+</style>

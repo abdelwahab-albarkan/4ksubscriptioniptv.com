@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+import siteConfig from '../data/site-config.json';
+---
+
+<Layout
+  title="Contact 4K Subscription IPTV | 24/7 WhatsApp Support"
+  metaDescription="Contact 4K Subscription IPTV for a 24-hour free trial, subscription orders, reseller panels and setup help. 24/7 WhatsApp and email support."
+  targetKeyword="Contact IPTV Support"
+  slug="contact"
+>
+  <section class="legal-page">
+    <div class="container legal-wrap">
+      <h1>Contact Us</h1>
+      <p>We reply fastest on WhatsApp, 24/7. Ask for a free trial, an order, a reseller panel or help setting up your device.</p>
+
+      <div class="contact-actions">
+        <a href={siteConfig.whatsappUrl} class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp {siteConfig.whatsappDisplay}
+        </a>
+        <a href={`mailto:${siteConfig.supportEmail}`} class="btn btn-secondary btn-lg">
+          <i class="fa-solid fa-envelope"></i> {siteConfig.supportEmail}
+        </a>
+      </div>
+
+      <h2>What we can help with</h2>
+      <ul class="help-topics">
+        <li><strong>Free trial and plans:</strong> ask for a 24-hour trial or compare the 1, 3, 6 and 12 month plans.</li>
+        <li><strong>Set-up help:</strong> installing a player on a Firestick, smart TV, Apple TV or Android box.</li>
+        <li><strong>Problems with a stream:</strong> buffering, a missing guide, login errors.</li>
+        <li><strong>Reseller panel:</strong> terms, credits and how the panel works.</li>
+        <li><strong>Refunds and billing:</strong> see the <a href="/refund-policy">refund policy</a> first, then message us with your order details.</li>
+      </ul>
+
+      <h2>What to include in your message</h2>
+      <ul>
+        <li>Your device and the player app you use.</li>
+        <li>The channel name and the time, if a stream stalled.</li>
+        <li>A speed test result from the same device.</li>
+        <li>Your order details for billing questions.</li>
+      </ul>
+      <p>For quick answers, WhatsApp is the fastest way and our desk is open around the clock. Many questions are also answered in the <a href="/faq">FAQ</a>, the <a href="/all-devices">device guides</a> and the <a href="/blog/how-to-fix-iptv-buffering-isp-throttling">buffering guide</a>.</p>
+
+      <h2>Send us a message</h2>
+      <form class="contact-form" id="contactForm" data-wa={`https://wa.me/${siteConfig.whatsappRaw}`} data-mail={siteConfig.supportEmail}>
+        <label>Your name<input type="text" name="name" required autocomplete="name" /></label>
+        <label>Email<input type="email" name="email" required autocomplete="email" /></label>
+        <label>Topic
+          <select name="topic">
+            <option>Free trial</option>
+            <option>New subscription</option>
+            <option>Device set-up help</option>
+            <option>Reseller panel</option>
+            <option>Refund request</option>
+            <option>Something else</option>
+          </select>
+        </label>
+        <label>Message<textarea name="message" rows="4" required></textarea></label>
+        <div class="contact-form-actions">
+          <button type="submit" class="btn btn-primary btn-lg" data-channel="wa"><i class="fa-brands fa-whatsapp"></i> Send on WhatsApp</button>
+          <button type="submit" class="btn btn-secondary btn-lg" data-channel="mail"><i class="fa-solid fa-envelope"></i> Send by email</button>
+        </div>
+      </form>
+
+      <h2>Quick links</h2>
+      <ul>
+        <li><a href="/pricing">US pricing &amp; plans</a></li>
+        <li><a href="/uk/pricing">UK pricing &amp; plans</a></li>
+        <li><a href="/iptv-free-trial">24-hour free trial</a></li>
+        <li><a href="/all-devices">Device setup guides</a></li>
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement | null;
+  let channel = 'wa';
+  form?.querySelectorAll('button[type=submit]').forEach((b) => b.addEventListener('click', () => { channel = (b as HTMLElement).dataset.channel || 'wa'; }));
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const text = `Topic: ${d.get('topic')}\nName: ${d.get('name')}\nEmail: ${d.get('email')}\n\n${d.get('message')}`;
+    if (channel === 'mail') {
+      location.href = `mailto:${form.dataset.mail}?subject=${encodeURIComponent(String(d.get('topic')))}&body=${encodeURIComponent(text)}`;
+    } else {
+      window.open(`${form.dataset.wa}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    }
+  });
+</script>
+
+<style>
+  .legal-page { padding: 60px 0 80px; }
+  .legal-wrap { max-width: 820px; }
+  .legal-wrap h1 { font-size: clamp(2rem, 4vw, 2.6rem); color: #fff; margin-bottom: 10px; }
+  .legal-wrap h2 { font-size: 1.25rem; color: #fff; margin: 30px 0 10px; }
+  .legal-wrap p, .legal-wrap li { color: #cbd5e1; line-height: 1.75; }
+  .legal-wrap a:not(.btn) { color: #38bdf8; text-decoration: underline; }
+  .contact-actions .btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+  .contact-actions { display: flex; flex-wrap: wrap; gap: 14px; margin: 26px 0; }
+  .contact-form { display: grid; gap: 14px; margin: 14px 0 8px; }
+  .contact-form label { display: grid; gap: 6px; font-weight: 600; color: #e2e8f0; font-size: 0.92rem; }
+  .contact-form input, .contact-form select, .contact-form textarea {
+    width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.04); color: #f8fafc; font: inherit;
+  }
+  .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { outline: 2px solid #22d3ee; outline-offset: 1px; }
+  .contact-form select option { color: #0f172a; }
+  .contact-form-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+</style>

@@ -1,0 +1,147 @@
+---
+import siteConfig from '../data/site-config.json';
+---
+
+<section class="stats-bar-section">
+  <div class="container">
+    <div class="stats-bar-card glass-card">
+      <div class="stat-item">
+        <div class="stat-icon-wrap icon-blue">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+            <polyline points="17 2 12 7 7 2"></polyline>
+          </svg>
+        </div>
+        <div class="stat-text">
+          <span class="stat-value gradient-text">{siteConfig.stats.channels}</span>
+          <span class="stat-label">Live Global Channels</span>
+        </div>
+      </div>
+
+      <div class="stat-divider"></div>
+
+      <div class="stat-item">
+        <div class="stat-icon-wrap icon-cyan">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </div>
+        <div class="stat-text">
+          <span class="stat-value gradient-text">{(siteConfig as any).claims?.vodCount || '200,000+'}</span>
+          <span class="stat-label">Movies &amp; Series (VOD)</span>
+        </div>
+      </div>
+
+      <div class="stat-divider"></div>
+
+      <div class="stat-item">
+        <div class="stat-icon-wrap icon-green">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <div class="stat-text">
+          <span class="stat-value gradient-green">{siteConfig.stats.uptime}</span>
+          <span class="stat-label">Zero-Freeze Uptime</span>
+        </div>
+      </div>
+
+      <div class="stat-divider"></div>
+
+      <div class="stat-item">
+        <div class="stat-icon-wrap icon-amber">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <div class="stat-text">
+          <span class="stat-value gradient-gold">Under 3 Mins</span>
+          <span class="stat-label">Instant M3U &amp; Xtream Codes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats-bar-section {
+    padding: 0 0 60px 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .stats-bar-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 36px;
+    background: rgba(13, 19, 36, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .stat-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .icon-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+  .icon-cyan { background: rgba(6, 182, 212, 0.15); color: #38bdf8; }
+  .icon-green { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+  .icon-amber { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+
+  .stat-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-value {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .stat-divider {
+    width: 1px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  @media (max-width: 992px) {
+    .stats-bar-card {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      padding: 24px;
+    }
+    .stat-divider {
+      display: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .stats-bar-card {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

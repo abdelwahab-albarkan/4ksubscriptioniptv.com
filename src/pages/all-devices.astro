@@ -1,0 +1,126 @@
+---
+import Layout from '../layouts/Layout.astro';
+import pagesData from '../data/pages-data.json';
+
+const devicePages = pagesData.filter(p => p.category === 'device');
+---
+
+<Layout
+  title="All Supported IPTV Devices & Installation Guides (2026)"
+  metaDescription="Complete setup tutorials and recommended IPTV applications for Amazon Firestick, Apple TV, Smart TVs (Samsung/LG), TiviMate, Android Boxes, and MAG."
+  targetKeyword="IPTV Supported Devices Setup Guides"
+>
+  <div class="directory-hero">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Universal Device Compatibility</span>
+        <h1 class="section-title">Supported Devices &amp; <span class="gradient-text">IPTV Setup Guides</span></h1>
+        <p class="section-desc">
+          Step-by-step installation tutorials, Downloader codes, and Xtream API setup guides for all hardware and apps.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container directory-content">
+    <div class="device-guides-grid">
+      {devicePages.map((page) => (
+        <div class="guide-card glass-card">
+          <div class="guide-header">
+            <span class="guide-os-tag">{page.os || page.country}</span>
+            <span class="guide-time">⏱️ {page.setupTime || '2 mins'}</span>
+          </div>
+          <h3>{page.deviceName || page.h1}</h3>
+          <p class="guide-app-rec">Recommended App: <strong>{page.recommendedApp || 'IPTV Smarters / TiviMate'}</strong></p>
+          <a href={`/iptv/${page.slug}`} class="btn btn-secondary guide-link">
+            <span>Read Full Setup Guide</span>
+            <span>&rarr;</span>
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .directory-hero {
+    padding: 60px 0 30px 0;
+    background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, transparent 70%);
+  }
+
+  .directory-content {
+    padding: 40px 20px 80px 20px;
+  }
+
+  .device-guides-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .guide-card {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .guide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .guide-os-tag {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .guide-time {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .guide-card h3 {
+    font-size: 1.15rem;
+    color: #ffffff;
+    line-height: 1.3;
+  }
+
+  .guide-app-rec {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .guide-app-rec strong {
+    color: #38bdf8;
+  }
+
+  .guide-link {
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+
+  @media (max-width: 1024px) {
+    .device-guides-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 650px) {
+    .device-guides-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,144 @@
+---
+// Renders one location hub (US state or UK region). Data comes from src/data/hubs.json (built by scripts/enrich-seo-pages.mjs).
+import Layout from '../layouts/Layout.astro';
+import siteConfig from '../data/site-config.json';
+import { absUrl } from '../lib/url';
+
+interface Props { hub: any }
+const { hub } = Astro.props;
+
+const crumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Locations', url: '/all-locations' },
+  { name: hub.name, url: hub.path },
+];
+
+const itemList = {
+  '@type': 'ItemList',
+  '@id': `${absUrl(hub.path)}#places`,
+  name: `IPTV guides in ${hub.name}`,
+  numberOfItems: hub.groups.reduce((n: number, g: any) => n + g.items.length, 0),
+  itemListElement: hub.groups.flatMap((g: any) => g.items).map((it: any, i: number) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: it.label,
+    url: absUrl(it.links[0].href),
+  })),
+};
+const faqSchema = {
+  '@type': 'FAQPage',
+  mainEntity: hub.faqs.map((f: any) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+
+<Layout
+  title={hub.title}
+  metaDescription={hub.metaDescription}
+  slug={hub.slug}
+  targetKeyword={`iptv ${hub.name.toLowerCase()}`}
+  pageType="CollectionPage"
+  breadcrumbs={crumbs}
+  extraSchema={[itemList]}
+  faqSchema={faqSchema}
+  geoTarget={hub.type === 'uk-region' ? 'uk' : 'us'}
+>
+  <section class="hub-page">
+    <div class="container">
+      <header class="hub-head">
+        <span class="section-badge"><i class="fa-solid fa-location-dot"></i> {hub.type === 'uk-region' ? 'United Kingdom' : 'United States'}</span>
+        <h1>{hub.h1}</h1>
+        {hub.intro.map((t: string) => <p class="hub-intro">{t}</p>)}
+      </header>
+
+      <dl class="hub-facts">
+        {hub.facts.map((f: any) => (
+          <div class="hub-fact"><dt>{f.k}</dt><dd>{f.v}</dd></div>
+        ))}
+      </dl>
+
+      {hub.groups.map((g: any) => (
+        <section class="hub-group">
+          <h2>{g.label}</h2>
+          <ul class="hub-grid">
+            {g.items.map((it: any) => (
+              <li class="hub-card">
+                <span class="hub-city">{it.label}</span>
+                <span class="hub-chips">
+                  {it.links.map((l: any) => <a href={l.href} aria-label={`${l.text} in ${it.label}`}>{l.text}</a>)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+
+      <section class="hub-group">
+        <h2>Helpful next steps</h2>
+        <ul class="hub-next">
+          {hub.links.map((l: any) => <li><a href={l.href}>{l.text}</a></li>)}
+        </ul>
+      </section>
+
+      <section class="hub-group">
+        <h2>Questions about IPTV in {hub.name}</h2>
+        <div class="hub-faqs">
+          {hub.faqs.map((f: any) => (
+            <details class="hub-faq"><summary>{f.q}</summary><p>{f.a}</p></details>
+          ))}
+        </div>
+      </section>
+
+      {hub.other?.length > 0 && (
+        <nav class="hub-other" aria-label="Other locations">
+          <h2>More locations</h2>
+          <ul>
+            {hub.other.map((o: any) => <li><a href={o.path}>IPTV in {o.name}</a></li>)}
+            <li><a href="/all-locations" class="hub-all">All locations</a></li>
+          </ul>
+        </nav>
+      )}
+
+      <div class="hub-cta">
+        <p>Want to test it on your own device? Ask {siteConfig.siteName} for a free trial.</p>
+        <a href={siteConfig.whatsappUrl} class="btn btn-primary btn-lg" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Request a free trial</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hub-page { padding: clamp(24px, 5vw, 56px) 0 clamp(40px, 7vw, 80px); }
+  .hub-head { max-width: 860px; margin-bottom: 26px; }
+  .hub-head h1 { margin: 12px 0 14px; }
+  .hub-intro { color: #cbd5e1; line-height: 1.75; margin-bottom: 10px; }
+  .hub-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 10px; margin: 24px 0 34px; }
+  .hub-fact { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 12px 14px; min-width: 0; }
+  .hub-fact dt { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: #38bdf8; font-weight: 700; margin-bottom: 4px; }
+  .hub-fact dd { font-size: 0.92rem; color: #e2e8f0; line-height: 1.4; overflow-wrap: anywhere; }
+  .hub-group { margin-top: 34px; }
+  .hub-group h2 { font-size: clamp(1.2rem, 2.4vw, 1.6rem); margin-bottom: 14px; }
+  .hub-grid { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 10px; padding: 0; margin: 0; }
+  .hub-card { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); min-width: 0; }
+  .hub-city { font-weight: 600; color: #f1f5f9; overflow-wrap: anywhere; min-width: 0; }
+  .hub-chips { display: inline-flex; gap: 6px; flex-shrink: 0; }
+  .hub-chips a { padding: 6px 10px; border-radius: 9999px; font-size: 0.78rem; font-weight: 600; background: rgba(79,140,255,0.14); border: 1px solid rgba(79,140,255,0.35); color: #bcd3ff; white-space: nowrap; transition: all 0.2s; }
+  .hub-chips a:hover { background: rgba(79,140,255,0.3); color: #fff; }
+  .hub-next { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .hub-next a { display: inline-block; padding: 10px 16px; border-radius: 12px; background: rgba(34,211,238,0.08); border: 1px solid rgba(34,211,238,0.3); color: #cffafe; font-weight: 600; font-size: 0.92rem; }
+  .hub-next a:hover { background: rgba(34,211,238,0.18); color: #fff; }
+  .hub-faqs { display: grid; gap: 10px; max-width: 860px; }
+  .hub-faq { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 0 16px; }
+  .hub-faq summary { cursor: pointer; padding: 14px 0; font-weight: 600; color: #f1f5f9; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+  .hub-faq summary::-webkit-details-marker { display: none; }
+  .hub-faq summary::after { content: '+'; color: #38bdf8; font-weight: 700; }
+  .hub-faq[open] summary::after { content: '\2212'; }
+  .hub-faq p { color: #b6c2d4; line-height: 1.75; padding: 0 0 14px; }
+  .hub-other { margin-top: 38px; }
+  .hub-other h2 { font-size: 1.1rem; margin-bottom: 12px; }
+  .hub-other ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; }
+  .hub-other a { display: inline-block; padding: 8px 14px; border-radius: 9999px; font-size: 0.86rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; }
+  .hub-other a:hover { background: rgba(79,140,255,0.18); border-color: rgba(79,140,255,0.5); color: #fff; }
+  .hub-cta { margin-top: 40px; padding: 20px; border-radius: 14px; background: linear-gradient(135deg, rgba(79,140,255,0.14), rgba(34,211,238,0.08)); border: 1px solid rgba(79,140,255,0.3); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .hub-cta p { color: #e2e8f0; font-weight: 600; flex: 1 1 240px; }
+  @media (max-width: 600px) { .hub-cta { flex-direction: column; align-items: stretch; } .hub-cta .btn { width: 100%; } }
+</style>

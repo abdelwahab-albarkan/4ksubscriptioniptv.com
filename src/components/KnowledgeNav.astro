@@ -1,0 +1,78 @@
+---
+// Horizontal Research & Category Navigation Sub-Bar
+---
+
+<div class="knowledge-nav" aria-label="Research sections">
+  <div class="knowledge-nav__inner">
+    <a href="/" class="active"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+    <a href="/#reseller-section"><i class="fa-solid fa-briefcase" aria-hidden="true"></i><span>Reseller</span></a>
+    <a href="/#pricing"><i class="fa-solid fa-building-shield" aria-hidden="true"></i><span>Programs</span></a>
+    <a href="/#providers"><i class="fa-solid fa-satellite-dish" aria-hidden="true"></i><span>Providers</span></a>
+    <a href="/#reviews"><i class="fa-solid fa-star" aria-hidden="true"></i><span>Reviews</span></a>
+    <a href="/#comparison-table"><i class="fa-solid fa-code-compare" aria-hidden="true"></i><span>Compare</span></a>
+    <a href="/features/anti-freeze-4k"><i class="fa-solid fa-flask" aria-hidden="true"></i><span>Lab</span></a>
+    <a href="/devices/firestick"><i class="fa-solid fa-tv" aria-hidden="true"></i><span>Devices</span></a>
+    <a href="/#steps-guide"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span>Guides</span></a>
+    <a href="/#locations-section"><i class="fa-solid fa-globe" aria-hidden="true"></i><span>Locations</span></a>
+  </div>
+</div>
+
+<style>
+  .knowledge-nav {
+    background: rgba(10, 14, 27, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    position: relative;
+    z-index: 990;
+  }
+
+  .knowledge-nav::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+
+  .knowledge-nav__inner {
+    max-width: 1260px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 4px 16px;
+    min-width: max-content;
+  }
+
+  .knowledge-nav__inner a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #94a3b8;
+    background: transparent;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .knowledge-nav__inner a:hover,
+  .knowledge-nav__inner a.active {
+    color: #ffffff;
+    background: rgba(59, 130, 246, 0.18);
+    border-color: rgba(59, 130, 246, 0.4);
+    transform: translateY(-1px);
+  }
+
+  .knowledge-nav__inner a i {
+    font-size: 0.78rem;
+    color: #38bdf8;
+  }
+
+  @media (max-width: 900px) {
+    .knowledge-nav__inner {
+      justify-content: flex-start;
+    }
+  }
+</style>

@@ -1,0 +1,117 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/iptv/chelsea-fc",
+      "destination": "/iptv/chelsea",
+      "permanent": true
+    },
+    {
+      "source": "/iptv/chelsea-f-c",
+      "destination": "/iptv/chelsea",
+      "permanent": true
+    },
+    {
+      "source": "/iptv/chelsea-football-club-standings",
+      "destination": "/iptv/chelsea-standings",
+      "permanent": true
+    },
+    {
+      "source": "/iptv/madrid-vs",
+      "destination": "/iptv/real-madrid-vs",
+      "permanent": true
+    },
+    {
+      "source": "/iptv/madrid-game",
+      "destination": "/iptv/real-madrid-vs",
+      "permanent": true
+    },
+    {
+      "source": "/iptv/r-madrid-game",
+      "destination": "/iptv/real-madrid-vs",
+      "permanent": true
+    },
+    {
+      "source": "/iptv/real-madrid-games",
+      "destination": "/iptv/real-madrid-vs",
+      "permanent": true
+    },
+    {
+      "source": "/iptv/real-madrid-fc-football",
+      "destination": "/iptv/real-madrid-vs",
+      "permanent": true
+    },
+    {
+      "source": "/iptv/futbol-at-madrid",
+      "destination": "/iptv/real-madrid-vs",
+      "permanent": true
+    },
+    {
+      "source": "/iptv/play-for-real-madrid",
+      "destination": "/iptv/real-madrid-vs",
+      "permanent": true
+    },
+    {
+      "source": "/iptv/calendar-of-real-madrid",
+      "destination": "/iptv/real-madrid-schedule",
+      "permanent": true
+    },
+    {
+      "source": "/iptv/real-madrid-vs-fc-barcelona-stats",
+      "destination": "/iptv/fc-barcelona-vs-real-madrid-stats",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/flags/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/_astro/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ]
+}

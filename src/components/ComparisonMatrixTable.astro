@@ -1,0 +1,194 @@
+---
+const comparisonRows = [
+  {
+    feature: "Stable IPTV Reseller Panel",
+    why: "Essential for generating customer credentials, renewals, sub-resellers, and managing trials without server downtime.",
+    providers: "StreamB4, UK Stream 4K, Ultra 8K IPTV, Agency Fluxly",
+    impact: "Critical",
+    impactClass: "badge-critical"
+  },
+  {
+    feature: "20,000+ Movies & Series VOD",
+    why: "Massive regularly-updated 4K movie & TV series library increases customer retention and recurring subscription value.",
+    providers: "StreamB4, Ultra 8K IPTV, Tvnado 2026, IPTV Smarters FR",
+    impact: "High",
+    impactClass: "badge-high"
+  },
+  {
+    feature: "8,000+ to 51,000+ Live Channels",
+    why: "Unrestricted access to worldwide sports (Premier League, NFL, UFC, Champions League, F1) and local network feeds.",
+    providers: "StreamB4 (#1 51K), Ultra 8K, UK Stream 4K",
+    impact: "High",
+    impactClass: "badge-high"
+  },
+  {
+    feature: "Multi-Device Compatibility",
+    why: "Customers demand seamless streaming across Firestick 4K, Android TV, Samsung/LG Smart TVs, Apple TV, MAG & PC.",
+    providers: "All 14 Listed Networks (Xtream & M3U)",
+    impact: "Critical",
+    impactClass: "badge-critical"
+  },
+  {
+    feature: "24/7 Fast Dedicated Support",
+    why: "Immediate technical resolution directly impacts your customer satisfaction and monthly renewal rates.",
+    providers: "StreamB4, UK Stream 4K, Ultra 8K, Agency Fluxly",
+    impact: "Critical",
+    impactClass: "badge-critical"
+  },
+  {
+    feature: "Anti-Freeze v9.2 Protocol",
+    why: "Eliminates buffering and packet drops during peak global sports events through redundant 10Gbps CDN nodes.",
+    providers: "StreamB4, UK Stream 4K, 4K German IPTV, Ultra 8K",
+    impact: "High",
+    impactClass: "badge-high"
+  },
+  {
+    feature: "VPN Compatibility & SSL Tunneling",
+    why: "Allows clients to bypass aggressive ISP throttling (Sky, Virgin, BT, Comcast, AT&T) without speed loss.",
+    providers: "StreamB4, Roku Stream, Stream Germany 4K",
+    impact: "Medium",
+    impactClass: "badge-medium"
+  },
+  {
+    feature: "EPG TV Guide & 7-Day Catch-Up",
+    why: "Electronic Program Guide provides full channel schedules, search, and replay capabilities for missed shows.",
+    providers: "StreamB4, UK Stream 4K, Ultra 8K, IPTV Smarters FR",
+    impact: "Medium",
+    impactClass: "badge-medium"
+  },
+  {
+    feature: "Flexible Reseller Credit System",
+    why: "Wholesale credit purchasing (from $2-$5/mo per sub) gives you 50% to 100%+ profit margins on retail sales.",
+    providers: "All Official Network Reseller Panels",
+    impact: "High",
+    impactClass: "badge-high"
+  }
+];
+---
+
+<!-- ==================== COMPARISON TABLE SECTION ==================== -->
+<section class="comparison-section section-padding-lg" id="comparison-table">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-badge"><i class="fa-solid fa-scale-balanced"></i> Provider Comparison Matrix</span>
+      <h2 class="section-title">What Makes a Great IPTV Reseller &amp; Streaming Provider?</h2>
+      <p class="section-description">
+        Not all IPTV providers are created equal. Here is the complete comparison of essential features to evaluate when choosing your IPTV provider or reseller partner for 2026.
+      </p>
+    </div>
+
+    <div class="comparison-table-wrap glass-card">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Core Feature</th>
+            <th>Why It Matters for Streamers &amp; Resellers</th>
+            <th>Recommended Providers</th>
+            <th>Impact Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          {comparisonRows.map((row) => (
+            <tr>
+              <td>
+                <strong>{row.feature}</strong>
+              </td>
+              <td>{row.why}</td>
+              <td class="providers-cell">
+                <i class="fa-solid fa-check text-success"></i> {row.providers}
+              </td>
+              <td>
+                <span class={`impact-badge ${row.impactClass}`}>{row.impact}</span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+  .comparison-section {
+    padding: 80px 0;
+    background: rgba(12, 18, 36, 0.5);
+  }
+
+  .comparison-table-wrap {
+    overflow-x: auto;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(13, 20, 38, 0.85);
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    min-width: 780px;
+  }
+
+  .comparison-table th {
+    background: rgba(15, 23, 42, 0.95);
+    color: #cbd5e1;
+    font-size: 0.84rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .comparison-table td {
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.88rem;
+    color: #cbd5e1;
+    vertical-align: middle;
+  }
+
+  .comparison-table tr:hover td {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .comparison-table td strong {
+    color: #ffffff;
+    font-size: 0.92rem;
+  }
+
+  .providers-cell {
+    color: #38bdf8 !important;
+    font-weight: 600;
+  }
+
+  .providers-cell i {
+    color: #10b981;
+    margin-right: 4px;
+  }
+
+  .impact-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    display: inline-block;
+  }
+
+  .badge-critical {
+    background: rgba(244, 63, 94, 0.2);
+    color: #f43f5e;
+    border: 1px solid rgba(244, 63, 94, 0.4);
+  }
+
+  .badge-high {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+  }
+
+  .badge-medium {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+  }
+</style>

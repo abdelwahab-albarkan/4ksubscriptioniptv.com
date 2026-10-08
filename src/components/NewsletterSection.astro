@@ -1,0 +1,271 @@
+---
+import siteConfig from '../data/site-config.json';
+---
+
+<section class="newsletter-section section-padding-lg" id="newsletter">
+  <div class="container">
+    <div class="newsletter-wrapper glass-card premium-card">
+      <div class="newsletter-content text-center">
+        <div class="newsletter-icon-badge">
+          <i class="fa-solid fa-gift"></i>
+        </div>
+        <span class="section-badge"><i class="fa-solid fa-bolt"></i> VIP Subscriber Perk</span>
+        <h2>Get Instant 20% Discount &amp; Reseller Updates</h2>
+        <p class="newsletter-desc">
+          Join <strong>25,000+ streamers &amp; resellers</strong> receiving exclusive 4K server flash sales, 24-hour trial passes, and sports schedule updates.
+        </p>
+
+        <form class="newsletter-form" id="newsletterForm" data-wa={`https://wa.me/${siteConfig.whatsappRaw}`}>
+          <div class="newsletter-input-wrap">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" id="subscriberEmail" name="email" placeholder="Enter your email address..." required />
+            <button type="submit" class="btn btn-primary" id="newsletterSubmitBtn">
+              <i class="fa-solid fa-ticket"></i> Claim 20% Voucher
+            </button>
+          </div>
+        </form>
+
+        <!-- Dynamic Success / Coupon Modal -->
+        <div class="newsletter-success-box" id="newsletterSuccess" style="display: none;">
+          <div class="success-badge"><i class="fa-solid fa-check-circle"></i> Voucher Unlocked!</div>
+          <p class="voucher-text">Use Promo Code below on checkout or WhatsApp:</p>
+          <div class="coupon-code-wrap">
+            <span class="coupon-code" id="couponCode">PURO20VIP</span>
+            <button type="button" class="copy-coupon-btn" id="copyCouponBtn">
+              <i class="fa-solid fa-copy"></i> Copy
+            </button>
+          </div>
+          <div class="success-actions">
+            <a id="claimOnWaBtn" href={siteConfig.whatsappUrl} class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener">
+              <i class="fa-brands fa-whatsapp"></i> Activate on WhatsApp Now
+            </a>
+          </div>
+        </div>
+
+        <p class="newsletter-trust">
+          <i class="fa-solid fa-shield-halved"></i> 100% Privacy Guaranteed &bull; Zero Spam &bull; Instant Code Delivery
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('newsletterForm') as HTMLFormElement | null;
+  const successBox = document.getElementById('newsletterSuccess');
+  const copyBtn = document.getElementById('copyCouponBtn');
+  const claimWaBtn = document.getElementById('claimOnWaBtn') as HTMLAnchorElement | null;
+  const emailInput = document.getElementById('subscriberEmail') as HTMLInputElement | null;
+
+  if (form && successBox) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = emailInput?.value || '';
+      
+      // Store in localStorage for persistence
+      try {
+        localStorage.setItem('puro_subscriber_email', email);
+      } catch (err) {}
+
+      form.style.display = 'none';
+      successBox.style.display = 'block';
+
+      if (claimWaBtn) {
+        const msg = `Hello! I just subscribed with email ${email}. Please apply my 20% VIP Promo Code (PURO20VIP) to my order!`;
+        claimWaBtn.href = `https://wa.me/212625218443?text=${encodeURIComponent(msg)}`;
+      }
+    });
+  }
+
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText('PURO20VIP').then(() => {
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        setTimeout(() => {
+          copyBtn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy';
+        }, 2500);
+      });
+    });
+  }
+</script>
+
+<style>
+  .newsletter-section {
+    padding: 70px 0;
+  }
+
+  .newsletter-wrapper {
+    background: linear-gradient(145deg, rgba(20, 30, 58, 0.85) 0%, rgba(10, 15, 30, 0.95) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 24px;
+    padding: 50px 30px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 35px rgba(59, 130, 246, 0.15);
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .newsletter-icon-badge {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px auto;
+    color: #ffffff;
+    font-size: 1.6rem;
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+  }
+
+  .newsletter-content h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: #ffffff;
+    margin-bottom: 12px;
+  }
+
+  .newsletter-desc {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    max-width: 620px;
+    margin: 0 auto 28px auto;
+    line-height: 1.6;
+  }
+
+  .newsletter-desc strong {
+    color: #38bdf8;
+  }
+
+  .newsletter-form {
+    max-width: 540px;
+    margin: 0 auto 16px auto;
+  }
+
+  .newsletter-input-wrap {
+    display: flex;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    padding: 6px 6px 6px 18px;
+    transition: all 0.25s ease;
+  }
+
+  .newsletter-input-wrap:focus-within {
+    border-color: #38bdf8;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+  }
+
+  .newsletter-input-wrap i {
+    color: #94a3b8;
+    font-size: 1rem;
+    margin-right: 12px;
+  }
+
+  .newsletter-input-wrap input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 0.92rem;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .newsletter-input-wrap button {
+    border-radius: 10px;
+    padding: 12px 22px;
+    font-size: 0.88rem;
+    white-space: nowrap;
+  }
+
+  /* Success coupon box */
+  .newsletter-success-box {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 500px;
+    margin: 0 auto 20px;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .success-badge {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #34d399;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .voucher-text {
+    font-size: 0.88rem;
+    color: #cbd5e1;
+    margin-bottom: 12px;
+  }
+
+  .coupon-code-wrap {
+    display: inline-flex;
+    align-items: center;
+    background: #0f172a;
+    border: 1px dashed #38bdf8;
+    padding: 8px 16px;
+    border-radius: 10px;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .coupon-code {
+    font-family: monospace;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #38bdf8;
+    letter-spacing: 2px;
+  }
+
+  .copy-coupon-btn {
+    background: rgba(56, 189, 248, 0.2);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    color: #ffffff;
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .copy-coupon-btn:hover {
+    background: #38bdf8;
+    color: #0f172a;
+  }
+
+  .newsletter-trust {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .newsletter-trust i {
+    color: #10b981;
+  }
+
+  @media (max-width: 600px) {
+    .newsletter-input-wrap {
+      flex-direction: column;
+      padding: 12px;
+      gap: 12px;
+    }
+    .newsletter-input-wrap input {
+      width: 100%;
+    }
+    .newsletter-input-wrap button {
+      width: 100%;
+    }
+  }
+</style>

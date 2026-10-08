@@ -1,0 +1,61 @@
+---
+interface Props { h1: string; lead?: string }
+const { h1, lead } = Astro.props;
+---
+
+<section class="tool-page">
+  <div class="container tool-wrap">
+    <header class="tool-head">
+      <span class="section-badge"><i class="fa-solid fa-screwdriver-wrench"></i> Free tool</span>
+      <h1>{h1}</h1>
+      {lead && <p class="tool-lead">{lead}</p>}
+    </header>
+    <slot />
+  </div>
+</section>
+
+<style is:global>
+  .tool-page { padding: clamp(24px, 5vw, 56px) 0 clamp(40px, 7vw, 80px); }
+  .tool-wrap { max-width: 960px; }
+  .tool-head h1 { margin: 12px 0 12px; }
+  .tool-lead { color: #cbd5e1; line-height: 1.75; font-size: 1.05rem; max-width: 760px; }
+  .tool-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 22px; margin-top: 28px; align-items: start; }
+  @media (max-width: 800px) { .tool-grid { grid-template-columns: minmax(0, 1fr); } }
+  .tool-card { padding: clamp(18px, 3vw, 28px); }
+  .tool-card h2 { font-size: 1.2rem; margin-bottom: 14px; }
+  .tool-field { display: grid; gap: 6px; margin-bottom: 16px; }
+  .tool-field label, .tool-field .tool-label { font-weight: 600; color: #e2e8f0; font-size: 0.92rem; }
+  .tool-field small { color: #94a3b8; font-size: 0.8rem; }
+  .tool-field input[type=number], .tool-field select {
+    width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.04); color: #f8fafc; font: inherit; min-height: 46px;
+  }
+  .tool-field select option { color: #0f172a; }
+  .tool-field input:focus, .tool-field select:focus { outline: 2px solid #22d3ee; outline-offset: 1px; }
+  .tool-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  @media (max-width: 420px) { .tool-row { grid-template-columns: minmax(0, 1fr); } }
+  .tool-result { text-align: center; }
+  .tool-big { font-family: var(--font-heading); font-size: clamp(2.4rem, 8vw, 3.4rem); font-weight: 800; line-height: 1.1; background: linear-gradient(135deg, #4f8cff, #22d3ee); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .tool-unit { color: #94a3b8; font-weight: 600; margin-top: 2px; }
+  .tool-verdict { margin-top: 16px; padding: 12px 14px; border-radius: 12px; font-weight: 600; font-size: 0.95rem; line-height: 1.5; }
+  .tool-verdict.ok { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.4); color: #6ee7b7; }
+  .tool-verdict.warn { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.4); color: #fcd34d; }
+  .tool-verdict.bad { background: rgba(244,63,94,0.12); border: 1px solid rgba(244,63,94,0.4); color: #fda4af; }
+  .tool-breakdown { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 8px; text-align: left; }
+  .tool-breakdown li { display: flex; justify-content: space-between; gap: 12px; color: #cbd5e1; font-size: 0.92rem; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 8px; }
+  .tool-breakdown strong { color: #fff; white-space: nowrap; }
+  .tool-note { color: #94a3b8; font-size: 0.82rem; line-height: 1.6; margin-top: 14px; }
+  .tool-article { margin-top: 38px; max-width: 820px; }
+  .tool-article h2 { font-size: 1.35rem; margin: 26px 0 10px; }
+  .tool-article p, .tool-article li { color: #b6c2d4; line-height: 1.8; }
+  .tool-article p + p { margin-top: 10px; }
+  .tool-article ul { margin: 10px 0 0 1.2rem; display: grid; gap: 6px; }
+  .tool-article a { color: #38bdf8; text-decoration: underline; }
+  .tool-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.92rem; }
+  .tool-table th, .tool-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.08); color: #cbd5e1; }
+  .tool-table th { color: #fff; font-weight: 700; }
+  .tool-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tool-links { list-style: none; margin: 14px 0 0 !important; padding: 0; display: flex !important; flex-wrap: wrap; gap: 10px; }
+  .tool-links a { display: inline-block; padding: 10px 16px; border-radius: 12px; background: rgba(34,211,238,0.08); border: 1px solid rgba(34,211,238,0.3); color: #cffafe !important; font-weight: 600; font-size: 0.92rem; text-decoration: none !important; }
+  .tool-links a:hover { background: rgba(34,211,238,0.18); color: #fff !important; }
+</style>

@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LegalShell from '../components/LegalShell.astro';
+import siteConfig from '../data/site-config.json';
+---
+
+<Layout
+  title="Refund Policy | 4KSubscriptionIPTV"
+  metaDescription="Our 7-day refund policy: when you can ask for a refund, what we need from you and how to request it."
+  targetKeyword="IPTV refund policy"
+  slug="refund-policy"
+>
+  <LegalShell h1="Refund Policy" updated="October 2026" lead="Try before you buy, and if the service can't be made to work on your device we will look at a refund.">
+    <h2>7-day money-back window</h2>
+    <p>If you are not satisfied, you can request a refund within 7 days of your purchase. We review every request and aim to resolve it fairly.</p>
+
+    <h2>What we need first</h2>
+    <ul>
+      <li>You have contacted support and given us a chance to fix the problem (for example set-up help or a channel issue).</li>
+      <li>The problem is on our side or cannot be resolved on your device and connection after troubleshooting.</li>
+      <li>The account has not been shared, resold or used in a way that breaks our <a href="/terms-of-service">terms</a>.</li>
+    </ul>
+
+    <h2>What is not covered</h2>
+    <ul>
+      <li>Problems caused by your own internet connection or device that we cannot control.</li>
+      <li>Requests made after the 7-day window.</li>
+      <li>Accounts suspended for misuse.</li>
+    </ul>
+
+    <h2>Free trial first</h2>
+    <p>Because results depend on your device and broadband, we recommend testing with a free trial before ordering. Ask for one on WhatsApp.</p>
+
+    <h2>How to request a refund</h2>
+    <p>Message us on WhatsApp ({siteConfig.whatsappDisplay}) or email <a href={`mailto:${siteConfig.supportEmail}`}>{siteConfig.supportEmail}</a> with your order details and a short description of the problem. We will confirm the next steps and timing with you directly.</p>
+    <div class="legal-actions">
+      <a href={siteConfig.whatsappUrl} class="btn btn-primary btn-lg" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Contact support</a>
+    </div>
+  </LegalShell>
+</Layout>

@@ -1,0 +1,428 @@
+---
+interface Props {
+  geoContext?: string;
+  rating?: string;
+  reviewCount?: string;
+}
+
+const {
+  geoContext = "USA & UK",
+  rating = "4.95",
+  reviewCount = "14,820"
+} = Astro.props;
+
+const reviews = [
+  {
+    name: "James Thornton",
+    location: "London, United Kingdom",
+    flag: "🇬🇧",
+    avatar: "/images/revriw/avatars/avatar-1.webp",
+    device: "Amazon Firestick 4K Max",
+    rating: 5,
+    title: "Sky Sports & TNT Sports in true 4K without 3PM blackouts!",
+    text: "Saved over £1,100 compared to my previous Sky TV and Virgin Media contracts. Every Saturday 3PM Premier League match streams flawlessly in 50/60FPS with zero buffering. Activation was instant on WhatsApp within 2 minutes.",
+    date: "Verified Subscriber &bull; 2 days ago"
+  },
+  {
+    name: "Michael R. Callahan",
+    location: "Dallas, Texas, USA",
+    flag: "🇺🇸",
+    avatar: "/images/revriw/avatars/avatar-2.webp",
+    device: "Nvidia Shield Pro & TiviMate",
+    rating: 5,
+    title: "NFL Sunday Ticket & RedZone in native 60FPS",
+    text: "As a massive football fan living out of market, this service is unbelievable. I get all Sunday afternoon games, NFL RedZone with Scott Hanson, and local Bally Sports. Buffer preloading in TiviMate runs butter-smooth.",
+    date: "Verified Subscriber &bull; 3 days ago"
+  },
+  {
+    name: "Sarah Jenkins",
+    location: "Miami, Florida, USA",
+    flag: "🇺🇸",
+    avatar: "/images/revriw/avatars/avatar-3.webp",
+    device: "Apple TV 4K & Samsung Smart TV",
+    rating: 5,
+    title: "Replaced Comcast Cable completely for my family",
+    text: "Our entire household runs on the 2-device plan. Kids stream Disney+ and cartoon channels in the bedroom while we watch live UFC PPVs and 4K cinema releases in the living room. Amazing customer service!",
+    date: "Verified Subscriber &bull; 5 days ago"
+  },
+  {
+    name: "Oliver Davies",
+    location: "Manchester, United Kingdom",
+    flag: "🇬🇧",
+    avatar: "/images/revriw/avatars/avatar-4.webp",
+    device: "Formuler Z11 Pro Max",
+    rating: 5,
+    title: "Anti-Freeze v9.2 is rock solid during Champions League",
+    text: "I was skeptical about live sports freezing during huge European football matches, but their private CDN network held up 100%. Audio is crisp Dolby 5.1 and channel switching takes less than a second.",
+    date: "Verified Subscriber &bull; 1 week ago"
+  },
+  {
+    name: "David Miller",
+    location: "Chicago, Illinois, USA",
+    flag: "🇺🇸",
+    avatar: "/images/revriw/avatars/avatar-5.webp",
+    device: "Chromecast with Google TV",
+    rating: 5,
+    title: "Best IPTV Reseller Panel with high profit margins",
+    text: "Started reselling with a 50-credit starter pack last month. The Xtream UI panel is fast, free trial generation works like a charm, and my clients are extremely happy with stream stability. Highly recommended!",
+    date: "Verified Reseller &bull; 1 week ago"
+  },
+  {
+    name: "Emma Watson-Clark",
+    location: "Birmingham, United Kingdom",
+    flag: "🇬🇧",
+    avatar: "/images/revriw/avatars/avatar-6.webp",
+    device: "LG OLED Smart TV (webOS)",
+    rating: 5,
+    title: "Super clean EPG TV Guide & 7-Day Catch-up",
+    text: "Installed IBO Player on my LG TV and entered the Xtream Codes credentials. Full UK TV guide loaded immediately with correct GMT times, and the 7-day catchup lets me replay BBC and ITV shows whenever I want.",
+    date: "Verified Subscriber &bull; 2 weeks ago"
+  }
+];
+---
+
+<section class="reviews-section" id="reviews">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-badge"><i class="fa-solid fa-star"></i> Real Customer Reviews</span>
+      <h2 class="section-title">Trusted by Thousands Across <span class="gradient-text">{geoContext}</span></h2>
+      <p class="section-description">
+        Read verified feedback from genuine cord-cutters, sports enthusiasts, and reseller partners streaming daily on our high-speed network.
+      </p>
+
+      <div class="trustpilot-rating-bar">
+        <div class="stars-gold">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <span class="rating-text">Excellent <strong>{rating} / 5.0</strong> based on <strong>{reviewCount}+</strong> verified customer reviews</span>
+        <span class="trust-badge-pill"><i class="fa-solid fa-circle-check"></i> 100% Verified</span>
+      </div>
+    </div>
+
+    <div class="reviews-grid">
+      {reviews.map((rev) => (
+        <div class="review-card glass-card">
+          
+          <div class="rev-header">
+            <div class="rev-author-wrap">
+              <div class="avatar-container">
+                <img 
+                  src={rev.avatar} 
+                  alt={rev.name} 
+                  class="rev-avatar-img" 
+                  loading="lazy" 
+                  width="52" 
+                  height="52"
+                />
+                <span class="avatar-flag-badge">{rev.flag}</span>
+              </div>
+              <div class="rev-author-details">
+                <h4 class="rev-name">{rev.name}</h4>
+                <span class="rev-loc"><i class="fa-solid fa-location-dot"></i> {rev.location}</span>
+                <span class="rev-device-tag"><i class="fa-solid fa-tv"></i> {rev.device}</span>
+              </div>
+            </div>
+
+            <div class="rev-verified-badge">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span>Verified Buyer</span>
+            </div>
+          </div>
+
+          <div class="stars-wrap">
+            <div class="stars-gold">
+              {"★".repeat(rev.rating)}
+            </div>
+            <span class="score-pill">5.0 Score</span>
+          </div>
+
+          <h5 class="rev-headline">"{rev.title}"</h5>
+          <p class="rev-quote">{rev.text}</p>
+
+          <div class="rev-footer">
+            <span class="rev-date"><i class="fa-regular fa-clock"></i> {rev.date}</span>
+            <span class="rev-network-badge"><i class="fa-solid fa-bolt"></i> 10Gbps CDN</span>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+    <!-- Review Submission Callout -->
+    <div class="review-cta-box glass-card">
+      <div class="cta-left">
+        <i class="fa-solid fa-heart-circle-check cta-icon"></i>
+        <div>
+          <h3>Join Over 64,000+ Happy Streamers &amp; Resellers</h3>
+          <p>Experience uncompressed 4K sports, 51,000+ channels, and Anti-Freeze v9.2 risk-free for 7 days.</p>
+        </div>
+      </div>
+      <a href="#pricing" class="btn btn-primary btn-lg">
+        <i class="fa-solid fa-rocket"></i> Get Started Today
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .reviews-section {
+    padding: 80px 0;
+  }
+
+  .trustpilot-rating-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(13, 20, 38, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 22px;
+    border-radius: 9999px;
+    margin-top: 18px;
+    font-size: 0.92rem;
+    color: #e2e8f0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .stars-gold {
+    color: #fbbf24;
+    display: flex;
+    gap: 3px;
+    font-size: 1.05rem;
+  }
+
+  .rating-text strong {
+    color: #38bdf8;
+  }
+
+  .trust-badge-pill {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    padding: 3px 10px;
+    border-radius: 9999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .review-card {
+    min-width: 0;
+    background: rgba(13, 20, 38, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .review-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(59, 130, 246, 0.35);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .rev-header {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .rev-author-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .avatar-container {
+    position: relative;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 2px solid #3b82f6;
+    padding: 2px;
+    background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+    flex-shrink: 0;
+  }
+
+  .rev-avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #0b1329;
+  }
+
+  .avatar-flag-badge {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    font-size: 0.95rem;
+    background: rgba(10, 16, 32, 0.9);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .rev-author-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .rev-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .rev-loc {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .rev-device-tag {
+    font-size: 0.74rem;
+    color: #38bdf8;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .rev-verified-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16, 185, 129, 0.12);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .stars-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 4px;
+  }
+
+  .score-pill {
+    background: rgba(251, 191, 36, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  .rev-headline {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #f8fafc;
+    line-height: 1.35;
+    margin: 4px 0 0 0;
+  }
+
+  .rev-quote {
+    font-size: 0.92rem;
+    color: #cbd5e1;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .rev-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.76rem;
+    color: #94a3b8;
+  }
+
+  .rev-network-badge {
+    color: #38bdf8;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* Bottom CTA Box */
+  .review-cta-box {
+    margin-top: 48px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(13, 20, 38, 0.9) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 20px;
+    padding: 32px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .cta-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .cta-icon {
+    font-size: 2.2rem;
+    color: #38bdf8;
+  }
+
+  .cta-left h3 {
+    font-size: 1.3rem;
+    color: #ffffff;
+    margin-bottom: 4px;
+  }
+
+  .cta-left p {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .reviews-grid {
+      grid-template-columns: 1fr;
+    }
+    .review-cta-box {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

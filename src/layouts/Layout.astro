@@ -1,0 +1,250 @@
+---
+import '../styles/global.css';
+import AnnouncementBar from '../components/AnnouncementBar.astro';
+import MegaHeader from '../components/MegaHeader.astro';
+import KnowledgeNav from '../components/KnowledgeNav.astro';
+import Footer from '../components/Footer.astro';
+import FloatingWhatsapp from '../components/FloatingWhatsapp.astro';
+import QuickSearchModal from '../components/QuickSearchModal.astro';
+import siteConfig from '../data/site-config.json';
+import seoOverrides from '../data/seo/page-overrides.json';
+import { buildGraph, autoBreadcrumbs, shortName } from '../lib/schema';
+import { absUrl, normalizeAbs } from '../lib/url';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+interface Props {
+  title?: string;
+  metaDescription?: string;
+  canonicalUrl?: string;
+  targetKeyword?: string;
+  rating?: string;          // kept for compatibility, no longer used (fake ratings were removed from the markup)
+  reviewCount?: string;     // kept for compatibility
+  priceUsd?: string;        // kept for compatibility
+  slug?: string;
+  faqSchema?: any;
+  articleSchema?: any;
+  geoTarget?: 'us' | 'uk' | 'global';
+  noindex?: boolean;
+  lang?: string;                          // <html lang> and og:locale (default en)
+  // --- SEO / schema controls (all optional; sensible defaults are inferred from the URL) ---
+  ogImage?: string;                       // absolute or /relative path
+  ogImageAlt?: string;
+  pageType?: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage' | 'FAQPage' | 'Blog' | 'Article';
+  commercial?: 'product' | 'service' | 'none';
+  serviceArea?: string;                   // e.g. "Los Angeles, California" -> Service.areaServed
+  category?: string;                      // programmatic page category (breadcrumb hub)
+  breadcrumbName?: string;                // last breadcrumb label
+  breadcrumbs?: { name: string; url: string }[]; // full explicit trail (overrides the automatic one)
+  extraSchema?: any[];                    // additional JSON-LD nodes
+  datePublished?: string;
+  dateModified?: string;
+}
+
+const {
+  title: titleProp = "4KSubscriptionIPTV | Premium 4K & 8K IPTV Streaming & Wholesale Reseller Panels 2026",
+  metaDescription: descProp = "Access high-performance 4K & 8K IPTV streaming servers and official wholesale reseller panels. 51,000+ live channels, 200,000+ VOD movies, zero-buffering Anti-Freeze v9.2 CDN, and 24/7 dedicated WhatsApp support.",
+  canonicalUrl: canonicalProp,
+  targetKeyword = "Premium 4K IPTV & Reseller Panels",
+  slug = "",
+  faqSchema,
+  articleSchema,
+  geoTarget,
+  noindex: noindexProp = false,
+  lang: langProp,
+  ogImage,
+  ogImageAlt,
+  pageType,
+  commercial,
+  serviceArea,
+  category,
+  breadcrumbName,
+  breadcrumbs: breadcrumbsProp,
+  extraSchema,
+  datePublished,
+  dateModified
+} = Astro.props;
+
+const analytics = (siteConfig as any).analytics || {};
+const htmlLang = langProp || 'en';
+const OG_LOCALES: Record<string, string> = { en: 'en_US', de: 'de_DE', fr: 'fr_FR', es: 'es_ES' };
+const currentPath = Astro.url.pathname.replace(/\/$/, '');
+
+// ---- Per-page SEO overrides: edit src/data/seo/page-overrides.json (keyed by path, "/" for the home page)
+const override: any = (seoOverrides as any)[currentPath || '/'] || {};
+const title: string = override.title || titleProp;
+const metaDescription: string = override.description || descProp;
+const noindex: boolean = override.noindex ?? noindexProp;
+const toAbs = (u: string) => (/^https?:\/\//.test(u) ? u : `${siteConfig.domain}${u.startsWith('/') ? '' : '/'}${u}`);
+// Permalink / canonical: override > explicit prop > clean URL without trailing slash
+const currentUrl: string = override.canonical ? normalizeAbs(toAbs(override.canonical)) : canonicalProp ? normalizeAbs(canonicalProp) : absUrl(currentPath || '/');
+const socialImage: string = toAbs(override.ogImage || ogImage || '/og-default.png');
+const socialImageAlt: string = override.ogImageAlt || ogImageAlt || `${siteConfig.siteName}: ${shortName(title)}`;
+
+// Regional context (og:locale + schema language)
+const isUkPage = currentPath.startsWith('/uk') || currentPath.includes('-uk') || geoTarget === 'uk';
+
+// hreflang: only for pages that have a real translated / regional twin. Every page in a group lists
+// all alternates (including itself), which is what Google requires. All other pages get none.
+const HREFLANG_GROUPS: Record<string, string>[] = [
+  { 'en-us': '/', 'en-gb': '/uk', de: '/de', fr: '/fr', es: '/es', 'x-default': '/' },
+  { 'en-us': '/pricing', 'en-gb': '/uk/pricing', 'x-default': '/pricing' },
+  { 'en-us': '/iptv-free-trial', 'en-gb': '/uk/iptv-free-trial', 'x-default': '/iptv-free-trial' },
+  { 'en-us': '/devices/firestick', 'en-gb': '/uk/devices/firestick', 'x-default': '/devices/firestick' }
+];
+const hrefKey = currentPath === '' ? '/' : currentPath;
+const hreflangs = (HREFLANG_GROUPS.find((g) => Object.values(g).includes(hrefKey)) &&
+  Object.entries(HREFLANG_GROUPS.find((g) => Object.values(g).includes(hrefKey))!).map(([lang, p]) => ({
+    lang,
+    href: absUrl(p)
+  }))) || [];
+
+// ---- Page kind (drives the schema type and og:type)
+const COMMERCIAL_PATHS = ['/pricing', '/uk/pricing'];
+const inferredCommercial: 'product' | 'service' | 'none' =
+  commercial ||
+  (COMMERCIAL_PATHS.includes(currentPath) ? 'product'
+    : /^\/(iptv|devices|apps|sports|features|alternatives|uk\/(devices|sports|alternatives)|iptv-free-trial|uk\/iptv-free-trial)(\/|$)/.test(currentPath) ? 'service'
+    : 'none');
+const inferredType =
+  pageType ||
+  (currentPath === '/about' ? 'AboutPage'
+    : currentPath === '/contact' ? 'ContactPage'
+    : currentPath === '/faq' ? 'FAQPage'
+    : currentPath === '/blog' ? 'Blog'
+    : ['/all-locations', '/all-devices', '/all-sports'].includes(currentPath) ? 'CollectionPage'
+    : articleSchema ? 'Article'
+    : 'WebPage');
+
+const buildDate = new Date().toISOString().slice(0, 10);
+const crumbs = (breadcrumbsProp && breadcrumbsProp.length > 1
+  ? breadcrumbsProp.map((c) => ({ name: c.name, url: normalizeAbs(c.url.startsWith('/') ? absUrl(c.url) : c.url) }))
+  : autoBreadcrumbs(currentPath, title, breadcrumbName, category));
+const schemaData = buildGraph({
+  url: currentUrl,
+  path: currentPath,
+  title,
+  description: metaDescription,
+  image: socialImage,
+  imageAlt: socialImageAlt,
+  isUk: isUkPage,
+  breadcrumbs: crumbs,
+  pageType: inferredType as any,
+  commercial: inferredCommercial,
+  serviceArea,
+  faqSchema,
+  articleSchema,
+  extra: extraSchema,
+  datePublished: datePublished || articleSchema?.datePublished,
+  dateModified: dateModified || articleSchema?.dateModified || buildDate
+});
+---
+
+<!DOCTYPE html>
+<html lang={htmlLang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="theme-color" content="#070a14" />
+  <meta name="application-name" content={siteConfig.siteName} />
+  <meta name="author" content={siteConfig.siteName} />
+  <meta name="format-detection" content="telephone=no" />
+  
+  <!-- Fonts and icons are self-hosted (public/fonts, built by scripts/build-assets.mjs): no third-party requests -->
+  <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/fa/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/fonts/fa/fa.css" />
+
+  <!-- Primary SEO Meta Tags -->
+  <title>{title}</title>
+  <meta name="description" content={metaDescription} />
+  <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
+  <link rel="canonical" href={currentUrl} />
+
+  <!-- Hreflang (only where a real alternate page exists) -->
+  {hreflangs.map((h) => <link rel="alternate" hreflang={h.lang} href={h.href} />)}
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content={articleSchema ? 'article' : 'website'} />
+  <meta property="og:locale" content={htmlLang !== 'en' ? OG_LOCALES[htmlLang] || 'en_US' : isUkPage ? 'en_GB' : 'en_US'} />
+  <meta property="og:url" content={currentUrl} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={metaDescription} />
+  <meta property="og:image" content={socialImage} />
+  <meta property="og:image:alt" content={socialImageAlt} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content={siteConfig.siteName} />
+  {articleSchema?.datePublished && <meta property="article:published_time" content={articleSchema.datePublished} />}
+  {articleSchema?.dateModified && <meta property="article:modified_time" content={articleSchema.dateModified} />}
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={metaDescription} />
+  <meta name="twitter:image" content={socialImage} />
+  <meta name="twitter:image:alt" content={socialImageAlt} />
+
+  <!-- Favicon and Touch Icons -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Google Search Console Verification Placeholder -->
+  {siteConfig.googleSiteVerification && (
+    <meta name="google-site-verification" content={siteConfig.googleSiteVerification} />
+  )}
+
+  <!-- Structured Data JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <!-- Analytics (only rendered when an ID is set in src/data/site-config.json -> "analytics") -->
+  {analytics.ga4MeasurementId && (
+    <>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${analytics.ga4MeasurementId}`}></script>
+      <script is:inline define:vars={{ id: analytics.ga4MeasurementId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', id);
+      </script>
+    </>
+  )}
+  {analytics.plausibleScriptId && (
+    <>
+      <script is:inline async src={`https://plausible.io/js/${analytics.plausibleScriptId}.js`}></script>
+      <script is:inline>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+    </>
+  )}
+  {analytics.plausibleDomain && (
+    <script is:inline defer data-domain={analytics.plausibleDomain} src="https://plausible.io/js/script.js"></script>
+  )}
+  {analytics.clarityProjectId && (
+    <script is:inline define:vars={{ id: analytics.clarityProjectId }}>
+      (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script",id);
+    </script>
+  )}
+</head>
+<body class="upgraded-theme">
+  <!-- Top Announcement Bar -->
+  <AnnouncementBar />
+
+  <!-- Mega Header -->
+  <MegaHeader />
+
+  <!-- Knowledge Nav Sub-Bar -->
+  <KnowledgeNav />
+
+  {currentPath !== '' && <Breadcrumbs items={crumbs} />}
+
+  <main id="main-content">
+    <slot />
+  </main>
+
+  <Footer />
+  <FloatingWhatsapp />
+  <QuickSearchModal />
+</body>
+</html>

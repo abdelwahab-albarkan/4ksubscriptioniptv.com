@@ -1,0 +1,79 @@
+---
+// Trust Bar - Proof & Credibility Badges Ticker
+---
+
+<section class="trust-bar">
+  <div class="container">
+    <div class="trust-inner">
+      <span class="trust-item"><i class="fa-solid fa-star"></i> IPTV Research Library 2026</span>
+      <span class="trust-item"><i class="fa-solid fa-users"></i> 27 Verified Server Lineages</span>
+      <span class="trust-item"><i class="fa-solid fa-globe"></i> 5 Global IPTV Markets</span>
+      <span class="trust-item"><i class="fa-solid fa-shield-halved"></i> Trusted Provider Network</span>
+      <span class="trust-item"><i class="fa-solid fa-headset"></i> 24/7 Premium Support</span>
+      <span class="trust-item"><i class="fa-solid fa-bolt"></i> 3-Min Instant Activation</span>
+      <span class="trust-item"><i class="fa-solid fa-trophy"></i> Independent Research Hub</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust-bar {
+    background: rgba(15, 23, 42, 0.6);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 14px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .trust-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .trust-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    min-width: max-content;
+  }
+
+  .trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #cbd5e1;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 6px 14px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.2s ease;
+  }
+
+  .trust-item:hover {
+    color: #ffffff;
+    border-color: rgba(59, 130, 246, 0.35);
+    background: rgba(59, 130, 246, 0.1);
+    transform: translateY(-1px);
+  }
+
+  .trust-item i {
+    color: #38bdf8;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 900px) {
+    .trust-inner {
+      justify-content: flex-start;
+      gap: 12px;
+      padding: 0 10px;
+    }
+    .trust-item {
+      font-size: 0.76rem;
+      padding: 5px 10px;
+    }
+  }
+</style>

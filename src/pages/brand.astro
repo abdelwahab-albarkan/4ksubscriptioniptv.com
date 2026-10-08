@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LegalShell from '../components/LegalShell.astro';
+import siteConfig from '../data/site-config.json';
+import { absUrl } from '../lib/url';
+
+const home = absUrl('/');
+const linkSnippet = `<a href="${home}">${siteConfig.siteName}</a>`;
+const colors = [
+  { name: 'Blue', hex: '#3B82F6' }, { name: 'Cyan', hex: '#06B6D4' }, { name: 'Night', hex: '#070A14' }, { name: 'Sky text', hex: '#38BDF8' },
+];
+const assets = [
+  { file: '/logo.png', label: 'Horizontal logo (PNG, dark background)', size: '1200 x 300' },
+  { file: '/logo-mark.svg', label: 'Logo mark (SVG)', size: 'vector' },
+  { file: '/icon-512.png', label: 'App icon (PNG)', size: '512 x 512' },
+  { file: '/og-default.png', label: 'Social share image (PNG)', size: '1200 x 630' },
+];
+---
+
+<Layout
+  title="Brand and Press Kit | 4KSubscriptionIPTV"
+  metaDescription="Logos, colours, a short description and link snippets for 4KSubscriptionIPTV. Everything journalists, bloggers and partners need to mention us correctly."
+  targetKeyword="press kit"
+  slug="brand"
+>
+  <LegalShell h1="Brand and press kit" lead={`Everything you need to mention ${siteConfig.siteName} correctly: name, description, logos and a link snippet.`}>
+    <h2>Name</h2>
+    <p>{siteConfig.siteName}. Written as one word, with <strong>4K</strong> at the start. Website: <a href={home}>{home}</a>.</p>
+
+    <h2>Short description</h2>
+    <p>{siteConfig.siteName} offers IPTV subscriptions, device set-up guides and free tools that help people watch live sport, movies and TV over the internet.</p>
+
+    <h2>Longer description</h2>
+    <p>{siteConfig.siteName} provides IPTV subscriptions delivered through Xtream Codes or M3U details, step-by-step guides for Firestick, Android and Google TV, Samsung and LG smart TVs and Apple devices, and local guides for every US state and UK region. The site also publishes free calculators for internet speed and cable savings, and offers a free trial so viewers can test before they pay.</p>
+
+    <h2>Link to us</h2>
+    <p>Copy this HTML to link to the home page:</p>
+    <pre class="brand-code"><code>{linkSnippet}</code></pre>
+    <p>Helpful pages to link to: <a href="/tools/internet-speed-calculator">internet speed calculator</a>, <a href="/tools/cable-savings-calculator">cable savings calculator</a>, <a href="/blog/what-is-iptv-beginners-guide">what is IPTV</a>, <a href="/blog/is-iptv-legal-us-uk-guide">is IPTV legal</a>.</p>
+
+    <h2>Logos and images</h2>
+    <ul class="brand-assets">
+      {assets.map((a) => (
+        <li>
+          <a href={a.file} download class="brand-asset">
+            <img src={a.file} alt={a.label} loading="lazy" />
+            <span class="brand-asset-name">{a.label}</span>
+            <span class="brand-asset-size">{a.size}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p>Please use the logo unchanged, with clear space around it, and do not imply that we endorse your product.</p>
+
+    <h2>Colours</h2>
+    <ul class="brand-colors">
+      {colors.map((c) => <li><span class="swatch" style={`background:${c.hex}`}></span><span>{c.name} <code>{c.hex}</code></span></li>)}
+    </ul>
+
+    <h2>Press and partnership contact</h2>
+    <p>Email <a href={`mailto:${siteConfig.supportEmail}`}>{siteConfig.supportEmail}</a> or message us on WhatsApp at {siteConfig.whatsappDisplay}. You can also use the <a href="/contact">contact page</a>.</p>
+  </LegalShell>
+</Layout>
+
+<style is:global>
+  .brand-code { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 14px 16px; overflow-x: auto; margin: 10px 0 14px; color: #e2e8f0; font-size: 0.9rem; }
+  .brand-assets { list-style: none; padding: 0 !important; margin: 14px 0 !important; display: grid !important; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px !important; }
+  .brand-asset { display: grid; gap: 6px; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); text-decoration: none !important; height: 100%; }
+  .brand-asset:hover { border-color: rgba(79,140,255,0.5); }
+  .brand-asset img { width: 100%; height: 90px; object-fit: contain; background: #070a14; border-radius: 8px; }
+  .brand-asset-name { color: #f1f5f9; font-weight: 600; font-size: 0.9rem; }
+  .brand-asset-size { color: #94a3b8; font-size: 0.78rem; }
+  .brand-colors { list-style: none; padding: 0 !important; margin: 12px 0 !important; display: flex !important; flex-wrap: wrap; gap: 14px !important; }
+  .brand-colors li { display: inline-flex; align-items: center; gap: 10px; }
+  .swatch { width: 34px; height: 34px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.25); display: inline-block; }
+  .brand-colors code { color: #94a3b8; }
+</style>

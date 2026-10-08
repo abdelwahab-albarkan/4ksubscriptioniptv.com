@@ -1,0 +1,316 @@
+---
+import { fromUsd } from '../lib/pricing';
+interface Props {
+  geoContext?: string;
+  deviceName?: string;
+  sportName?: string;
+  category?: string;
+  locationName?: string;
+  countryCode?: string;
+}
+
+const {
+  geoContext = "USA & UK",
+  deviceName = "Amazon Firestick & Smart TVs",
+  sportName = "Premier League & NFL Sports",
+  category = "us-geo",
+  locationName,
+  countryCode = "US"
+} = Astro.props;
+
+const isUk = category === 'uk-geo' || geoContext.includes('United Kingdom') || geoContext.includes('UK') || countryCode === 'GB';
+const isDevice = category === 'device';
+const isSport = category === 'sports';
+const isIntent = category === 'intent';
+
+let faqs: { q: string; a: string }[] = [];
+
+if (isDevice) {
+  faqs = [
+    {
+      q: `How do I install and configure IPTV on my ${deviceName}?`,
+      a: `Installation takes less than 2 minutes. On ${deviceName}, open the Downloader app, enter our direct code to install TiviMate or IPTV Smarters Pro. Choose 'Login with Xtream Codes API', enter the server details and login sent to your WhatsApp, and all 51,000+ channels will sync automatically.`
+    },
+    {
+      q: `How do I prevent buffering and increase the buffer cache on ${deviceName}?`,
+      a: `In your player settings (such as TiviMate or Smarters), navigate to Settings > Playback > Buffer Size and select 'Large (100MB)'. This preloads 15 seconds of stream ahead of time, ensuring 100% buffer-free playback even during momentary Wi-Fi fluctuations.`
+    },
+    {
+      q: `Does ${deviceName} support 4K 60FPS hardware video decoding?`,
+      a: `Yes! Set your video decoder to 'Hardware Video Decoding (HW+ / MediaCodec)' in your player settings. This offloads H.265 HEVC 4K decoding to your GPU, keeping device temperatures cool and delivering silky-smooth 60 frames per second.`
+    },
+    {
+      q: `Can I enable Auto Frame Rate (AFR) matching on ${deviceName}?`,
+      a: `Yes. Enabling Auto Frame Rate (AFR) automatically switches your TV display frequency (50Hz for European football, 60Hz for US sports, 24Hz for 4K movies), completely eliminating motion judder.`
+    },
+    {
+      q: `Do I need to sideload apps or can I install from the official store on ${deviceName}?`,
+      a: `Depending on your device model, official apps like IBO Player and IPTV Smarters are available directly in the Amazon Appstore, Google Play Store, and Samsung/LG App stores. For TiviMate, Downloader sideloading takes just 30 seconds.`
+    },
+    {
+      q: `Does this service provide a working EPG TV guide and channel logos on ${deviceName}?`,
+      a: `Yes, our XMLTV EPG guide URL is automatically loaded through the Xtream Codes API, giving you full 7-day program listings, channel logos, and program descriptions on ${deviceName}.`
+    },
+    {
+      q: `How many simultaneous screens can I use on ${deviceName}?`,
+      a: `Our standard subscriptions include 2 to 5 simultaneous multi-room connections, so you can watch live sports on your main ${deviceName} while family members watch movies on other TVs or mobile devices.`
+    },
+    {
+      q: `What is the refund policy if I encounter compatibility issues on ${deviceName}?`,
+      a: `We provide a 100% Risk-Free 7-Day Money-Back Guarantee. If our 24/7 technical team cannot optimize your stream on ${deviceName}, you receive an immediate full refund.`
+    }
+  ];
+} else if (isSport) {
+  faqs = [
+    {
+      q: `Can I watch live 3:00 PM Saturday football kickoffs and ${sportName} without blackouts?`,
+      a: `Yes! Our service includes direct uncompressed feeds from worldwide international broadcasters (Peacock, Optus Sport, beIN, SuperSport, DAZN), allowing you to stream every single match live in 4K/60FPS with zero blackout restrictions.`
+    },
+    {
+      q: `What frame rate (FPS) and video quality are the sports channels broadcast in?`,
+      a: `All primary sports channels (Sky Sports, TNT Sports, ESPN, Fox Sports 4K, NBC Sports, NFL Network) stream in native 50FPS or 60FPS with bitrates up to 35 Mbps for fluid ball tracking and crystal-clear stadium details.`
+    },
+    {
+      q: `Are live Pay-Per-View (PPV) events like UFC, Boxing, and WWE included?`,
+      a: `Yes! All major numbered UFC main cards, Championship Boxing PPVs, WWE Premium Live Events, and Formula 1 Grand Prix races are included in your subscription at zero extra cost.`
+    },
+    {
+      q: `How low is the stream delay compared to live stadium broadcasts?`,
+      a: `Our low-latency satellite uplink infrastructure keeps stream latency under 8 seconds behind live stadium action, ensuring your betting notifications and WhatsApp group chats never spoil goals or touchdowns before they appear on your TV.`
+    },
+    {
+      q: `Does the service include 7-day catch-up and match replay?`,
+      a: `Yes! If you miss the live kickoff or want to re-watch a classic bout, our 7-day interactive catch-up allows you to rewind, replay, and pause key sporting events on demand.`
+    },
+    {
+      q: `What internet speed is required to stream live 4K sports with zero buffering?`,
+      a: `A stable connection of 25–30 Mbps is recommended for uncompressed 4K 60FPS live sports. For 1080p 60FPS HD feeds, 15 Mbps is sufficient.`
+    },
+    {
+      q: `Can I watch multiple sporting events at the same time in Multi-Screen view?`,
+      a: `Yes! Using TiviMate or IPTV Smarters Pro, you can open up to 4 or 9 live sports channels on a single TV screen simultaneously—perfect for NFL RedZone Sundays and Champions League group stages.`
+    },
+    {
+      q: `What happens if a stream server experiences heavy traffic during a major cup final?`,
+      a: `Our proprietary Anti-Freeze Protocol v9.2 dynamically load-balances connections across 10Gbps backup edge servers in London, Manchester, New York, and Dallas, ensuring 99.99% uptime with zero mid-game server drops.`
+    }
+  ];
+} else if (isUk) {
+  faqs = [
+    {
+      q: `Will UK internet providers like BT, Sky Broadband, or Virgin Media throttle this IPTV in ${geoContext}?`,
+      a: `No. 4KSubscriptionIPTV features SSL 256-bit encrypted tunneling (ports 8080 & 443) and Cloudflare 1.1.1.1 secure DNS routing, preventing automated ISP traffic filtering from BT Web Protect, Sky Broadband Shield, or Virgin Media WebSafe.`
+    },
+    {
+      q: `How do I bypass the UK 3PM Saturday Premier League blackout in ${geoContext}?`,
+      a: `Under UK Article 48 regulations, domestic broadcasters cannot televise 3PM games. Our network provides direct overseas 4K stadium feeds from Peacock, Optus Sport, and beIN, giving you 100% live coverage of all 380 Premier League fixtures.`
+    },
+    {
+      q: `Does this IPTV subscription include all Sky Sports and TNT Sports channels in 4K UHD?`,
+      a: `Yes! You receive Sky Sports Main Event, Premier League, Football, F1, Cricket, Golf, alongside TNT Sports 1 to 4 and TNT Sports Ultimate in native 4K UHD 50FPS.`
+    },
+    {
+      q: `Are UK currency payments in GBP (£) accepted?`,
+      a: `Yes! All prices can be billed directly in GBP (£) using Visa, Mastercard, PayPal, Revolut, Monzo, Apple Pay, and Crypto with instant receipt generation.`
+    },
+    {
+      q: `Does the Electronic Program Guide (EPG) sync with UK GMT / British Summer Time (BST)?`,
+      a: `Yes! Our UK XMLTV EPG automatically aligns with local UK time zones, providing accurate 7-day TV schedules for BBC, ITV, Channel 4, Channel 5, Sky, and TNT networks.`
+    },
+    {
+      q: `What is the server latency and ping in ${geoContext}?`,
+      a: `With dedicated edge CDN nodes in London (Equinix LD4) and Manchester, our UK streaming ping averages under 8ms for instantaneous channel switching.`
+    },
+    {
+      q: `How fast will I receive my login credentials in ${geoContext}?`,
+      a: `Our automated dispatch system sends your Xtream Codes API credentials (Server URL, Username, Password) and M3U playlist link to your WhatsApp and email within 2 to 3 minutes of checkout.`
+    },
+    {
+      q: `What is your refund policy for customers in ${geoContext}?`,
+      a: `We offer a full 100% Risk-Free 7-Day Money-Back SLA. If you encounter any technical buffering or channel stability issues that our 24/7 team cannot resolve, you receive a full refund.`
+    }
+  ];
+} else if (!isUk && !isDevice && !isSport && !isIntent) {
+  faqs = [
+    {
+      q: `Can I stream out-of-market NFL Sunday Ticket, NBA League Pass, and MLB games in ${geoContext}?`,
+      a: `Yes! You can stream all out-of-market NFL games, NFL RedZone, NBA League Pass feeds, MLB Extra Innings, and NHL Center Ice in 60FPS without blackouts, regardless of your geographic location.`
+    },
+    {
+      q: `Does this IPTV service include local ABC, CBS, FOX, and NBC broadcast channels for ${geoContext}?`,
+      a: `Yes! We provide live local affiliate feeds across all 210 US media markets (DMAs), so you can watch your local morning news, weather updates, and primetime network programming in native HD/4K.`
+    },
+    {
+      q: `How much money will I save compared to Comcast Xfinity, Spectrum, or DirecTV?`,
+      a: `The average US household pays $135/month for cable and regional sports tiers ($1,620/year). 4KSubscriptionIPTV costs only ${fromUsd}/month with zero contracts, saving you over $1,400 annually with 10x more channels.`
+    },
+    {
+      q: `Are Regional Sports Networks (RSNs) like Bally Sports, YES Network, and NESN included?`,
+      a: `Yes! We carry all regional sports networks including Bally Sports (all regions), YES Network, NESN, Marquee Sports Network, NBC Sports Regional, MASN, and Altitude.`
+    },
+    {
+      q: `Which US CDN server location provides the fastest streaming in ${geoContext}?`,
+      a: `Our US infrastructure features low-latency 10Gbps edge clusters located in New York, Dallas, Chicago, Atlanta, and Los Angeles, routing your connection to the lowest-ping node automatically.`
+    },
+    {
+      q: `Can I stream on multiple TVs simultaneously in my household?`,
+      a: `Yes! Our multi-room subscriptions include 2 to 5 simultaneous device connections, so the entire household can watch different live sports, movies, and TV shows at the same time.`
+    },
+    {
+      q: `Do I need a VPN to stream IPTV safely in the USA?`,
+      a: `No VPN is necessary because all stream packets are secured with TLS/SSL encryption over port 443. However, if you prefer using a VPN like ExpressVPN or NordVPN, our servers are 100% compatible.`
+    },
+    {
+      q: `What is the 7-day money-back guarantee policy in the USA?`,
+      a: `We stand behind our service with a 100% Risk-Free 7-Day Money-Back Guarantee. If you are not satisfied with stream quality, our 24/7 WhatsApp concierge will issue an immediate full refund.`
+    }
+  ];
+} else {
+  // Intent / Commercial / Reseller / Trial FAQs
+  faqs = [
+    {
+      q: `How fast will I receive my IPTV activation credentials?`,
+      a: `Our automated dispatch gateway processes orders instantly. Within 2 to 3 minutes of checkout, your Xtream Codes API credentials (Server URL, Username, Password) and M3U playlist link are delivered directly to your email address and WhatsApp.`
+    },
+    {
+      q: `What formats and connection protocols are provided upon ordering?`,
+      a: `We provide full Xtream Codes API credentials, M3U Plus playlists with EPG tags, and MAG/Stalker portal URLs compatible with TiviMate, IPTV Smarters Pro, IBO Player, Formuler, and XCIPTV.`
+    },
+    {
+      q: `How does the 24-hour IPTV free trial work?`,
+      a: `You can request a 24-hour test access on WhatsApp with zero credit card required. Test all 51,000+ live channels, 4K sports, and 200k+ VOD movies on your device before subscribing.`
+    },
+    {
+      q: `What payment methods are accepted?`,
+      a: `We accept all major payment methods including Visa, Mastercard, American Express, PayPal, Apple Pay, Google Pay, Revolut, and leading Cryptocurrencies (Bitcoin, USDT, Ethereum).`
+    },
+    {
+      q: `How does the IPTV Reseller Panel work?`,
+      a: `Our Reseller Panel (Xtream UI / 1-Stream) allows you to purchase wholesale credits at up to 70% discount, create custom 1-month, 3-month, 6-month, and 12-month client accounts, generate free trials, and manage sub-resellers with your own custom DNS brand.`
+    },
+    {
+      q: `What is the difference between single and multi-connection packages?`,
+      a: `A 1-connection subscription allows streaming on 1 device at a time. Multi-connection plans (2, 3, or 5 connections) allow simultaneous playback on multiple TVs, tablets, and phones under a single subscription.`
+    },
+    {
+      q: `What anti-freeze technology is used to prevent server buffering?`,
+      a: `Our servers operate on Anti-Freeze Protocol v9.2 across dedicated 10Gbps unmetered load-balanced CDN edge nodes in London, Manchester, New York, and Dallas with 99.99% SLA uptime.`
+    },
+    {
+      q: `What is your refund policy if I am not satisfied?`,
+      a: `We provide a 100% Risk-Free 7-Day Money-Back Guarantee on all subscription plans. If our 24/7 WhatsApp engineers cannot resolve your technical inquiry, you receive a full prompt refund.`
+    }
+  ];
+}
+
+// JSON-LD Schema for Google FAQ Rich Snippets
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": f.a
+    }
+  }))
+};
+---
+
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Frequently Asked Questions</span>
+      <h2 class="section-title">Got Questions About <span class="gradient-text">Our IPTV Service?</span></h2>
+      <p class="section-desc">
+        Everything you need to know about channel coverage, instant activation, supported devices, and stream stability in {geoContext}.
+      </p>
+    </div>
+
+    <div class="faq-container">
+      {faqs.map((faq, index) => (
+        <details class="faq-item glass-card" open={index === 0}>
+          <summary class="faq-question">
+            <span class="faq-q-text">{faq.q}</span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>{faq.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+
+  <!-- Injected FAQ Schema for Google Rich Snippets -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</section>
+
+<style>
+  .faq-section {
+    padding: 70px 0;
+  }
+
+  .faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color 0.25s ease;
+  }
+
+  .faq-item[open] {
+    border-color: rgba(59, 130, 246, 0.4);
+    background: rgba(20, 29, 52, 0.85);
+  }
+
+  .faq-question {
+    padding: 20px 24px;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    user-select: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-icon {
+    font-size: 1.5rem;
+    color: #38bdf8;
+    transition: transform 0.25s ease;
+  }
+
+  .faq-item[open] .faq-icon {
+    transform: rotate(45deg);
+    color: #f87171;
+  }
+
+  .faq-answer {
+    padding: 0 24px 22px 24px;
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    line-height: 1.7;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    margin-top: 4px;
+  }
+
+  .faq-answer p {
+    margin-top: 12px;
+  }
+</style>

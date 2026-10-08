@@ -1,0 +1,14 @@
+---
+import HubPage from '../../../components/HubPage.astro';
+import hubData from '../../../data/hubs.json';
+
+export function getStaticPaths() {
+  return hubData.hubs
+    .filter((h) => h.type === 'us-state')
+    .map((hub) => ({ params: { state: hub.slug }, props: { hub } }));
+}
+
+const { hub } = Astro.props;
+---
+
+<HubPage hub={hub} />

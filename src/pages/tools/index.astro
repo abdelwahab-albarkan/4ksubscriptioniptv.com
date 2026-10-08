@@ -1,0 +1,42 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolShell from '../../components/ToolShell.astro';
+
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Tools', url: '/tools' }];
+const tools = [
+  { href: '/tools/internet-speed-calculator', icon: 'fa-gauge-high', name: 'Internet speed calculator', text: 'Find out how many Mbps you need for smooth IPTV and live sport, based on screens and picture quality.' },
+  { href: '/tools/cable-savings-calculator', icon: 'fa-piggy-bank', name: 'Cable savings calculator', text: 'Compare your cable or satellite bill with IPTV plan prices and see the monthly and yearly difference.' },
+];
+---
+
+<Layout
+  title="Free IPTV Tools: Speed and Savings Calculators"
+  metaDescription="Free tools for cord-cutters: an internet speed calculator for IPTV and a cable vs IPTV savings calculator. Instant results, no sign-up."
+  targetKeyword="iptv tools"
+  pageType="CollectionPage"
+  breadcrumbs={crumbs}
+>
+  <ToolShell h1="Free tools for cord-cutters" lead="Two quick calculators that answer the questions people ask before switching to IPTV. No sign-up, they run in your browser.">
+    <ul class="tools-list">
+      {tools.map((t) => (
+        <li>
+          <a href={t.href} class="tool-tile glass-card">
+            <i class={`fa-solid ${t.icon}`}></i>
+            <span class="tool-tile-name">{t.name}</span>
+            <span class="tool-tile-text">{t.text}</span>
+            <span class="tool-tile-go">Open the calculator &rarr;</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </ToolShell>
+</Layout>
+
+<style>
+  .tools-list { list-style: none; padding: 0; margin: 28px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+  .tool-tile { display: grid; gap: 8px; padding: 24px; height: 100%; }
+  .tool-tile i { font-size: 1.6rem; color: #38bdf8; }
+  .tool-tile-name { font-family: var(--font-heading); font-weight: 700; font-size: 1.2rem; color: #fff; }
+  .tool-tile-text { color: #b6c2d4; line-height: 1.6; font-size: 0.95rem; }
+  .tool-tile-go { color: #38bdf8; font-weight: 600; margin-top: 4px; }
+</style>

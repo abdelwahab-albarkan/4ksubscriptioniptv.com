@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro';
+import hubData from '../data/hubs.json';
+import { absUrl } from '../lib/url';
+
+const topics = (hubData as any).topics as { key: string; label: string; items: { label: string; href: string }[] }[];
+const total = topics.reduce((n, g) => n + g.items.length, 0);
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Guides', url: '/guides' }];
+const itemList = {
+  '@type': 'ItemList',
+  '@id': `${absUrl('/guides')}#topics`,
+  name: 'IPTV topic guides',
+  numberOfItems: total,
+  itemListElement: topics.flatMap((g) => g.items).map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.label, url: absUrl(it.href) })),
+};
+---
+
+<Layout
+  title="IPTV Topic Guides: Teams, TVs, Apps and Buying Advice"
+  metaDescription="Browse our IPTV topic guides: football teams and competitions, NFL games, TVs and devices, apps and logins, and buying advice with a free trial."
+  targetKeyword="iptv guides"
+  pageType="CollectionPage"
+  breadcrumbs={crumbs}
+  extraSchema={[itemList]}
+>
+  <section class="gd-page">
+    <div class="container">
+      <header class="gd-head">
+        <span class="section-badge"><i class="fa-solid fa-compass"></i> Guides</span>
+        <h1>IPTV topic guides</h1>
+        <p>{total} short guides on the questions viewers search for most: which channels carry a team, how a device works with IPTV, what to check before you buy. For step-by-step tutorials see the <a href="/blog">blog</a>; for your area see <a href="/all-locations">local guides</a>.</p>
+      </header>
+
+      {topics.map((g) => (
+        <section class="gd-group" id={g.key}>
+          <h2>{g.label}</h2>
+          <ul class="gd-grid">
+            {g.items.map((it) => <li><a href={it.href} class="gd-link">{it.label}</a></li>)}
+          </ul>
+        </section>
+      ))}
+
+      <section class="gd-group">
+        <h2>Also useful</h2>
+        <ul class="gd-grid">
+          <li><a href="/all-devices" class="gd-link">Device set-up guides</a></li>
+          <li><a href="/all-sports" class="gd-link">Sports guides</a></li>
+          <li><a href="/tools" class="gd-link">Free calculators</a></li>
+          <li><a href="/iptv-free-trial" class="gd-link">Free 24-hour trial</a></li>
+          <li><a href="/pricing" class="gd-link">IPTV plans (USA)</a></li>
+          <li><a href="/uk/pricing" class="gd-link">IPTV plans (UK)</a></li>
+        </ul>
+      </section>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .gd-page { padding: clamp(24px, 5vw, 56px) 0 clamp(40px, 7vw, 80px); }
+  .gd-head { max-width: 820px; }
+  .gd-head h1 { margin: 12px 0 14px; }
+  .gd-head p { color: #cbd5e1; line-height: 1.75; }
+  .gd-head a { color: #38bdf8; text-decoration: underline; }
+  .gd-group { margin-top: 36px; scroll-margin-top: 130px; }
+  .gd-group h2 { font-size: clamp(1.2rem, 2.4vw, 1.6rem); margin-bottom: 14px; }
+  .gd-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 10px; }
+  .gd-link { display: flex; align-items: center; min-height: 48px; padding: 10px 14px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: #e2e8f0; font-weight: 600; font-size: 0.92rem; overflow-wrap: anywhere; transition: all 0.2s; }
+  .gd-link:hover { background: rgba(79,140,255,0.14); border-color: rgba(79,140,255,0.45); color: #fff; }
+</style>

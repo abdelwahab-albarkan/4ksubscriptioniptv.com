@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LegalShell from '../components/LegalShell.astro';
+import siteConfig from '../data/site-config.json';
+---
+
+<Layout
+  title="About 4KSubscriptionIPTV | IPTV Subscriptions & Setup Help"
+  metaDescription="Who we are, what 4KSubscriptionIPTV offers and how it works: IPTV subscriptions, device set-up guides, a free trial and 24/7 WhatsApp support."
+  targetKeyword="About IPTV provider"
+  slug="about"
+>
+  <LegalShell h1={`About ${siteConfig.siteName}`} lead="We help people watch live sport, movies and TV on the devices they already own, and we explain how it works before they pay.">
+    <h2>What we do</h2>
+    <p>{siteConfig.siteName} offers IPTV subscriptions delivered through Xtream Codes or M3U details, plus practical set-up guides for Firestick, Android and Google TV, Samsung and LG smart TVs, Apple devices and more. We also publish reseller information for people who want to resell subscriptions.</p>
+
+    <h2>How it works</h2>
+    <ol>
+      <li><strong>Try it first.</strong> Ask for a free trial on WhatsApp and test the channels on your own device and internet connection.</li>
+      <li><strong>Choose a plan.</strong> Plans run from one month to a year; see the <a href="/pricing">US pricing</a> or <a href="/uk/pricing">UK pricing</a> page.</li>
+      <li><strong>Set up in minutes.</strong> We send your login details on WhatsApp and our <a href="/all-devices">device guides</a> walk you through the install.</li>
+      <li><strong>Get help any time.</strong> Our support desk is on WhatsApp around the clock.</li>
+    </ol>
+
+    <h2>What we promise, and what we don't</h2>
+    <p>We aim to be clear about what you are buying. We do not guarantee that every individual match or channel will be available at all times, because that depends on the rights holders and on your own connection. That is why we offer a free trial before you pay. Our <a href="/refund-policy">refund policy</a> explains what happens if it doesn't work for you.</p>
+
+    <h2>How we write our guides</h2>
+    <p>Our guides are written to answer one question clearly: what to do, in which order, and what can go wrong. We list the steps, say when a result depends on your device or broadband, and link to the next useful page. We update them when apps or devices change. Start with <a href="/blog/what-is-iptv-beginners-guide">what is IPTV</a> or browse the <a href="/blog">blog</a> and <a href="/guides">topic guides</a>.</p>
+
+    <h2>Free tools</h2>
+    <p>We built two calculators so you can work out the numbers for yourself: the <a href="/tools/internet-speed-calculator">internet speed calculator</a> and the <a href="/tools/cable-savings-calculator">cable savings calculator</a>. They run in your browser and do not need an account.</p>
+
+    <h2>Local guides</h2>
+    <p>Broadband, kick-off times and local sport differ by place, so we publish guides for every US state and UK region. Find yours in the <a href="/all-locations">locations directory</a>.</p>
+
+    <h2>Contact</h2>
+    <p>The fastest way to reach us is WhatsApp at {siteConfig.whatsappDisplay}. You can also use the <a href="/contact">contact page</a>.</p>
+    <div class="legal-actions">
+      <a href={siteConfig.whatsappUrl} class="btn btn-primary btn-lg" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Request a free trial</a>
+      <a href="/faq" class="btn btn-secondary btn-lg">Read the FAQ</a>
+    </div>
+  </LegalShell>
+</Layout>

@@ -1,0 +1,206 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import siteConfig from '../../data/site-config.json';
+import { articles } from '../../data/articles.mjs';
+import { staticPosts } from '../../data/static-posts.mjs';
+
+const articlePosts = articles.map((x) => ({
+  title: x.title,
+  slug: x.slug,
+  date: new Date(x.datePublished).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+  readTime: x.readTime,
+  category: x.category,
+  badge: 'New guide',
+  excerpt: x.description,
+  icon: x.icon,
+}));
+const blogPosts = [...articlePosts, ...staticPosts];
+const categories = ['All', ...Array.from(new Set(blogPosts.map((p) => p.category)))];
+const brandIcons = ['fa-apple', 'fa-android'];
+---
+
+<Layout
+  targetKeyword="iptv guides and tutorials"
+  title="IPTV Knowledge Hub & Setup Guides (2026) | 4KSubscriptionIPTV"
+  metaDescription="Master IPTV streaming with expert tutorials, device setup walkthroughs (Firestick, Smart TV, Apple TV), app reviews (TiviMate, Smarters), and reseller profit guides."
+  canonicalUrl={`${siteConfig.domain}/blog`}
+>
+  <div class="blog-hub-page">
+    <div class="container">
+      <div class="blog-hero text-center">
+        <span class="section-badge"><i class="fa-solid fa-book-open"></i> Knowledge &amp; Tutorials</span>
+        <h1 class="section-title">IPTV Streaming &amp; Reseller <span class="gradient-text">Mastery Guides</span></h1>
+        <p class="section-description">
+          Unbiased technical tutorials, step-by-step device configuration blueprints, player app reviews, and actionable strategies written by streaming engineers.
+        </p>
+      </div>
+
+      <div class="blog-filters" role="group" aria-label="Filter guides by topic">
+        {categories.map((c, i) => <button type="button" class={`blog-filter${i === 0 ? ' active' : ''}`} data-cat={c}>{c}</button>)}
+      </div>
+
+      <div class="blog-grid">
+        {blogPosts.map((post) => (
+          <article class="blog-card glass-card" data-cat={post.category}>
+            <div class="blog-card-header">
+              <div class="blog-icon-wrap">
+                <i class={`${brandIcons.includes(post.icon) ? 'fa-brands' : 'fa-solid'} ${post.icon}`}></i>
+              </div>
+              <div class="blog-badges">
+                <span class="blog-cat-badge">{post.category}</span>
+                <span class="blog-status-badge">{post.badge}</span>
+              </div>
+            </div>
+
+            <div class="blog-card-body">
+              <div class="blog-meta">
+                <span><i class="fa-regular fa-calendar"></i> {post.date}</span>
+                <span>&bull;</span>
+                <span><i class="fa-regular fa-clock"></i> {post.readTime}</span>
+              </div>
+
+              <h2>
+                <a href={`/blog/${post.slug}`}>{post.title}</a>
+              </h2>
+
+              <p>{post.excerpt}</p>
+
+              <div class="blog-card-footer">
+                <a href={`/blog/${post.slug}`} class="btn btn-outline btn-sm">
+                  Read Full Guide <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.blog-filter');
+  const cards = document.querySelectorAll<HTMLElement>('.blog-card');
+  buttons.forEach((b) => b.addEventListener('click', () => {
+    buttons.forEach((x) => x.classList.toggle('active', x === b));
+    const cat = b.dataset.cat;
+    cards.forEach((c) => { c.hidden = !(cat === 'All' || c.dataset.cat === cat); });
+  }));
+</script>
+
+<style>
+  .blog-filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 0 0 28px; }
+  .blog-filter { padding: 9px 16px; min-height: 42px; border-radius: 9999px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); color: #cbd5e1; font: inherit; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: all 0.2s; }
+  .blog-filter:hover { background: rgba(79,140,255,0.16); color: #fff; }
+  .blog-filter.active { background: rgba(79,140,255,0.28); border-color: rgba(79,140,255,0.6); color: #fff; }
+  .blog-card[hidden] { display: none; }
+  .blog-hub-page {
+    padding: 60px 0 100px;
+  }
+
+  .blog-hero {
+    max-width: 800px;
+    margin: 0 auto 50px;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: 28px;
+  }
+
+  .blog-card {
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .blog-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+  }
+
+  .blog-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .blog-icon-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(6, 182, 212, 0.25) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: #38bdf8;
+  }
+
+  .blog-badges {
+    display: flex;
+    gap: 8px;
+  }
+
+  .blog-cat-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #38bdf8;
+    background: rgba(59, 130, 246, 0.15);
+    padding: 4px 10px;
+    border-radius: 9999px;
+  }
+
+  .blog-status-badge {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.15);
+    padding: 4px 10px;
+    border-radius: 9999px;
+  }
+
+  .blog-meta {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .blog-card h2 {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    margin-bottom: 14px;
+  }
+
+  .blog-card h2 a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .blog-card h2 a:hover {
+    color: #38bdf8;
+  }
+
+  .blog-card p {
+    font-size: 0.92rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .blog-card-footer {
+    margin-top: auto;
+  }
+</style>

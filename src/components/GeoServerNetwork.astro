@@ -1,0 +1,279 @@
+---
+interface Props {
+  serverPing?: string;
+  geoContext?: string;
+}
+
+const {
+  serverPing = "9ms - Ultra Low Latency",
+  geoContext = "USA & UK"
+} = Astro.props;
+---
+
+<section class="server-network-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Ultra High Speed Infrastructure</span>
+      <h2 class="section-title">Dedicated <span class="gradient-text">USA &amp; UK CDN Server Network</span></h2>
+      <p class="section-desc">
+        Our globally distributed 10Gbps load-balanced edge nodes guarantee zero buffering even during peak Premier League &amp; NFL events.
+      </p>
+    </div>
+
+    <div class="network-nodes-grid">
+      <!-- London Node -->
+      <div class="node-card glass-card">
+        <div class="node-top">
+          <div class="node-flag">🇬🇧</div>
+          <div class="node-info">
+            <h4>London &amp; Manchester Hub</h4>
+            <span class="node-status">🟢 Online (100% SLA)</span>
+          </div>
+        </div>
+        <div class="node-metrics">
+          <div class="metric">
+            <span class="m-val">8ms</span>
+            <span class="m-lbl">Average Ping</span>
+          </div>
+          <div class="metric">
+            <span class="m-val">10 Gbps</span>
+            <span class="m-lbl">Port Speed</span>
+          </div>
+          <div class="metric">
+            <span class="m-val">18%</span>
+            <span class="m-lbl">Server Load</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- New York Node -->
+      <div class="node-card glass-card">
+        <div class="node-top">
+          <div class="node-flag">🇺🇸</div>
+          <div class="node-info">
+            <h4>New York Metro Hub (East)</h4>
+            <span class="node-status">🟢 Online (100% SLA)</span>
+          </div>
+        </div>
+        <div class="node-metrics">
+          <div class="metric">
+            <span class="m-val">9ms</span>
+            <span class="m-lbl">Average Ping</span>
+          </div>
+          <div class="metric">
+            <span class="m-val">10 Gbps</span>
+            <span class="m-lbl">Port Speed</span>
+          </div>
+          <div class="metric">
+            <span class="m-val">22%</span>
+            <span class="m-lbl">Server Load</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dallas / Texas Node -->
+      <div class="node-card glass-card">
+        <div class="node-top">
+          <div class="node-flag">🇺🇸</div>
+          <div class="node-info">
+            <h4>Dallas &amp; Central USA Node</h4>
+            <span class="node-status">🟢 Online (100% SLA)</span>
+          </div>
+        </div>
+        <div class="node-metrics">
+          <div class="metric">
+            <span class="m-val">11ms</span>
+            <span class="m-lbl">Average Ping</span>
+          </div>
+          <div class="metric">
+            <span class="m-val">10 Gbps</span>
+            <span class="m-lbl">Port Speed</span>
+          </div>
+          <div class="metric">
+            <span class="m-val">15%</span>
+            <span class="m-lbl">Server Load</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Los Angeles / California Node -->
+      <div class="node-card glass-card">
+        <div class="node-top">
+          <div class="node-flag">🇺🇸</div>
+          <div class="node-info">
+            <h4>Los Angeles &amp; West Coast Node</h4>
+            <span class="node-status">🟢 Online (100% SLA)</span>
+          </div>
+        </div>
+        <div class="node-metrics">
+          <div class="metric">
+            <span class="m-val">12ms</span>
+            <span class="m-lbl">Average Ping</span>
+          </div>
+          <div class="metric">
+            <span class="m-val">10 Gbps</span>
+            <span class="m-lbl">Port Speed</span>
+          </div>
+          <div class="metric">
+            <span class="m-val">19%</span>
+            <span class="m-lbl">Server Load</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Ping Test Simulation Widget -->
+    <div class="ping-widget glass-card">
+      <div class="ping-left">
+        <div class="pulse-dot"></div>
+        <div>
+          <h4>Current Connection Quality for {geoContext}</h4>
+          <p>Optimized for 4K 60FPS Ultra HD Video Bitrate (35 Mbps+)</p>
+        </div>
+      </div>
+      <div class="ping-right">
+        <div class="latency-badge">
+          <span>Latency:</span>
+          <strong>{serverPing}</strong>
+        </div>
+        <div class="anti-buffer-badge">
+          <span>Anti-Freeze:</span>
+          <strong style="color: #34d399;">Active (v9.2)</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .server-network-section {
+    padding: 70px 0;
+  }
+
+  .network-nodes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .node-card {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .node-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .node-flag {
+    font-size: 2rem;
+  }
+
+  .node-info h4 {
+    font-size: 1.05rem;
+    color: #ffffff;
+    margin-bottom: 2px;
+  }
+
+  .node-status {
+    font-size: 0.75rem;
+    color: #34d399;
+    font-weight: 600;
+  }
+
+  .node-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: center;
+  }
+
+  .m-val {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #38bdf8;
+  }
+
+  .m-lbl {
+    font-size: 0.68rem;
+    color: var(--text-dim);
+  }
+
+  .ping-widget {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 30px;
+    background: rgba(13, 19, 36, 0.7);
+  }
+
+  .ping-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .ping-left h4 {
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+  }
+
+  .ping-left p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  .ping-right {
+    display: flex;
+    gap: 16px;
+  }
+
+  .latency-badge, .anti-buffer-badge {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .latency-badge span, .anti-buffer-badge span {
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 1024px) {
+    .network-nodes-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .ping-widget {
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+    }
+    .ping-left {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .network-nodes-grid {
+      grid-template-columns: 1fr;
+    }
+    .ping-right {
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+</style>

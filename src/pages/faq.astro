@@ -1,0 +1,90 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LegalShell from '../components/LegalShell.astro';
+import siteConfig from '../data/site-config.json';
+
+const groups = [
+  {
+    title: 'Getting started',
+    items: [
+      { q: 'What is IPTV?', a: 'IPTV delivers live TV channels, sport and on-demand titles over your internet connection instead of through an aerial, satellite dish or cable box. You watch through an app on a device such as a Firestick, Android TV box, smart TV, phone or computer.' },
+      { q: 'How do I try it before paying?', a: 'Ask for a free trial on WhatsApp. It lets you test channel quality, the programme guide and live sport on your own device and broadband before you choose a plan.' },
+      { q: 'How fast do I get my login?', a: 'Login details (Xtream Codes or an M3U link) are usually sent on WhatsApp within minutes of your order. Set-up on a device like a Firestick then takes a few minutes.' },
+      { q: 'Which devices work?', a: 'Amazon Firestick and Fire TV, Android TV and Google TV boxes, Samsung and LG smart TVs, Apple TV, iPhone and iPad, Windows and macOS, MAG boxes and more, using a compatible IPTV player. See the device guides for step-by-step instructions.' },
+    ],
+  },
+  {
+    title: 'Streaming quality',
+    items: [
+      { q: 'What internet speed do I need?', a: 'Plan for roughly 8 to 10 Mbps for HD and about 25 Mbps for 4K per stream, plus extra capacity if other people in the home are online at the same time.' },
+      { q: 'Why does my stream buffer?', a: 'Most buffering comes from Wi-Fi congestion or evening network load rather than the service itself. Use Ethernet or 5 GHz Wi-Fi, restart the router and device, and close other downloads. If it continues, send support the channel name and time.' },
+      { q: 'Do I need a VPN?', a: 'No. Some viewers use one for privacy or if their provider interferes with video traffic. Test with and without it and choose a fast nearby server.' },
+      { q: 'Can I watch every match live?', a: 'Sports channels carry the main competitions, but coverage of an individual match depends on the rights holder and the channel. Use the free trial to check the games you care about.' },
+    ],
+  },
+  {
+    title: 'Plans and payment',
+    items: [
+      { q: 'How many devices can I use?', a: 'That depends on the plan. Single-connection plans stream on one device at a time and two-connection plans let two screens stream at once. See the pricing page for details.' },
+      { q: 'How do I pay?', a: 'Payment methods are confirmed with you on WhatsApp when you order.' },
+      { q: 'What if it does not work for me?', a: 'Contact support first so we can help. If it still cannot be made to work, you can ask for a refund within 7 days. Read the full refund policy for the details.' },
+      { q: 'Is IPTV legal?', a: 'IPTV as a technology is legal. Whether a particular service is lawful depends on how its content is licensed and on the rules where you live, so use a provider you are comfortable with and follow local copyright law.' },
+    ],
+  },
+  {
+    title: 'Resellers',
+    items: [
+      { q: 'Can I resell subscriptions?', a: 'Yes. We offer reseller information and a credit-based panel for people who want to resell. Message us on WhatsApp for current terms.' },
+    ],
+  },
+];
+
+const faqSchema = {
+  '@type': 'FAQPage',
+  mainEntity: groups.flatMap((g) => g.items).map((i) => ({
+    '@type': 'Question',
+    name: i.q,
+    acceptedAnswer: { '@type': 'Answer', text: i.a },
+  })),
+};
+---
+
+<Layout
+  title="IPTV FAQ: Setup, Speed, Trial & Refunds | 4KSubscriptionIPTV"
+  metaDescription="Answers to common IPTV questions: how it works, the internet speed you need, supported devices, free trials, payment, refunds and legality."
+  targetKeyword="IPTV FAQ"
+  slug="faq"
+  faqSchema={faqSchema}
+>
+  <LegalShell h1="Frequently Asked Questions" lead="Straight answers about how IPTV works, what you need and what to do if something goes wrong.">
+    {groups.map((g) => (
+      <>
+        <h2>{g.title}</h2>
+        <div class="faq-list">
+          {g.items.map((i) => (
+            <details class="faq-item">
+              <summary>{i.q}</summary>
+              <p>{i.a}</p>
+            </details>
+          ))}
+        </div>
+      </>
+    ))}
+
+    <h2>Still have a question?</h2>
+    <div class="legal-actions">
+      <a href={siteConfig.whatsappUrl} class="btn btn-primary btn-lg" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Ask on WhatsApp</a>
+      <a href="/contact" class="btn btn-secondary btn-lg">Contact page</a>
+    </div>
+  </LegalShell>
+</Layout>
+
+<style is:global>
+  .faq-list { display: grid; gap: 10px; margin-top: 10px; }
+  .faq-item { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 0 16px; }
+  .faq-item summary { cursor: pointer; padding: 14px 0; font-weight: 600; color: #f1f5f9; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: '+'; color: #38bdf8; font-weight: 700; }
+  .faq-item[open] summary::after { content: '\2212'; }
+  .faq-item p { padding: 0 0 14px; }
+</style>

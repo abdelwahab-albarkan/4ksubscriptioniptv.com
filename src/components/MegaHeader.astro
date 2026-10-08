@@ -1,0 +1,1033 @@
+---
+import siteConfig from '../data/site-config.json';
+
+const regions = [
+  { code: 'US', href: '/', flag: 'us', name: 'United States', cur: 'USD $' },
+  { code: 'UK', href: '/uk', flag: 'gb', name: 'United Kingdom', cur: 'GBP £' },
+  { code: 'DE', href: '/de', flag: 'de', name: 'Deutschland', cur: 'EUR €' },
+  { code: 'FR', href: '/fr', flag: 'fr', name: 'France', cur: 'EUR €' },
+  { code: 'ES', href: '/es', flag: 'es', name: 'España', cur: 'EUR €' },
+];
+const pathNow = Astro.url.pathname;
+const currentRegion =
+  regions.find((r) => r.href !== '/' && (pathNow === r.href || pathNow.startsWith(r.href + '/'))) || regions[0];
+---
+
+<!-- ==================== PREMIUM HEADER WITH MEGA DROPDOWNS ==================== -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    
+    <!-- Brand Logo -->
+    <a href="/" class="site-logo" aria-label="4KSubscriptionIPTV Home">
+      <div class="logo-icon-wrap">
+        <i class="fa-solid fa-bolt-lightning logo-icon"></i>
+      </div>
+      <div class="logo-text">
+        <span class="logo-brand">4K<span class="accent-text">Subscription</span> <span class="badge-pro">IPTV</span></span>
+        <span class="logo-tag">Enterprise 4K &amp; Reseller Network</span>
+      </div>
+    </a>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav" aria-label="Main Navigation">
+      <!-- Home -->
+      <a href="/" class="nav-link active">
+        <i class="fa-solid fa-house"></i> Home
+      </a>
+
+      <!-- Providers Mega Dropdown -->
+      <div class="nav-item dropdown">
+        <a href="/#providers" class="nav-link dropdown-toggle">
+          <i class="fa-solid fa-tv"></i> Providers <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+        </a>
+        <div class="mega-dropdown">
+          <div class="mega-container">
+            <div class="mega-column">
+              <h4 class="mega-heading"><i class="fa-solid fa-crown"></i> Global 4K Clusters</h4>
+              <ul class="mega-list">
+                <li><a href="https://streamb4.com" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-bolt-lightning"></i> StreamB4 <span class="mega-badge badge-gold">#1</span></a></li>
+                <li><a href="https://ukstream4k.com" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-futbol"></i> UK Stream 4K <span class="mega-badge badge-blue">UK</span></a></li>
+                <li><a href="https://rokustream.com" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-tv"></i> Roku Stream <span class="mega-badge badge-green">Roku</span></a></li>
+                <li><a href="https://ultra8kiptv.org" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-gem"></i> Ultra 8K IPTV <span class="mega-badge badge-purple">8K</span></a></li>
+                <li><a href="https://tvnado2026.com" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-gauge-high"></i> Tvnado 2026</a></li>
+                <li><a href="https://iptvsmarters-tv.fr" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-tower-broadcast"></i> IPTV Smarters FR</a></li>
+                <li><a href="https://4kgermaniptv.com" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-trophy"></i> 4K German IPTV</a></li>
+              </ul>
+            </div>
+
+            <div class="mega-column">
+              <h4 class="mega-heading"><i class="fa-solid fa-earth-europe"></i> Regional &amp; Reseller Hubs</h4>
+              <ul class="mega-list">
+                <li><a href="https://germanystreamtv.com" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-shield-halved"></i> Germany Stream TV</a></li>
+                <li><a href="https://streamgermany4k.com" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-cloud"></i> Stream Germany 4K</a></li>
+                <li><a href="https://4kdeutsch.com" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-satellite-dish"></i> 4K Deutsch</a></li>
+                <li><a href="https://4kanbieteriptv.de" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-tv"></i> 4K Anbieter DE</a></li>
+                <li><a href="https://4kiptvfr.com" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-film"></i> 4K IPTV France</a></li>
+                <li><a href="https://4kspaintv.com" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-earth-americas"></i> 4K Spain TV</a></li>
+                <li><a href="https://agencyfluxly.com" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-briefcase"></i> Agency Fluxly</a></li>
+              </ul>
+            </div>
+
+            <div class="mega-column">
+              <h4 class="mega-heading"><i class="fa-solid fa-chart-bar"></i> Quick Navigation</h4>
+              <ul class="mega-list">
+                <li><a href="/#providers"><i class="fa-solid fa-list-check"></i> All 12 Server Clusters</a></li>
+                <li><a href="/#comparison-table"><i class="fa-solid fa-scale-balanced"></i> Side-by-Side Comparison</a></li>
+                <li><a href="/pricing"><i class="fa-solid fa-tags"></i> Consumer Pricing Plans</a></li>
+                <li><a href="/iptv-free-trial"><i class="fa-solid fa-gift"></i> 24-Hour Free Trial</a></li>
+                <li><a href="/#reseller-section"><i class="fa-solid fa-store"></i> Reseller Credit Panel</a></li>
+              </ul>
+            </div>
+
+            <div class="mega-column mega-highlight">
+              <div class="mega-featured">
+                <span class="mega-featured-badge"><i class="fa-solid fa-star"></i> Flagship Server 2026</span>
+                <i class="fa-solid fa-bolt-lightning mega-featured-icon"></i>
+                <h4>StreamB4 Ultra 4K</h4>
+                <p>#1 Rated with 25,000+ channels, 100,000+ VOD, Anti-Freeze 9.2, all PPV in 60FPS.</p>
+                <div class="mega-rating">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  <span>4.95/5</span>
+                </div>
+                <a href="https://streamb4.com" class="btn btn-primary btn-sm full-width" target="_blank" rel="noopener nofollow sponsored">
+                  <i class="fa-solid fa-globe"></i> Visit streamb4.com ↗
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="mega-footer">
+            <a href="/#providers" class="mega-footer-link">
+              <i class="fa-solid fa-arrow-right"></i> View All 12 Provider Reviews &amp; Reseller Opportunities
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reseller Panel Mega Dropdown -->
+      <div class="nav-item dropdown">
+        <a href="/#reseller-section" class="nav-link dropdown-toggle">
+          <i class="fa-solid fa-store"></i> Reseller Panel <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+        </a>
+        <div class="mega-dropdown">
+          <div class="mega-container">
+            <div class="mega-column">
+              <h4 class="mega-heading"><i class="fa-solid fa-rocket"></i> Reseller Programs</h4>
+              <ul class="mega-list">
+                <li><a href="/#provider-streamb4"><i class="fa-solid fa-bolt-lightning"></i> StreamB4 Reseller <span class="mega-badge badge-gold">#1</span></a></li>
+                <li><a href="/#provider-ukstream4k"><i class="fa-solid fa-futbol"></i> UK Stream 4K Reseller</a></li>
+                <li><a href="/#provider-ultra8kiptv"><i class="fa-solid fa-gem"></i> Ultra 8K Reseller</a></li>
+                <li><a href="/#provider-tvnado2026"><i class="fa-solid fa-gauge-high"></i> Tvnado 2026 Reseller</a></li>
+                <li><a href="/#provider-iptvsmartersfr"><i class="fa-solid fa-tower-broadcast"></i> IPTV Smarters FR Reseller</a></li>
+                <li><a href="/#provider-4kgermaniptv"><i class="fa-solid fa-trophy"></i> 4K German Reseller</a></li>
+              </ul>
+            </div>
+
+            <div class="mega-column">
+              <h4 class="mega-heading"><i class="fa-solid fa-graduation-cap"></i> Reseller Guides</h4>
+              <ul class="mega-list">
+                <li><a href="/#reseller-section"><i class="fa-solid fa-book-open"></i> Reseller Panel Guide</a></li>
+                <li><a href="/#pricing"><i class="fa-solid fa-tags"></i> Reseller Credit Pricing</a></li>
+                <li><a href="/#reseller-section"><i class="fa-solid fa-check-circle"></i> White-Label Benefits</a></li>
+                <li><a href="/#steps-guide"><i class="fa-solid fa-lightbulb"></i> How to Start in 5 Steps</a></li>
+                <li><a href="/alternatives/cable-tv-alternative"><i class="fa-solid fa-calculator"></i> Profit Strategy Guide</a></li>
+              </ul>
+            </div>
+
+            <div class="mega-column mega-highlight">
+              <div class="mega-featured">
+                <span class="mega-featured-badge"><i class="fa-solid fa-rocket"></i> Start Today</span>
+                <i class="fa-solid fa-chart-line mega-featured-icon"></i>
+                <h4>Become an IPTV Reseller</h4>
+                <p>Access 20,000+ movies, 8,000+ live channels, and full automated panel control with zero technical barriers.</p>
+                <div class="mega-contact">
+                  <p><i class="fa-solid fa-headset"></i> WhatsApp: {siteConfig.whatsappDisplay}</p>
+                </div>
+                <a href={siteConfig.whatsappUrl} class="btn btn-primary btn-sm full-width" target="_blank" rel="noopener">
+                  <i class="fa-solid fa-bolt"></i> Get Instant Reseller Access
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="mega-footer">
+            <a href="/#reseller-section" class="mega-footer-link">
+              <i class="fa-solid fa-arrow-right"></i> Explore Complete Reseller Panel Solutions
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Locations Mega Dropdown -->
+      <div class="nav-item dropdown">
+        <a href="/#locations-section" class="nav-link dropdown-toggle">
+          <i class="fa-solid fa-globe"></i> Locations <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+        </a>
+        <div class="mega-dropdown mega-dropdown-sm">
+          <div class="mega-container">
+            <div class="mega-column">
+              <h4 class="mega-heading"><i class="fa-solid fa-location-dot"></i> Regional Markets</h4>
+              <ul class="mega-list">
+                <li><a href="/pricing"><i class="fa-solid fa-flag-usa"></i> IPTV USA <span class="mega-badge badge-blue">USD $</span></a></li>
+                <li><a href="/uk/pricing"><i class="fa-solid fa-landmark-flag"></i> UK IPTV <span class="mega-badge badge-gold">GBP £</span></a></li>
+                <li><a href="/all-locations"><i class="fa-solid fa-earth-europe"></i> IPTV Europe <span class="mega-badge badge-green">EUR €</span></a></li>
+                <li><a href="/all-locations"><i class="fa-solid fa-leaf"></i> IPTV Canada <span class="mega-badge badge-blue">CAD $</span></a></li>
+                <li><a href="/all-locations"><i class="fa-solid fa-earth-oceania"></i> IPTV Australia <span class="mega-badge badge-gold">AUD $</span></a></li>
+              </ul>
+            </div>
+            <div class="mega-column">
+              <h4 class="mega-heading"><i class="fa-solid fa-link"></i> Direct Network Hubs</h4>
+              <ul class="mega-list">
+                <li><a href="https://streamb4.com" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-bolt-lightning"></i> streamb4.com</a></li>
+                <li><a href="https://ukstream4k.com" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-futbol"></i> ukstream4k.com</a></li>
+                <li><a href="https://ultra8kiptv.org" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-gem"></i> ultra8kiptv.org</a></li>
+                <li><a href="https://tvnado2026.com" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-gauge-high"></i> tvnado2026.com</a></li>
+                <li><a href="https://4kgermaniptv.com" target="_blank" rel="noopener nofollow sponsored"><i class="fa-solid fa-trophy"></i> 4kgermaniptv.com</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="mega-footer">
+            <a href="/all-locations" class="mega-footer-link">
+              <i class="fa-solid fa-arrow-right"></i> Explore All 1,600+ City &amp; Regional IPTV Pages
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparison Dropdown -->
+      <div class="nav-item dropdown">
+        <a href="/#comparison-table" class="nav-link dropdown-toggle">
+          <i class="fa-solid fa-trophy"></i> Best IPTV 2026 <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+        </a>
+        <div class="mega-dropdown mega-dropdown-sm">
+          <div class="mega-container">
+            <div class="mega-column">
+              <h4 class="mega-heading"><i class="fa-solid fa-medal"></i> Top Rankings</h4>
+              <ul class="mega-list">
+                <li><a href="/#comparison-table"><i class="fa-solid fa-trophy"></i> Best IPTV Overall 2026</a></li>
+                <li><a href="/#provider-ultra8kiptv"><i class="fa-solid fa-gem"></i> Best Premium 8K IPTV</a></li>
+                <li><a href="/#provider-rokustream"><i class="fa-solid fa-tags"></i> Best Multi-Device IPTV</a></li>
+                <li><a href="/uk/sports/premier-league"><i class="fa-solid fa-futbol"></i> Best Sports &amp; Football IPTV</a></li>
+              </ul>
+            </div>
+            <div class="mega-column">
+              <h4 class="mega-heading"><i class="fa-solid fa-fire"></i> Device Guides</h4>
+              <ul class="mega-list">
+                <li><a href="/devices/firestick"><i class="fa-brands fa-amazon"></i> Best for Firestick 4K</a></li>
+                <li><a href="/devices/smart-tv"><i class="fa-solid fa-tv"></i> Best for Samsung &amp; LG Smart TV</a></li>
+                <li><a href="/devices/apple-tv"><i class="fa-brands fa-apple"></i> Best for Apple TV &amp; iOS</a></li>
+                <li><a href="/apps/tivimate"><i class="fa-solid fa-play"></i> Best TiviMate &amp; Smarters Setup</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guides & Blog Link -->
+      <a href="/blog" class="nav-link">
+        <i class="fa-solid fa-book-open"></i> Guides
+      </a>
+
+      <!-- FAQ Link -->
+      <a href="/#faq" class="nav-link">
+        <i class="fa-solid fa-circle-question"></i> FAQ
+      </a>
+
+      <!-- Regional Language Selector -->
+      <div class="nav-item dropdown region-dropdown">
+        <button class="nav-link dropdown-toggle region-btn" aria-label="Select region and language" aria-haspopup="true">
+          <img class="flag-img" src={`/flags/${currentRegion.flag}.svg`} alt="" width="22" height="22" />
+          <span class="region-curr">{currentRegion.code}</span>
+          <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+        </button>
+        <div class="mega-dropdown mega-dropdown-tiny">
+          <p class="region-title">Choose your market</p>
+          <ul class="mega-list region-list">
+            {regions.map((r) => (
+              <li>
+                <a href={r.href} class={r.code === currentRegion.code ? 'is-current' : ''} aria-current={r.code === currentRegion.code ? 'true' : undefined}>
+                  <img class="flag-img" src={`/flags/${r.flag}.svg`} alt="" width="26" height="26" loading="lazy" />
+                  <span class="region-name">{r.name}</span>
+                  <span class="region-cur">{r.cur}</span>
+                  {r.code === currentRegion.code && <i class="fa-solid fa-check region-check"></i>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Search Trigger Button -->
+      <button class="nav-link nav-search-btn" id="openSearchBtn" title="Search all 1,600+ pages">
+        <i class="fa-solid fa-magnifying-glass"></i> <span>Search</span>
+      </button>
+
+      <!-- Contact / WhatsApp CTA -->
+      <a href={siteConfig.whatsappUrl} class="nav-link nav-cta" target="_blank" rel="noopener">
+        <i class="fa-solid fa-rocket"></i> Get Started
+      </a>
+    </nav>
+
+    <!-- Mobile Hamburger Button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Menu">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Drawer -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+    <div class="mobile-menu-container">
+      <div class="mobile-menu-header">
+        <a href="/" class="site-logo">
+          <i class="fa-solid fa-bolt-lightning logo-icon"></i>
+          <span class="logo-brand">4K<span class="accent-text">Subscription</span> <span class="badge-pro">IPTV</span></span>
+        </a>
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close Menu">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
+      <div class="mobile-menu-body">
+        <div class="mobile-menu-section">
+          <a href="/" class="mobile-nav-link active"><i class="fa-solid fa-house"></i> Home</a>
+        </div>
+        <div class="mobile-menu-section">
+          <a href="/#providers" class="mobile-nav-link"><i class="fa-solid fa-tv"></i> Top 12 Providers</a>
+        </div>
+        <div class="mobile-menu-section">
+          <a href="/#reseller-section" class="mobile-nav-link"><i class="fa-solid fa-store"></i> Reseller Panel Guide</a>
+        </div>
+        <div class="mobile-menu-section">
+          <a href="/#locations-section" class="mobile-nav-link"><i class="fa-solid fa-globe"></i> Global Markets (US, UK, EU)</a>
+        </div>
+        <div class="mobile-menu-section">
+          <a href="/#comparison-table" class="mobile-nav-link"><i class="fa-solid fa-trophy"></i> Provider Comparison Matrix</a>
+        </div>
+        <div class="mobile-menu-section">
+          <a href="/all-locations" class="mobile-nav-link"><i class="fa-solid fa-location-dot"></i> Browse 1,600+ City Pages</a>
+        </div>
+        <div class="mobile-menu-section">
+          <a href="/#faq" class="mobile-nav-link"><i class="fa-solid fa-circle-question"></i> Help &amp; FAQ</a>
+        </div>
+        <div class="mobile-menu-section mobile-regions">
+          <p class="mobile-regions-title">Choose your market</p>
+          <div class="mobile-regions-grid">
+            {regions.map((r) => (
+              <a href={r.href} class={r.code === currentRegion.code ? 'is-current' : ''}>
+                <img class="flag-img" src={`/flags/${r.flag}.svg`} alt="" width="22" height="22" loading="lazy" />
+                <span>{r.name}</span>
+                <small>{r.cur}</small>
+              </a>
+            ))}
+          </div>
+        </div>
+        <div class="mobile-menu-section">
+          <a href={siteConfig.whatsappUrl} class="mobile-nav-link nav-cta-mobile" target="_blank" rel="noopener">
+            <i class="fa-solid fa-rocket"></i> Get Reseller Panel Access
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Mobile drawer
+  const btn = document.getElementById('mobileMenuBtn');
+  const closeBtn = document.getElementById('mobileMenuClose');
+  const overlay = document.getElementById('mobileMenuOverlay');
+
+  function setMenu(open: boolean) {
+    if (!overlay) return;
+    overlay.classList.toggle('active', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+    btn?.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  if (btn && overlay && closeBtn) {
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', () => setMenu(true));
+    closeBtn.addEventListener('click', () => setMenu(false));
+
+    // Tap on the dark area outside the drawer
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) setMenu(false);
+    });
+
+    // Tap on any link inside the drawer: close it first, then let the browser follow the link.
+    // (Same-page anchors such as /#providers do not reload the page, so without this the drawer stayed open.)
+    overlay.addEventListener('click', (e) => {
+      const link = (e.target as HTMLElement).closest('a');
+      if (link) setMenu(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setMenu(false);
+    });
+
+    // Going back/forward or changing hash must never leave the page locked
+    window.addEventListener('hashchange', () => setMenu(false));
+    window.addEventListener('pageshow', () => setMenu(false));
+
+    // Rotating the phone / resizing to desktop width closes the drawer
+    window.matchMedia('(min-width: 1381px)').addEventListener('change', (m) => {
+      if (m.matches) setMenu(false);
+    });
+  }
+</script>
+
+<style>
+  .site-header {
+    background: rgba(7, 10, 20, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    transition: all 0.3s ease;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    height: 72px;
+    max-width: 1560px;
+  }
+
+  .site-logo {
+    flex-shrink: 0;
+  }
+
+  /* Logo */
+  .site-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .logo-icon-wrap {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.4);
+  }
+
+  .logo-icon {
+    font-size: 1.2rem;
+    color: #ffffff;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo-brand {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  .accent-text {
+    color: #38bdf8;
+  }
+
+  .logo-tag {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+
+  /* Main Navigation */
+  .main-nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .nav-link {
+    white-space: nowrap;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .nav-link i {
+    font-size: 0.88rem;
+    color: #94a3b8;
+    transition: color 0.2s;
+  }
+
+  .nav-link:hover i {
+    color: #38bdf8;
+  }
+
+  .dropdown-arrow {
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
+  }
+
+  .nav-item:hover .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
+  .nav-search-btn {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .nav-search-btn:hover {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.4);
+    color: #38bdf8;
+  }
+
+  .nav-cta {
+    flex-shrink: 0;
+    white-space: nowrap;
+    background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%);
+    color: #ffffff !important;
+    padding: 9px 18px;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    margin-left: 6px;
+  }
+
+  .nav-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+  }
+
+  .nav-cta i {
+    color: #ffffff !important;
+  }
+
+  /* Dropdown Styles */
+  .nav-item.dropdown {
+    position: relative;
+  }
+
+  .mega-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: #0b1120;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    padding: 24px;
+    min-width: 780px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 1010;
+  }
+
+  .mega-dropdown-sm {
+    min-width: 520px;
+  }
+
+  .nav-item.dropdown:hover .mega-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
+
+  .mega-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+    gap: 20px;
+  }
+
+  .mega-heading {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #94a3b8;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .mega-heading i {
+    color: #38bdf8;
+  }
+
+  .mega-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mega-list li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    color: #cbd5e1;
+    transition: all 0.2s ease;
+  }
+
+  .mega-list li a:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+    padding-left: 14px;
+  }
+
+  .mega-list li a i {
+    color: #64748b;
+    font-size: 0.85rem;
+    width: 16px;
+  }
+
+  .mega-list li a:hover i {
+    color: #38bdf8;
+  }
+
+  .mega-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 9999px;
+  }
+
+  .badge-gold {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+  }
+
+  .badge-blue {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.35);
+  }
+
+  .badge-green {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+  }
+
+  .badge-purple {
+    background: rgba(139, 92, 246, 0.2);
+    color: #c084fc;
+    border: 1px solid rgba(139, 92, 246, 0.35);
+  }
+
+  /* Featured Mega Column */
+  .mega-highlight {
+    grid-column: span 1;
+  }
+
+  .mega-featured {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+  }
+
+  .mega-featured-badge {
+    font-size: 0.72rem;
+    color: #fbbf24;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .mega-featured-icon {
+    font-size: 1.8rem;
+    color: #38bdf8;
+    margin: 4px 0;
+  }
+
+  .mega-featured h4 {
+    font-size: 1.05rem;
+    color: #ffffff;
+  }
+
+  .mega-featured p {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  .mega-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.78rem;
+    color: #fbbf24;
+    font-weight: 700;
+  }
+
+  .mega-contact p {
+    font-size: 0.75rem;
+    color: #34d399;
+    font-weight: 600;
+  }
+
+  .mega-footer {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+  }
+
+  .mega-footer-link {
+    font-size: 0.85rem;
+    color: #38bdf8;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.2s;
+  }
+
+  .mega-footer-link:hover {
+    gap: 10px;
+    color: #60a5fa;
+  }
+
+  /* Mobile Button */
+  .mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    cursor: pointer;
+    padding: 13px 11px;
+  }
+
+  .hamburger-line {
+    width: 100%;
+    height: 2.5px;
+    background: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  /* Mobile Drawer Overlay */
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-menu-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 85%;
+    max-width: 360px;
+    height: 100%;
+    background: #080d1a;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 24px;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+  }
+
+  .mobile-menu-overlay.active .mobile-menu-container {
+    transform: translateX(0);
+  }
+
+  .mobile-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .mobile-menu-close {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+  }
+
+  .mobile-menu-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .mobile-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .mobile-nav-link:hover, .mobile-nav-link.active {
+    background: rgba(59, 130, 246, 0.15);
+    color: #38bdf8;
+  }
+
+  .mobile-nav-link i {
+    width: 20px;
+    color: #94a3b8;
+  }
+
+  .nav-cta-mobile {
+    background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%) !important;
+    color: #ffffff !important;
+    margin-top: 12px;
+    justify-content: center;
+  }
+
+  /* Header fit: drop decorative bits as width shrinks, then switch to the burger menu */
+  @media (max-width: 1700px) {
+    .logo-tag { display: none; }
+    .nav-link > i:first-child:not(.dropdown-arrow) { display: none; }
+    .nav-link { padding: 8px 11px; font-size: 0.88rem; }
+  }
+
+  @media (max-width: 1380px) {
+    .site-header {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(7, 10, 20, 0.97);
+    }
+    .main-nav {
+      display: none;
+    }
+    .mobile-menu-btn {
+      display: flex;
+    }
+  }
+
+  /* Open drawer must sit above the announcement bar (header is its own stacking context) */
+  .site-header:has(.mobile-menu-overlay.active) {
+    z-index: 2100;
+  }
+
+  /* Mobile drawer: market switcher */
+  .mobile-regions-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .mobile-regions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .mobile-regions-grid a {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 10px;
+    align-items: center;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+    font-size: 0.86rem;
+    font-weight: 600;
+    min-height: 52px;
+  }
+
+  .mobile-regions-grid a .flag-img { grid-row: 1 / span 2; }
+  .mobile-regions-grid a small { font-size: 0.7rem; color: #94a3b8; font-weight: 600; }
+  .mobile-regions-grid a.is-current { border-color: rgba(79, 140, 255, 0.6); background: rgba(79, 140, 255, 0.14); }
+
+  /* Region Switcher */
+  .flag-img {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25), 0 2px 6px rgba(0, 0, 0, 0.4);
+    display: block;
+  }
+
+  .region-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  .region-btn:hover {
+    border-color: rgba(79, 140, 255, 0.5);
+    background: rgba(79, 140, 255, 0.1);
+  }
+
+  .region-curr {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .mega-dropdown-tiny {
+    width: 280px;
+    min-width: 0;
+    left: auto;
+    right: 0;
+    transform: translateY(10px);
+    padding: 10px;
+  }
+
+  .nav-item.region-dropdown:hover .mega-dropdown-tiny,
+  .nav-item.region-dropdown:focus-within .mega-dropdown-tiny {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .region-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    font-weight: 700;
+    padding: 4px 10px 8px;
+  }
+
+  .region-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 2px;
+  }
+
+  .region-list li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 10px;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .region-list li a:hover {
+    background: rgba(79, 140, 255, 0.14);
+    color: #fff;
+  }
+
+  .region-list li a.is-current {
+    background: rgba(79, 140, 255, 0.18);
+    color: #fff;
+  }
+
+  .region-name {
+    flex: 1;
+    font-weight: 600;
+    min-width: 0;
+  }
+
+  .region-cur {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+    padding: 2px 7px;
+    white-space: nowrap;
+  }
+
+  .region-check {
+    color: #22d3ee;
+    font-size: 0.8rem;
+  }
+</style>

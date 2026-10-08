@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LegalShell from '../components/LegalShell.astro';
+import siteConfig from '../data/site-config.json';
+
+const a = (siteConfig as any).analytics || {};
+const analyticsOn = !!(a.ga4MeasurementId || a.plausibleDomain || a.clarityProjectId);
+---
+
+<Layout
+  title="Cookie Policy | 4KSubscriptionIPTV"
+  metaDescription="How this website uses cookies and similar technologies, and how to control them."
+  targetKeyword="cookie policy"
+  slug="cookie-policy"
+>
+  <LegalShell h1="Cookie Policy" updated="October 2026">
+    <h2>What are cookies?</h2>
+    <p>Cookies are small files that a website stores in your browser. They are used to make sites work, remember preferences and measure how a site is used.</p>
+
+    <h2>What this site uses</h2>
+    <ul>
+      <li><strong>Essential:</strong> the site itself does not need an account or login, and it does not set its own tracking cookies.</li>
+      <li><strong>Fonts and icons:</strong> fonts and icons are served from this site, so no third party receives your IP address for them.</li>
+      <li><strong>WhatsApp links:</strong> clicking a WhatsApp button opens WhatsApp, which has its own privacy policy.</li>
+      {analyticsOn
+        ? <li><strong>Analytics:</strong> we use an analytics tool to understand which pages are useful. It may set cookies or use similar identifiers.</li>
+        : <li><strong>Analytics:</strong> no analytics tool is currently enabled. If we add one, this page will be updated.</li>}
+    </ul>
+
+    <h2>Your choices</h2>
+    <p>You can block or delete cookies in your browser settings. Blocking some third-party requests (such as fonts) may change how pages look but will not stop you using the site.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy: <a href={`mailto:${siteConfig.supportEmail}`}>{siteConfig.supportEmail}</a>. See also our <a href="/privacy-policy">Privacy Policy</a>.</p>
+  </LegalShell>
+</Layout>

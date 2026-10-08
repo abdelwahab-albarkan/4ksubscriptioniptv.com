@@ -1,0 +1,293 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import TrustBar from '../components/TrustBar.astro';
+import ProviderCardsGrid from '../components/ProviderCardsGrid.astro';
+import StreamingInfrastructureSection from '../components/StreamingInfrastructureSection.astro';
+import ResellerOpportunitySection from '../components/ResellerOpportunitySection.astro';
+import PricingMatrix from '../components/PricingMatrix.astro';
+import ComparisonMatrixTable from '../components/ComparisonMatrixTable.astro';
+import CustomerReviews from '../components/CustomerReviews.astro';
+import ChannelSportsGrid from '../components/ChannelSportsGrid.astro';
+import LiveShowcaseGallery from '../components/LiveShowcaseGallery.astro';
+import LocationHubsSection from '../components/LocationHubsSection.astro';
+import ResellerRoadmapSteps from '../components/ResellerRoadmapSteps.astro';
+import DeviceSetupGuide from '../components/DeviceSetupGuide.astro';
+import ExpandedResearchLibrary from '../components/ExpandedResearchLibrary.astro';
+import OfficialDomainsDirectory from '../components/OfficialDomainsDirectory.astro';
+import InteractiveFaqSection from '../components/InteractiveFaqSection.astro';
+import NewsletterSection from '../components/NewsletterSection.astro';
+import siteConfig from '../data/site-config.json';
+
+// Top High-Volume Semrush Keywords for Homepage Hub
+const homeTopKeywords = [
+  { keyword: "best iptv subscription", volume: "25,628,480 /mo", url: "/pricing", tag: "US Core" },
+  { keyword: "premier league iptv uk", volume: "3,880,160 /mo", url: "/uk/sports/premier-league", tag: "UK Sports" },
+  { keyword: "samsung smart tv iptv", volume: "2,935,370 /mo", url: "/devices/smart-tv", tag: "Smart TV" },
+  { keyword: "tnt sports champions league", volume: "1,634,470 /mo", url: "/uk/sports/tnt-sports", tag: "UCL / TNT" },
+  { keyword: "ufc ppv dazn boxing", volume: "1,113,260 /mo", url: "/sports/ufc-boxing-ppv", tag: "Live PPV" },
+  { keyword: "nba league pass live", volume: "660,940 /mo", url: "/sports/nba-league-pass", tag: "NBA Basketball" },
+  { keyword: "iptv for firestick usa", volume: "614,930 /mo", url: "/devices/firestick", tag: "Firestick 4K" },
+  { keyword: "nfl sunday ticket redzone", volume: "595,610 /mo", url: "/sports/nfl-sunday-ticket", tag: "NFL Sunday" },
+  { keyword: "apple tv 4k iptv", volume: "482,860 /mo", url: "/devices/apple-tv", tag: "Apple tvOS" },
+  { keyword: "anti freeze iptv provider", volume: "381,140 /mo", url: "/features/anti-freeze-4k", tag: "Anti-Freeze" },
+  { keyword: "best iptv uk subscription", volume: "337,850 /mo", url: "/uk/pricing", tag: "UK Core" },
+  { keyword: "super bowl 2026 4k live", volume: "319,260 /mo", url: "/sports/super-bowl", tag: "Super Bowl" },
+  { keyword: "sky sports f1 live stream", volume: "214,950 /mo", url: "/sports/formula-1", tag: "Formula 1" },
+  { keyword: "cable tv alternative usa", volume: "152,000 /mo", url: "/alternatives/cable-tv-alternative", tag: "Cord-Cutting" },
+  { keyword: "best iptv for firestick uk", volume: "26,930 /mo", url: "/uk/devices/firestick", tag: "UK Firestick" },
+  { keyword: "iptv 24 hour free trial", volume: "21,330 /mo", url: "/iptv-free-trial", tag: "Free Test" },
+  { keyword: "sky tv virgin alternative", volume: "12,990 /mo", url: "/uk/alternatives/sky-virgin-media", tag: "UK Cable" },
+  { keyword: "iptv smarters pro subscription", volume: "6,870 /mo", url: "/apps/iptv-smarters-pro", tag: "Smarters Pro" },
+  { keyword: "iptv with epg tv guide", volume: "3,740 /mo", url: "/features/epg-catchup", tag: "EPG Replay" },
+  { keyword: "tivimate iptv provider", volume: "3,650 /mo", url: "/apps/tivimate", tag: "TiviMate" }
+];
+---
+
+<Layout
+  title="4KSubscriptionIPTV | #1 Enterprise 4K IPTV & Wholesale Reseller Platform 2026"
+  metaDescription="Experience uncompressed 4K 60FPS live streaming & launch your IPTV reseller business with 4KSubscriptionIPTV in 2026. Access 51,000+ live channels, 200,000+ VODs, Anti-Freeze v9.2, and instant WhatsApp activation."
+  targetKeyword="Enterprise 4K IPTV & Reseller Network"
+  rating="4.95"
+  reviewCount="14,820"
+>
+  <!-- 1. Hero Section -->
+  <HeroSection 
+    h1="Enterprise 4K/8K Live Streaming & Wholesale Reseller Infrastructure (2026)"
+    targetKeyword="Enterprise 4K IPTV & Reseller Network"
+    country="USA, UK & Europe"
+    rating="4.95"
+    reviewCount="14,820"
+    serverPing="8ms (10Gbps London & US East Nodes)"
+  />
+
+  <!-- 2. Trust Bar -->
+  <TrustBar />
+
+  <!-- 3. Complete 12 Providers Directory Grid -->
+  <ProviderCardsGrid />
+
+  <!-- 4. Real 10Gbps Server Infrastructure & Tech Section -->
+  <StreamingInfrastructureSection />
+
+  <!-- 5. Why Choose Reseller Business Opportunity Section -->
+  <ResellerOpportunitySection />
+
+  <!-- 6. Consumer Subscription & Reseller Pricing Matrix with Payment Logos -->
+  <PricingMatrix />
+
+  <!-- 7. Comparison Table Matrix -->
+  <ComparisonMatrixTable />
+
+  <!-- 8. Real Customer Reviews with Verified Avatars -->
+  <CustomerReviews geoContext="USA, UK & Global Markets" />
+
+  <!-- 9. Channels & Sports Coverage with Real Live Broadcast Photos -->
+  <ChannelSportsGrid />
+
+  <!-- 9. Real Visual Stream Quality Gallery (Home Cinema, Living Room, Stadiums) -->
+  <LiveShowcaseGallery />
+
+  <!-- 10. Location-Based IPTV Markets Section (USA, UK, EU, CA, AU) -->
+  <LocationHubsSection />
+
+  <!-- 11. 5-Step Reseller Roadmap Guide -->
+  <ResellerRoadmapSteps />
+
+  <!-- 12. Device & Player Setup Guide with 19+ Hardware Photos & Player Logos -->
+  <DeviceSetupGuide />
+
+  <!-- 13. Expanded 1,600+ Page IPTV Research Library -->
+  <ExpandedResearchLibrary />
+
+  <!-- 14. Featured Official Domains Directory -->
+  <OfficialDomainsDirectory />
+
+  <!-- 15. Deep Semantic SEO Keyword Section -->
+  <section class="home-seo-pillar-section">
+    <div class="container">
+      <div class="home-seo-card glass-card">
+        
+        <!-- Top Keyword Insights Banner -->
+        <div class="pillar-top-strip">
+          <div class="badge-live">
+            <span class="pulse-dot"></span>
+            <span>Semrush Verified Dataset &bull; 48,591 Keywords Analyzed</span>
+          </div>
+          <div class="pillar-demand-badge">
+            <span>🔥 Total Search Demand: <strong>39,037,290 Searches / Month</strong></span>
+          </div>
+        </div>
+
+        <div class="pillar-content">
+          <h2>The Definitive Guide to <span class="gradient-text">IPTV Reseller Panels &amp; 4K Streaming</span> (2026)</h2>
+          
+          <p class="pillar-lead">
+            Welcome to <strong>4KSubscriptionIPTV</strong> (powered by the <strong>StreamB4 Network</strong>), the industry-leading IPTV platform and wholesale reseller management network designed for streamers, cord-cutters, and digital entrepreneurs across the United States, United Kingdom, Canada, Australia, and Europe. Backed by redundant 10Gbps load-balanced edge servers and proprietary <strong>Anti-Freeze Protocol v9.2</strong>, our network delivers uncompressed 4K UHD and 60FPS video feeds with zero buffering.
+          </p>
+
+          <p>
+            Whether you want to subscribe to a consumer plan with <strong>51,000+ live channels</strong> and <strong>200,000+ VOD movies</strong> or launch your own lucrative white-label IPTV reseller empire with our official partner sites, we provide complete transparency with reliable servers, wholesale credit calculators, and 24/7 dedicated support.
+          </p>
+
+          <h3>High-Demand Search Topics in USA &amp; UK (Semrush Keyword Dataset)</h3>
+          <div class="home-keyword-pills-grid">
+            {homeTopKeywords.map((item) => (
+              <a href={item.url} class="home-kw-pill">
+                <span class="kw-tag">{item.tag}</span>
+                <span class="kw-name">{item.keyword}</span>
+                <span class="kw-vol">{item.volume}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16. Interactive FAQ Section with Category Filter Tabs & Live Search -->
+  <InteractiveFaqSection />
+
+  <!-- 17. Newsletter Section -->
+  <NewsletterSection />
+</Layout>
+
+<style>
+  .home-seo-pillar-section {
+    padding: 60px 0;
+  }
+
+  .home-seo-card {
+    background: rgba(13, 20, 38, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 36px 32px;
+  }
+
+  .pillar-top-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .badge-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #34d399;
+    padding: 5px 14px;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #10b981;
+    animation: pulse 1.8s infinite;
+  }
+
+  .pillar-demand-badge {
+    font-size: 0.85rem;
+    color: #e2e8f0;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    padding: 5px 14px;
+    border-radius: 9999px;
+  }
+
+  .pillar-demand-badge strong {
+    color: #fbbf24;
+  }
+
+  .pillar-content h2 {
+    font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+    margin-bottom: 16px;
+    color: #ffffff;
+  }
+
+  .pillar-lead {
+    font-size: 1.02rem;
+    color: #cbd5e1;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .pillar-content p {
+    font-size: 0.94rem;
+    color: #94a3b8;
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+
+  .pillar-content h3 {
+    font-size: 1.25rem;
+    color: #ffffff;
+    margin: 28px 0 18px 0;
+  }
+
+  .home-keyword-pills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: 10px;
+  }
+
+  .home-kw-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 10px 14px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    gap: 8px;
+  }
+
+  .home-kw-pill:hover {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .kw-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.12);
+    padding: 2px 7px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .kw-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .kw-vol {
+    font-size: 0.72rem;
+    color: #94a3b8;
+    white-space: nowrap;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+</style>

@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import LiveStatsBar from '../../components/LiveStatsBar.astro';
+import KeywordSeoContent from '../../components/KeywordSeoContent.astro';
+import LocalGuide from '../../components/LocalGuide.astro';
+import PricingMatrix from '../../components/PricingMatrix.astro';
+import InternalLinkingHub from '../../components/InternalLinkingHub.astro';
+import pagesData from '../../data/pages-data.json';
+import { shortName } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  return pagesData
+    .filter((page) => page.slug && typeof page.slug === 'string' && page.slug.trim().length >= 2)
+    .map((page) => ({
+      params: { slug: page.slug.trim() },
+      props: { page }
+    }));
+}
+
+const { page } = Astro.props;
+const geoContext = page.locationName || page.country || "USA & UK";
+const isGeo = page.category === 'us-geo' || page.category === 'uk-geo';
+const serviceArea = isGeo ? (page.content?.facts?.find((x) => x.k === 'Location')?.v || page.locationName) : undefined;
+const lastCrumb = shortName(page.title);
+const trail = [{ name: 'Home', url: '/' }];
+if (isGeo) {
+  trail.push({ name: 'Locations', url: '/all-locations' });
+  if (page.content?.hub) trail.push({ name: page.content.hub.name, url: page.content.hub.path });
+} else if (page.category === 'device') trail.push({ name: 'Devices', url: '/all-devices' });
+else if (page.category === 'sports') trail.push({ name: 'Sports', url: '/all-sports' });
+else if (page.content?.hub?.path === '/guides') trail.push({ name: 'Guides', url: '/guides' });
+trail.push({ name: lastCrumb, url: '/iptv/' + page.slug });
+const faqSchema = page.content?.faqs?.length
+  ? {
+      "@type": "FAQPage",
+      mainEntity: page.content.faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a }
+      }))
+    }
+  : undefined;
+---
+
+<Layout
+  title={page.title}
+  metaDescription={page.metaDescription}
+  targetKeyword={page.targetKeyword}
+  slug={page.slug}
+  rating={page.rating}
+  reviewCount={page.reviewCount}
+  priceUsd={page.priceUsd}
+  faqSchema={faqSchema}
+  category={page.category}
+  breadcrumbs={trail}
+  commercial="service"
+  serviceArea={serviceArea}
+  noindex={page.noindex === true}
+>
+  <HeroSection 
+    h1={page.h1}
+    targetKeyword={page.targetKeyword}
+    country={page.country}
+    locationName={page.locationName}
+    deviceName={page.deviceName}
+    sportName={page.sportName}
+    priceUsd={page.priceUsd}
+    priceGbp={page.priceGbp}
+    discountPercentage={page.discountPercentage}
+    serverPing={page.serverPing}
+    rating={page.rating}
+    reviewCount={page.reviewCount}
+  />
+
+  <LiveStatsBar />
+
+  <LocalGuide content={page.content} />
+
+  <KeywordSeoContent 
+    targetKeyword={page.targetKeyword}
+    secondaryKeywords={page.secondaryKeywords}
+    h1={page.h1}
+    country={page.country}
+    locationName={page.locationName}
+    deviceName={page.deviceName}
+    sportName={page.sportName}
+    category={page.category}
+    semrush={page.semrush}
+  />
+
+  <PricingMatrix
+    geoContext={geoContext}
+    countryCode={page.countryCode || 'US'}
+  />
+
+  <InternalLinkingHub
+    category={page.category}
+    relatedPages={page.relatedPages || []}
+  />
+</Layout>

@@ -1,0 +1,613 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSection from './HeroSection.astro';
+import LiveStatsBar from './LiveStatsBar.astro';
+import ChannelSportsGrid from './ChannelSportsGrid.astro';
+import PricingMatrix from './PricingMatrix.astro';
+import DeviceSetupGuide from './DeviceSetupGuide.astro';
+import ComparisonTable from './ComparisonTable.astro';
+import GeoServerNetwork from './GeoServerNetwork.astro';
+import CustomerReviews from './CustomerReviews.astro';
+import FaqAccordion from './FaqAccordion.astro';
+import clusterDefs from '../data/seo/cluster-definitions.json';
+import { fromUsdMo, fromGbpMo } from '../lib/pricing';
+import RelatedGuides from './RelatedGuides.astro';
+import siteConfig from '../data/site-config.json';
+
+interface Props {
+  clusterId: string;
+}
+
+const { clusterId } = Astro.props;
+const cluster = (clusterDefs as any)[clusterId] || (clusterDefs as any)['core-commercial-us'];
+
+const isUk = cluster.market === 'UK';
+const country = isUk ? 'United Kingdom' : 'USA & UK';
+const countryCode = isUk ? 'GB' : 'US';
+const priceUsd = isUk ? fromGbpMo : fromUsdMo;
+const serverPing = isUk ? '8ms (London & Manchester Edge CDN)' : '9ms (New York, Dallas & Chicago CDN)';
+
+const topKeywords = cluster.supportingKeywords || [];
+
+// guides that match this page's topic (internal links)
+const u: string = cluster.url || '';
+const GUIDES = {
+  firestick: ['how-to-setup-iptv-firestick-2026', 'how-to-fix-iptv-buffering-isp-throttling', 'how-much-internet-speed-for-iptv', 'm3u-vs-xtream-codes-explained'],
+  smartTv: ['how-to-set-up-iptv-on-samsung-lg-smart-tv', 'm3u-vs-xtream-codes-explained', 'how-to-fix-iptv-buffering-isp-throttling', 'what-is-epg-iptv-tv-guide-setup'],
+  apple: ['how-to-set-up-iptv-on-apple-tv-iphone', 'm3u-vs-xtream-codes-explained', 'what-is-epg-iptv-tv-guide-setup', 'how-much-internet-speed-for-iptv'],
+  android: ['how-to-set-up-iptv-on-android-tv-google-tv', 'best-iptv-apps-comparison-tivimate-vs-smarters', 'm3u-vs-xtream-codes-explained', 'what-is-epg-iptv-tv-guide-setup'],
+  apps: ['best-iptv-apps-comparison-tivimate-vs-smarters', 'm3u-vs-xtream-codes-explained', 'how-to-set-up-iptv-on-android-tv-google-tv', 'what-is-epg-iptv-tv-guide-setup'],
+  epg: ['what-is-epg-iptv-tv-guide-setup', 'm3u-vs-xtream-codes-explained', 'how-to-set-up-iptv-on-android-tv-google-tv', 'best-iptv-apps-comparison-tivimate-vs-smarters'],
+  speed: ['how-to-fix-iptv-buffering-isp-throttling', 'how-much-internet-speed-for-iptv', 'iptv-free-trial-checklist', 'how-to-setup-iptv-firestick-2026'],
+  buy: ['iptv-free-trial-checklist', 'iptv-vs-cable-vs-streaming-cost-comparison', 'what-is-iptv-beginners-guide', 'is-iptv-legal-us-uk-guide'],
+  sports: ['what-is-epg-iptv-tv-guide-setup', 'how-much-internet-speed-for-iptv', 'how-to-fix-iptv-buffering-isp-throttling', 'iptv-free-trial-checklist'],
+  alt: ['iptv-vs-cable-vs-streaming-cost-comparison', 'is-iptv-legal-us-uk-guide', 'iptv-free-trial-checklist', 'what-is-iptv-beginners-guide'],
+};
+const guideSlugs = u.includes('firestick') ? GUIDES.firestick
+  : u.includes('smart-tv') ? GUIDES.smartTv
+  : u.includes('apple-tv') ? GUIDES.apple
+  : (u.includes('formuler') || u.includes('mag')) ? GUIDES.android
+  : u.startsWith('/apps/') ? GUIDES.apps
+  : u.includes('epg') ? GUIDES.epg
+  : u.includes('anti-freeze') ? GUIDES.speed
+  : u.includes('/sports/') ? GUIDES.sports
+  : u.includes('/alternatives/') ? GUIDES.alt
+  : GUIDES.buy;
+
+// Smart hero photography mapping for cluster pages
+let clusterHeroImg = isUk 
+  ? "/images/packimages2/lucid-origin_Photorealistic_cozy_British_living_room_rainy_evening_visible_through_the_window-0.jpg" 
+  : "/images/packimages2/lucid-origin_Photorealistic_wide_shot_of_a_modern_living_room_at_night_with_a_large_65-inch_4-0.jpg";
+
+if (clusterId.includes('premier-league') || clusterId.includes('football') || clusterId.includes('tnt-sports')) {
+  clusterHeroImg = "/images/packimages2/lucid-origin_Dramatic_wide_night_photo_of_a_packed_football_stadium_floodlights_green_pitch_p-0.jpg";
+} else if (clusterId.includes('nfl') || clusterId.includes('super-bowl')) {
+  clusterHeroImg = "/images/packimages2/lucid-origin_American_football_stadium_at_night_quarterback_about_to_throw_linemen_in_motion_-0.jpg";
+} else if (clusterId.includes('nba') || clusterId.includes('basketball')) {
+  clusterHeroImg = "/images/packimages2/lucid-origin_Basketball_arena_a_player_in_generic_plain_jersey_dunking_dramatic_spotlights_a_-0.jpg";
+} else if (clusterId.includes('ufc') || clusterId.includes('boxing') || clusterId.includes('ppv')) {
+  clusterHeroImg = "/images/packimages2/lucid-origin_Fighter_in_a_boxing_ring_seen_from_behind_glove_raised_arena_lights_and_smoke_cr-0.jpg";
+} else if (clusterId.includes('f1') || clusterId.includes('formula')) {
+  clusterHeroImg = "/images/packimages2/lucid-origin_Formula-style_open-wheel_racing_car_at_night_on_a_city_circuit_motion_blur_neon_-0.jpg";
+} else if (clusterId.includes('firestick')) {
+  clusterHeroImg = "/images/packimages2/Gemini_Generated_Image_fjow55fjow55fjow.jpg";
+} else if (clusterId.includes('smart-tv')) {
+  clusterHeroImg = "/images/packimages2/Gemini_Generated_Image_t9inzdt9inzdt9in.jpg";
+} else if (clusterId.includes('apple-tv') || clusterId.includes('android-box')) {
+  clusterHeroImg = "/images/packimages2/Gemini_Generated_Image_razn6trazn6trazn.jpg";
+}
+---
+
+<Layout
+  title={cluster.title}
+  metaDescription={cluster.metaDescription}
+  targetKeyword={cluster.primaryKeyword}
+  priceUsd={priceUsd}
+  geoTarget={isUk ? 'uk' : 'us'}
+>
+  <!-- Hero Section -->
+  <HeroSection
+    h1={cluster.h1}
+    targetKeyword={cluster.primaryKeyword}
+    country={country}
+    priceUsd={fromUsdMo}
+    priceGbp={fromGbpMo}
+    serverPing={serverPing}
+    rating="4.95"
+    reviewCount="14,820"
+    heroImage={clusterHeroImg}
+  />
+
+  <LiveStatsBar />
+
+  <!-- Ultra-Rich SEO In-Depth Guide Section -->
+  <section class="cluster-seo-section">
+    <div class="container">
+      <div class="cluster-seo-card glass-card">
+        
+        <!-- Semrush Cluster Insights Banner -->
+        <div class="cluster-stats-strip">
+          <div class="stat-pill">
+            <span class="pulse-dot"></span>
+            <span>Primary Focus: <strong>{cluster.primaryKeyword}</strong></span>
+          </div>
+          <div class="stat-pill">
+            <span>🔥 Monthly Search Demand: <strong>{cluster.totalVolume.toLocaleString()} /mo</strong></span>
+          </div>
+          <div class="stat-pill">
+            <span>🎯 Target Market: <strong>{isUk ? 'United Kingdom (£ GBP)' : 'United States ($ USD)'}</strong></span>
+          </div>
+          <div class="stat-pill">
+            <span>⚡ Protocol: <strong>Anti-Freeze v9.2 (10Gbps CDN)</strong></span>
+          </div>
+        </div>
+
+        <!-- Pillar Content Part 1: Overview & Value Proposition -->
+        <div class="cluster-article">
+          <h2>Complete 2026 Guide to <span class="gradient-text">{cluster.primaryKeyword}</span></h2>
+          
+          <p class="lead-text">
+            If you are searching for the most reliable and highest-rated provider for <strong>{cluster.primaryKeyword}</strong> in 2026, {siteConfig.siteName} delivers an uncompressed, studio-grade streaming experience. By combining high-bandwidth 10Gbps dedicated CDN servers in London, Manchester, New York, Dallas, and Chicago with our proprietary <strong>Anti-Freeze Protocol v9.2</strong>, we eliminate buffering, packet loss, and live sports latency completely.
+          </p>
+
+          <p>
+            Whether you are streaming live Saturday 3PM Premier League blackouts, Sky Sports, TNT Sports, NFL Sunday Ticket, NBA League Pass, or UFC numbered PPV events, our infrastructure guarantees 99.99% uptime with native 4K UHD and silky-smooth 60FPS video bitrates.
+          </p>
+
+          <!-- 4 Core Pillars Grid -->
+          <div class="cluster-features-grid">
+            <div class="feature-box">
+              <div class="f-icon">🏆</div>
+              <h4>Uncapped Sports &amp; Live PPV Events</h4>
+              <p>
+                Get unlimited access to {isUk ? 'Sky Sports Premier League, TNT Sports 1-4, Champions League, SPFL, Formula 1, and DAZN Boxing PPVs' : 'NFL Sunday Ticket, NFL RedZone, ESPN+, Fox Sports 1 4K, NBA League Pass, and UFC Main Cards'} without blackout restrictions.
+              </p>
+            </div>
+
+            <div class="feature-box">
+              <div class="f-icon">⚡</div>
+              <h4>Instant Automated 3-Minute Activation</h4>
+              <p>
+                No waiting for manual support. Immediately upon ordering, your Xtream Codes API credentials (Server URL, Username, Password) and M3U playlist link are sent directly to your WhatsApp and email.
+              </p>
+            </div>
+
+            <div class="feature-box">
+              <div class="f-icon">📱</div>
+              <h4>Universal Hardware &amp; App Compatibility</h4>
+              <p>
+                Seamlessly compatible with Amazon Firestick 4K Max, TiviMate Premium, IPTV Smarters Pro, Apple TV 4K, Samsung Smart TV (Tizen), LG webOS, Android TV boxes, Windows PC, and MAG devices.
+              </p>
+            </div>
+
+            <div class="feature-box">
+              <div class="f-icon">🛡️</div>
+              <h4>100% Risk-Free 7-Day Money Back SLA</h4>
+              <p>
+                Test our streaming servers with zero risk. If you encounter any technical buffering or channel stability issues that our 24/7 WhatsApp engineers cannot resolve, you receive a prompt 100% refund.
+              </p>
+            </div>
+          </div>
+
+          <!-- Deep Technical Specifications Table -->
+          <div class="tech-specs-box">
+            <h3>Technical Stream Architecture &amp; Server Specifications</h3>
+            <div class="specs-grid">
+              <div class="spec-row">
+                <span class="spec-name">Stream Protocols</span>
+                <span class="spec-val">HLS, MPEG-TS, Xtream Codes API, M3U Plus</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-name">Video Codecs &amp; Bitrate</span>
+                <span class="spec-val">HEVC / H.265 &amp; H.264 (Up to 35 Mbps 4K Bitrate)</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-name">Audio Quality</span>
+                <span class="spec-val">Dolby Digital Plus 5.1 &amp; AAC Stereo</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-name">Server Port Speed</span>
+                <span class="spec-val">10 Gbps Unmetered Dedicated Load-Balanced CDN</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-name">EPG &amp; Catch-Up Replay</span>
+                <span class="spec-val">Real-time XMLTV EPG + 7-Day Interactive Catch-up</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-name">Anti-ISP Throttling</span>
+                <span class="spec-val">SSL 256-Bit Encrypted Tunneling (VPN-Friendly)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ISP Optimization & Troubleshooting Blueprint -->
+          <div class="isp-guide-box">
+            <h3>ISP Throttling Protection Guide for {country}</h3>
+            <p>
+              Major Internet Service Providers in {isUk ? 'the UK (such as BT, Sky Broadband, Virgin Media, EE, and TalkTalk)' : 'the US (such as Comcast Xfinity, Spectrum, AT&T, Verizon Fios, and Cox)'} often implement dynamic bandwidth throttling during major Premier League, NFL, and UFC live broadcasts.
+            </p>
+            <div class="isp-tips-list">
+              <div class="tip-item">
+                <span class="tip-num">1</span>
+                <div>
+                  <strong>SSL Encrypted Connection:</strong> Our stream feeds connect over secure port 443 with TLS encryption, hiding video packet signatures from automated ISP inspection filters.
+                </div>
+              </div>
+              <div class="tip-item">
+                <span class="tip-num">2</span>
+                <div>
+                  <strong>DNS Optimization:</strong> We recommend setting your streaming device DNS to Cloudflare (<code>1.1.1.1</code> / <code>1.0.0.1</code>) or Google (<code>8.8.8.8</code> / <code>8.8.4.4</code>) for instant DNS resolution.
+                </div>
+              </div>
+              <div class="tip-item">
+                <span class="tip-num">3</span>
+                <div>
+                  <strong>VPN Compatibility:</strong> If your ISP enforces DNS blocking, 4KSubscriptionIPTV is 100% compatible with ExpressVPN, NordVPN, Surfshark, and IPVanish without speed degradation.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Real Semrush Extracted Keyword Cloud -->
+          {topKeywords.length > 0 && (
+            <div class="semrush-cloud-box">
+              <h3>Target Search Queries &amp; Related Keyword Clusters:</h3>
+              <p class="cloud-sub">Directly mapped from our verified Semrush keyword research dataset for {cluster.primaryKeyword}:</p>
+              
+              <div class="keyword-tags-cloud">
+                {topKeywords.map((kw: any) => (
+                  <div class="kw-tag-item">
+                    <span class="tag-name">{kw.keyword}</span>
+                    <span class="tag-vol">{kw.volume > 0 ? `${kw.volume.toLocaleString()} /mo` : 'High Intent'}</span>
+                    {kw.kd > 0 && <span class="tag-kd">KD {kw.kd}%</span>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ChannelSportsGrid />
+
+  <PricingMatrix 
+    geoContext={country}
+    countryCode={countryCode}
+  />
+
+  <DeviceSetupGuide 
+    deviceName={isUk ? "Amazon Firestick 4K & UK Smart TVs" : "Amazon Fire TV Stick & Smart TVs"}
+    recommendedApp="TiviMate / IPTV Smarters Pro"
+    setupTime="2 minutes"
+  />
+
+  <ComparisonTable />
+
+  <GeoServerNetwork 
+    serverPing={serverPing}
+    geoContext={country}
+  />
+
+  <CustomerReviews 
+    geoContext={country}
+    rating="4.95"
+    reviewCount="14,820"
+  />
+
+  <FaqAccordion 
+    geoContext={country}
+    deviceName="Firestick 4K & Smart TVs"
+    sportName={isUk ? "Premier League 3PM & Champions League" : "NFL Sunday Ticket & UFC PPV"}
+  />
+
+  <!-- Internal Silo Links -->
+  <section class="silo-nav-section">
+    <div class="container">
+      <div class="silo-card glass-card">
+        <h3>Explore Related IPTV Guides &amp; Categories</h3>
+        <div class="silo-links-grid">
+          <a href="/pricing" class="silo-btn">💳 US Pricing Plans</a>
+          <a href="/uk/pricing" class="silo-btn">🇬🇧 UK Pricing Plans (£)</a>
+          <a href="/iptv-free-trial" class="silo-btn">🎁 US 24H Free Trial</a>
+          <a href="/uk/iptv-free-trial" class="silo-btn">🇬🇧 UK 24H Free Trial</a>
+          <a href="/devices/firestick" class="silo-btn">🔥 Firestick Setup Guide</a>
+          <a href="/uk/devices/firestick" class="silo-btn">🇬🇧 UK Firestick Guide</a>
+          <a href="/apps/tivimate" class="silo-btn">📱 TiviMate Premium Setup</a>
+          <a href="/apps/iptv-smarters-pro" class="silo-btn">📲 IPTV Smarters Pro</a>
+          <a href="/uk/sports/premier-league" class="silo-btn">⚽ Premier League 3PM</a>
+          <a href="/uk/sports/sky-sports" class="silo-btn">📺 Sky Sports UK 4K</a>
+          <a href="/uk/sports/tnt-sports" class="silo-btn">🏆 TNT Sports &amp; UCL</a>
+          <a href="/sports/nfl-sunday-ticket" class="silo-btn">🏈 NFL Sunday Ticket</a>
+          <a href="/sports/ufc-boxing-ppv" class="silo-btn">🥊 UFC &amp; Boxing PPV</a>
+          <a href="/sports/formula-1" class="silo-btn">🏎️ Formula 1 Sky F1</a>
+          <a href="/alternatives/cable-tv-alternative" class="silo-btn">⚡ Cable TV Alternative</a>
+          <a href="/uk/alternatives/sky-virgin-media" class="silo-btn">🇬🇧 Sky &amp; Virgin Alternative</a>
+          <a href="/features/anti-freeze-4k" class="silo-btn">🛡️ Anti-Freeze Protocol</a>
+          <a href="/features/epg-catchup" class="silo-btn">📅 EPG &amp; 7-Day Catchup</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <RelatedGuides current="" slugs={guideSlugs} />
+</Layout>
+<style>
+  .cluster-seo-section {
+    padding: 40px 0 60px 0;
+  }
+
+  .cluster-seo-card {
+    padding: 40px;
+    background: rgba(13, 19, 36, 0.78);
+  }
+
+  .cluster-stats-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 32px;
+  }
+
+  .stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .stat-pill strong {
+    color: #38bdf8;
+  }
+
+  .cluster-article h2 {
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+    color: #ffffff;
+    line-height: 1.25;
+  }
+
+  .lead-text {
+    font-size: 1.12rem;
+    color: #f1f5f9;
+    line-height: 1.75;
+    margin-bottom: 18px;
+  }
+
+  .cluster-article > p {
+    font-size: 1.02rem;
+    color: #cbd5e1;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .cluster-features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .feature-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    padding: 24px;
+    border-radius: var(--radius-md);
+  }
+
+  .f-icon {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .feature-box h4 {
+    font-size: 1.15rem;
+    color: #38bdf8;
+    margin-bottom: 8px;
+  }
+
+  .feature-box p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Technical Specs Box */
+  .tech-specs-box {
+    background: rgba(10, 15, 30, 0.85);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    margin-bottom: 36px;
+  }
+
+  .tech-specs-box h3 {
+    font-size: 1.25rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .spec-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .spec-name {
+    font-size: 0.78rem;
+    color: #38bdf8;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .spec-val {
+    font-size: 0.92rem;
+    color: #f8fafc;
+    font-weight: 500;
+  }
+
+  /* ISP Guide Box */
+  .isp-guide-box {
+    background: rgba(16, 185, 129, 0.06);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    margin-bottom: 36px;
+  }
+
+  .isp-guide-box h3 {
+    font-size: 1.25rem;
+    color: #34d399;
+    margin-bottom: 12px;
+  }
+
+  .isp-guide-box > p {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .isp-tips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .tip-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 0.92rem;
+    color: #e2e8f0;
+  }
+
+  .tip-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #10b981;
+    color: #ffffff;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+  }
+
+  .tip-item code {
+    background: rgba(0, 0, 0, 0.4);
+    color: #38bdf8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+  }
+
+  /* Semrush Keyword Cloud */
+  .semrush-cloud-box {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    padding: 28px;
+    border-radius: var(--radius-md);
+  }
+
+  .semrush-cloud-box h3 {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-bottom: 4px;
+  }
+
+  .cloud-sub {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .keyword-tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .kw-tag-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 8px;
+    max-width: 100%;
+    min-width: 0;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+  }
+
+  .tag-name {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    color: #f8fafc;
+    font-weight: 600;
+  }
+
+  .tag-vol {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  .tag-kd {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  .silo-nav-section {
+    padding: 40px 0 70px 0;
+  }
+
+  .silo-card {
+    padding: 32px;
+    text-align: center;
+  }
+
+  .silo-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 24px;
+  }
+
+  .silo-links-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .silo-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    transition: all 0.2s;
+  }
+
+  .silo-btn:hover {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 900px) {
+    .cluster-features-grid, .specs-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

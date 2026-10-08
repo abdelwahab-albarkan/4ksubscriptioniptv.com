@@ -1,0 +1,465 @@
+---
+import siteConfig from '../data/site-config.json';
+
+interface Props {
+  geoContext?: string;
+  countryCode?: string;
+}
+
+const {
+  geoContext = "USA & UK",
+  countryCode = "US"
+} = Astro.props;
+
+const defaultCurrency = countryCode === 'GB' ? 'GBP' : 'USD';
+
+const paymentLogos = [
+  { name: "Visa", img: "/images/Visa_Inc._logo_(2005–2014).svg.webp" },
+  { name: "Mastercard", img: "/images/Mastercard-logo.svg.webp" },
+  { name: "PayPal", img: "/images/Paypal_2014_logo.png" },
+  { name: "Apple Pay", img: "/images/Apple_Pay_logo.svg.webp" }
+];
+---
+
+<section class="pricing-section" id="pricing">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-badge"><i class="fa-solid fa-tags"></i> Affordable &amp; Premium Streaming</span>
+      <h2 class="section-title">Select Your <span class="gradient-text">IPTV Subscription Plan</span> (2026)</h2>
+      <p class="section-description">
+        All consumer and reseller plans include full access to 51,000+ live channels, 200,000+ VOD movies, Premier League &amp; NFL 4K streams, and 24/7 instant WhatsApp support.
+      </p>
+    </div>
+
+    <!-- Currency Switcher Toggle -->
+    <div class="currency-switch-wrap">
+      <span class="currency-label">Choose Currency:</span>
+      <div class="currency-toggle" id="currency-toggle-group">
+        <button class={`cur-btn ${defaultCurrency === 'USD' ? 'active' : ''}`} data-cur="USD">USD ($)</button>
+        <button class={`cur-btn ${defaultCurrency === 'GBP' ? 'active' : ''}`} data-cur="GBP">GBP (£)</button>
+        <button class="cur-btn" data-cur="EUR">EUR (€)</button>
+      </div>
+    </div>
+
+    <!-- Pricing Grid -->
+    <div class="pricing-grid">
+      {siteConfig.pricing.map((plan) => {
+        const isPopular = plan.isPopular;
+        return (
+          <div class={`pricing-card glass-card ${isPopular ? 'popular-card' : ''}`}>
+            {isPopular && (
+              <div class="popular-ribbon">
+                <span>🔥 MOST POPULAR &bull; SAVE 60%</span>
+              </div>
+            )}
+
+            <div class="plan-header">
+              <span class="plan-badge">{plan.badge}</span>
+              <h3 class="plan-duration">{plan.duration}</h3>
+              <p class="plan-connections">{plan.connections}</p>
+            </div>
+
+            <div class="plan-price-wrap">
+              <div class="price-display">
+                <span class="currency-symbol" data-symbol="USD">$</span>
+                <span 
+                  class="price-number" 
+                  data-usd={plan.priceUsd} 
+                  data-gbp={plan.priceGbp} 
+                  data-eur={plan.priceEur}
+                >
+                  {defaultCurrency === 'GBP' ? plan.priceGbp : plan.priceUsd}
+                </span>
+              </div>
+              <span class="price-period">One-time payment</span>
+            </div>
+
+            <div class="plan-features">
+              {plan.features.map((feat) => (
+                <div class="feature-row">
+                  <i class="fa-solid fa-check-circle text-success"></i>
+                  <span>{feat}</span>
+                </div>
+              ))}
+            </div>
+
+            <div class="plan-actions">
+              <a 
+                href={`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(`Hello! I would like to order the ${plan.duration} IPTV Subscription (${plan.connections}) for ${geoContext}.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={`btn ${isPopular ? 'btn-primary' : 'btn-secondary'} order-plan-btn`}
+              >
+                <span>Order {plan.duration} Now</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+
+              <a 
+                href={`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(`Hi! Can I test the 24-Hour Free Trial before purchasing the ${plan.duration} plan?`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="trial-link"
+              >
+                <i class="fa-solid fa-clock"></i> Request 24H Free Trial First &rarr;
+              </a>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Payment Security & Logos Strip -->
+    <div class="payment-trust-box glass-card">
+      <div class="payment-trust-left">
+        <div class="shield-badge">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div>
+          <h4>100% Secure Checkout &amp; 30-Day Money-Back Guarantee</h4>
+          <p>SSL 256-bit encrypted checkout. Instant automated Xtream Codes credential delivery in under 3 minutes.</p>
+        </div>
+      </div>
+
+      <div class="payment-logos-strip">
+        {paymentLogos.map((p) => (
+          <div class="pay-logo-item">
+            <img src={p.img} alt={p.name} class="pay-img" loading="lazy" />
+          </div>
+        ))}
+        <div class="pay-logo-item crypto-badge">
+          <i class="fa-brands fa-bitcoin"></i>
+          <span>Crypto / BTC</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const curButtons = document.querySelectorAll('#currency-toggle-group .cur-btn');
+  const priceNumbers = document.querySelectorAll('.price-number');
+  const currencySymbols = document.querySelectorAll('.currency-symbol');
+
+  const symbols: Record<string, string> = {
+    USD: '$',
+    GBP: '£',
+    EUR: '€'
+  };
+
+  curButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const cur = btn.getAttribute('data-cur') || 'USD';
+      
+      curButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      currencySymbols.forEach((sym) => {
+        sym.textContent = symbols[cur] || '$';
+      });
+
+      priceNumbers.forEach((p) => {
+        const val = p.getAttribute(`data-${cur.toLowerCase()}`);
+        if (val) {
+          p.textContent = val;
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .pricing-section {
+    padding: 80px 0;
+    position: relative;
+  }
+
+  .currency-switch-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 30px 0 45px 0;
+  }
+
+  .currency-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #cbd5e1;
+  }
+
+  .currency-toggle {
+    display: flex;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 9999px;
+    padding: 4px;
+    gap: 4px;
+  }
+
+  .cur-btn {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    padding: 6px 16px;
+    border-radius: 9999px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .cur-btn:hover {
+    color: #ffffff;
+  }
+
+  .cur-btn.active {
+    background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%);
+    color: #ffffff;
+    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.4);
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .pricing-card {
+    background: rgba(13, 20, 38, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 34px 26px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .pricing-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .popular-card {
+    border-color: rgba(59, 130, 246, 0.5);
+    background: linear-gradient(180deg, rgba(20, 32, 64, 0.85) 0%, rgba(13, 20, 38, 0.95) 100%);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+  }
+
+  .popular-ribbon {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+    color: #0f172a;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 4px 16px;
+    border-radius: 9999px;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+  }
+
+  .plan-header {
+    margin-bottom: 20px;
+  }
+
+  .plan-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.12);
+    padding: 3px 10px;
+    border-radius: 9999px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+
+  .plan-duration {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 4px;
+  }
+
+  .plan-connections {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .plan-price-wrap {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .price-display {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+  }
+
+  .currency-symbol {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #38bdf8;
+  }
+
+  .price-number {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1;
+  }
+
+  .price-period {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 4px;
+  }
+
+  .plan-features {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .feature-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 0.86rem;
+    color: #cbd5e1;
+  }
+
+  .text-success {
+    color: #10b981;
+    font-size: 0.88rem;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .plan-actions {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .order-plan-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 0.92rem;
+  }
+
+  .trial-link {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: color 0.2s;
+  }
+
+  .trial-link:hover {
+    color: #fbbf24;
+  }
+
+  /* Payment Trust Box */
+  .payment-trust-box {
+    background: rgba(13, 20, 38, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 24px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .payment-trust-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .shield-badge {
+    width: 44px;
+    height: 44px;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #34d399;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .payment-trust-left h4 {
+    font-size: 1.05rem;
+    color: #ffffff;
+    margin-bottom: 2px;
+  }
+
+  .payment-trust-left p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .payment-logos-strip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .pay-logo-item {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 6px 12px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pay-img {
+    height: 22px;
+    max-width: 65px;
+    object-fit: contain;
+  }
+
+  .crypto-badge {
+    color: #fbbf24;
+    font-size: 0.78rem;
+    font-weight: 700;
+    gap: 6px;
+  }
+
+  .crypto-badge i {
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 900px) {
+    .payment-trust-box {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

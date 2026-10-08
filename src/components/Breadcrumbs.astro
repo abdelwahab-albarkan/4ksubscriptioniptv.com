@@ -1,0 +1,64 @@
+---
+// Visible breadcrumb trail (same list that feeds the BreadcrumbList schema).
+interface Crumb { name: string; url: string }
+interface Props { items: Crumb[] }
+const { items } = Astro.props;
+import { domain } from '../lib/url';
+const rel = (u: string) => (u.startsWith(domain) ? u.slice(domain.length) || '/' : u);
+---
+
+{items && items.length > 1 && (
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+      <ol>
+        {items.map((c, i) => (
+          <li>
+            {i < items.length - 1
+              ? <a href={rel(c.url)}>{c.name}</a>
+              : <span aria-current="page">{c.name}</span>}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </nav>
+)}
+
+<style>
+  .breadcrumbs {
+    padding: 12px 0 0;
+    font-size: 0.82rem;
+  }
+  .breadcrumbs ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 0;
+    margin: 0;
+    padding: 0;
+  }
+  .breadcrumbs li {
+    display: inline-flex;
+    align-items: center;
+    color: #94a3b8;
+    min-width: 0;
+  }
+  .breadcrumbs li + li::before {
+    content: '/';
+    margin: 0 8px;
+    color: rgba(255, 255, 255, 0.25);
+  }
+  .breadcrumbs a {
+    color: #94a3b8;
+    padding: 6px 0;
+    transition: color 0.2s;
+  }
+  .breadcrumbs a:hover {
+    color: #38bdf8;
+  }
+  .breadcrumbs [aria-current] {
+    color: #e2e8f0;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+</style>

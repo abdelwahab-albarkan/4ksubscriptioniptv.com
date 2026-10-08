@@ -1,0 +1,161 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import siteConfig from '../../data/site-config.json';
+import { articles } from '../../data/articles.mjs';
+import { staticPosts } from '../../data/static-posts.mjs';
+import { absUrl } from '../../lib/url';
+
+export function getStaticPaths() {
+  return articles.map((article) => ({ params: { slug: article.slug }, props: { article } }));
+}
+
+const { article } = Astro.props;
+
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+// **bold** and [text](/internal-path) only
+const inline = (s: string) =>
+  esc(s)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\[([^\]]+)\]\((\/[^)\s]*)\)/g, '<a href="$2">$1</a>');
+const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+const toc = article.blocks.filter((b: any) => b.t === 'h2').map((b: any) => ({ text: b.x, id: slugify(b.x) }));
+
+// related guides: other new articles and the hand-written posts
+const pool = [
+  ...articles.map((a: any) => ({ slug: a.slug, title: a.title, text: a.description })),
+  ...staticPosts.map((p: any) => ({ slug: p.slug, title: p.title, text: p.excerpt })),
+];
+const related = (article.related || []).map((s: string) => pool.find((p) => p.slug === s)).filter(Boolean);
+
+const published = article.datePublished;
+const articleSchema = {
+  '@type': 'BlogPosting',
+  headline: article.h1,
+  description: article.description,
+  datePublished: published,
+  dateModified: published,
+  author: { '@type': 'Organization', name: `${siteConfig.siteName} Editorial Team` },
+  publisher: { '@type': 'Organization', name: siteConfig.siteName },
+  articleSection: article.category,
+  wordCount: article.blocks.reduce((n: number, b: any) => n + JSON.stringify(b).split(/\s+/).length, 0),
+};
+const crumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Blog', url: '/blog' },
+  { name: article.h1.replace(/\?$/, ''), url: `/blog/${article.slug}` },
+];
+const brandIcons = ['fa-apple', 'fa-android'];
+const iconClass = `${brandIcons.includes(article.icon) ? 'fa-brands' : 'fa-solid'} ${article.icon}`;
+const published_h = new Date(published).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+
+<Layout
+  title={article.title}
+  targetKeyword={article.focusKeyword}
+  metaDescription={article.description}
+  slug={article.slug}
+  articleSchema={articleSchema}
+  breadcrumbs={crumbs}
+  datePublished={published}
+  dateModified={published}
+>
+  <article class="post">
+    <div class="container post-wrap">
+      <header class="post-head">
+        <span class="section-badge"><i class={iconClass}></i> {article.category}</span>
+        <h1>{article.h1}</h1>
+        <p class="post-meta"><span><i class="fa-regular fa-calendar"></i> {published_h}</span><span>&bull;</span><span><i class="fa-regular fa-clock"></i> {article.readTime}</span></p>
+        <p class="post-desc">{article.description}</p>
+      </header>
+
+      {toc.length > 2 && (
+        <nav class="post-toc glass-card" aria-label="In this article">
+          <strong>In this article</strong>
+          <ol>{toc.map((t: any) => <li><a href={`#${t.id}`}>{t.text}</a></li>)}</ol>
+        </nav>
+      )}
+
+      <div class="post-body">
+        {article.blocks.map((b: any) => {
+          if (b.t === 'h2') return <h2 id={slugify(b.x)}>{b.x}</h2>;
+          if (b.t === 'p') return <p set:html={inline(b.x)} />;
+          if (b.t === 'note') return <aside class="post-note" set:html={inline(b.x)} />;
+          if (b.t === 'ul') return <ul>{b.items.map((i: string) => <li set:html={inline(i)} />)}</ul>;
+          if (b.t === 'ol') return <ol>{b.items.map((i: string) => <li set:html={inline(i)} />)}</ol>;
+          if (b.t === 'table') return (
+            <div class="post-table-wrap">
+              <table>
+                <thead><tr>{b.head.map((h: string) => <th>{h}</th>)}</tr></thead>
+                <tbody>{b.rows.map((r: string[]) => <tr>{r.map((c: string) => <td set:html={inline(c)} />)}</tr>)}</tbody>
+              </table>
+            </div>
+          );
+          return null;
+        })}
+      </div>
+
+      <section class="post-cta glass-card">
+        <div>
+          <h2>Try it on your own device</h2>
+          <p>Ask {siteConfig.siteName} for a free trial and test channels, live sport and the guide before you pay.</p>
+        </div>
+        <div class="post-cta-actions">
+          <a href={siteConfig.whatsappUrl} class="btn btn-primary btn-lg" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Request a free trial</a>
+          <a href="/pricing" class="btn btn-secondary btn-lg">See plans</a>
+        </div>
+      </section>
+
+      {related.length > 0 && (
+        <section class="post-related">
+          <h2>Keep reading</h2>
+          <ul>
+            {related.map((r: any) => (
+              <li><a href={`/blog/${r.slug}`} class="post-rel-card glass-card"><span class="post-rel-title">{r.title}</span><span class="post-rel-text">{r.text}</span></a></li>
+            ))}
+          </ul>
+          <p class="post-more"><a href="/blog">All guides</a> &middot; <a href="/all-devices">Device set-up guides</a> &middot; <a href="/tools">Free tools</a> &middot; <a href="/all-locations">Local IPTV guides</a></p>
+        </section>
+      )}
+    </div>
+  </article>
+</Layout>
+
+<style is:global>
+  .post { padding: clamp(20px, 4vw, 48px) 0 clamp(40px, 7vw, 80px); }
+  .post-wrap { max-width: 820px; }
+  .post-head h1 { margin: 12px 0 12px; }
+  .post-meta { display: flex; flex-wrap: wrap; gap: 10px; color: #94a3b8; font-size: 0.88rem; margin-bottom: 14px; }
+  .post-desc { color: #cbd5e1; font-size: 1.08rem; line-height: 1.7; }
+  .post-toc { padding: 16px 20px; margin: 22px 0 6px; }
+  .post-toc strong { display: block; margin-bottom: 8px; color: #fff; }
+  .post-toc ol { margin: 0 0 0 1.2rem; display: grid; gap: 4px; }
+  .post-toc a { color: #38bdf8; }
+  .post-body { margin-top: 18px; }
+  .post-body h2 { font-size: clamp(1.3rem, 2.6vw, 1.7rem); margin: 34px 0 10px; scroll-margin-top: 130px; }
+  .post-body p, .post-body li { color: #c3cedd; line-height: 1.85; font-size: 1.02rem; }
+  .post-body p + p { margin-top: 12px; }
+  .post-body p { margin-top: 10px; }
+  .post-body ul, .post-body ol { margin: 12px 0 0 1.3rem; display: grid; gap: 8px; }
+  .post-body a { color: #38bdf8; text-decoration: underline; text-underline-offset: 3px; }
+  .post-body strong { color: #fff; }
+  .post-note { margin: 18px 0; padding: 14px 16px; border-radius: 12px; background: rgba(79,140,255,0.1); border: 1px solid rgba(79,140,255,0.35); color: #dbe7ff; line-height: 1.7; overflow-wrap: anywhere; }
+  .post-note a { color: #7dd3fc; }
+  .post-table-wrap { overflow-x: auto; margin: 16px 0; -webkit-overflow-scrolling: touch; }
+  .post-table-wrap table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 0.95rem; }
+  .post-table-wrap th, .post-table-wrap td { text-align: left; padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.08); color: #cbd5e1; vertical-align: top; }
+  .post-table-wrap th { color: #fff; background: rgba(255,255,255,0.04); }
+  .post-cta { margin: 40px 0 10px; padding: clamp(18px, 3vw, 28px); display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+  .post-cta h2 { font-size: 1.3rem; margin-bottom: 6px; }
+  .post-cta p { color: #b6c2d4; }
+  .post-cta-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .post-related { margin-top: 38px; }
+  .post-related h2 { font-size: 1.3rem; margin-bottom: 14px; }
+  .post-related ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px; }
+  .post-rel-card { display: grid; gap: 6px; padding: 16px; height: 100%; }
+  .post-rel-title { font-weight: 700; color: #fff; line-height: 1.35; }
+  .post-rel-text { color: #94a3b8; font-size: 0.86rem; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .post-more { margin-top: 16px; color: #94a3b8; font-size: 0.9rem; }
+  .post-more a { color: #38bdf8; padding: 6px 2px; display: inline-block; }
+  @media (max-width: 600px) { .post-cta { flex-direction: column; align-items: stretch; } .post-cta-actions .btn { width: 100%; } }
+</style>

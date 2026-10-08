@@ -1,0 +1,131 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolShell from '../../components/ToolShell.astro';
+import { absUrl } from '../../lib/url';
+
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Tools', url: '/tools' }, { name: 'Internet speed calculator', url: '/tools/internet-speed-calculator' }];
+const app = {
+  '@type': 'WebApplication',
+  '@id': `${absUrl('/tools/internet-speed-calculator')}#app`,
+  name: 'IPTV internet speed calculator',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any (runs in the browser)',
+  description: 'Calculate how many Mbps you need for IPTV and live streaming based on the number of screens and the picture quality.',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+
+<Layout
+  title="IPTV Internet Speed Calculator: How Many Mbps Do You Need?"
+  metaDescription="Free calculator: enter how many screens stream at once in SD, HD and 4K and see the internet speed (Mbps) you need for smooth IPTV and live sport."
+  targetKeyword="how much internet speed for iptv"
+  pageType="WebPage"
+  breadcrumbs={crumbs}
+  extraSchema={[app]}
+>
+  <ToolShell h1="How much internet speed do you need for IPTV?" lead="Tell us how many screens will stream at the same time and in what quality. The calculator adds a safety margin so live sport does not stutter.">
+    <div class="tool-grid">
+      <form class="tool-card glass-card" id="speedForm" autocomplete="off" onsubmit="return false">
+        <h2>Your household</h2>
+        <div class="tool-row">
+          <div class="tool-field"><label for="n-sd">SD streams</label><input id="n-sd" type="number" min="0" max="20" value="0" inputmode="numeric" /><small>about 3 Mbps each</small></div>
+          <div class="tool-field"><label for="n-hd">HD streams</label><input id="n-hd" type="number" min="0" max="20" value="1" inputmode="numeric" /><small>about 8 Mbps each</small></div>
+          <div class="tool-field"><label for="n-4k">4K streams</label><input id="n-4k" type="number" min="0" max="20" value="1" inputmode="numeric" /><small>about 25 Mbps each</small></div>
+        </div>
+        <div class="tool-field">
+          <label for="other">Other online use at the same time</label>
+          <select id="other">
+            <option value="0">Nothing heavy</option>
+            <option value="5" selected>Browsing and video calls (5 Mbps)</option>
+            <option value="15">Gaming and downloads (15 Mbps)</option>
+            <option value="30">Heavy use, several people (30 Mbps)</option>
+          </select>
+        </div>
+        <div class="tool-field">
+          <label for="conn">How is the device connected?</label>
+          <select id="conn">
+            <option value="1.0">Ethernet cable</option>
+            <option value="1.15" selected>5 GHz Wi-Fi</option>
+            <option value="1.35">2.4 GHz Wi-Fi</option>
+          </select>
+          <small>Wi-Fi loses speed, so we add a margin.</small>
+        </div>
+        <div class="tool-field">
+          <label for="mine">Your measured download speed (optional)</label>
+          <input id="mine" type="number" min="0" max="10000" placeholder="e.g. 100" inputmode="decimal" />
+          <small>Run a speed test on the same device and enter the result in Mbps.</small>
+        </div>
+      </form>
+
+      <div class="tool-card glass-card tool-result" aria-live="polite">
+        <h2>You need about</h2>
+        <div class="tool-big" id="out-mbps">0</div>
+        <div class="tool-unit">Mbps download</div>
+        <ul class="tool-breakdown" id="out-breakdown"></ul>
+        <div class="tool-verdict" id="out-verdict" hidden></div>
+        <p class="tool-note">Rule of thumb: pick a plan with at least this speed. Upload speed does not matter for watching.</p>
+      </div>
+    </div>
+
+    <article class="tool-article">
+      <h2>Typical bandwidth per stream</h2>
+      <div class="tool-table-wrap">
+        <table class="tool-table">
+          <thead><tr><th>Quality</th><th>Typical bitrate</th><th>Good for</th></tr></thead>
+          <tbody>
+            <tr><td>SD (480p)</td><td>3 Mbps</td><td>Phones and small screens</td></tr>
+            <tr><td>HD (720p to 1080p)</td><td>8 to 10 Mbps</td><td>Most TVs and live sport</td></tr>
+            <tr><td>4K UHD</td><td>25 Mbps</td><td>Large TVs and 4K channels</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h2>How the number is calculated</h2>
+      <p>We add up the bitrate of every stream, add the speed other devices are using, and multiply by a margin for how the device is connected (Ethernet 1.0, 5 GHz Wi-Fi 1.15, 2.4 GHz Wi-Fi 1.35). Then we add 20 percent headroom, because a connection that is exactly as fast as the stream needs will buffer the moment anything else uses the network.</p>
+      <h2>If the result is higher than your speed</h2>
+      <ul>
+        <li>Use an Ethernet cable or move the device to the 5 GHz Wi-Fi band.</li>
+        <li>Lower the picture quality in the player for one screen.</li>
+        <li>Pause large downloads during live sport.</li>
+        <li>Follow our guide to <a href="/blog/how-to-fix-iptv-buffering-isp-throttling">fix IPTV buffering step by step</a>.</li>
+      </ul>
+      <h2>Next steps</h2>
+      <ul class="tool-links">
+        <li><a href="/pricing">See IPTV plans (USA)</a></li>
+        <li><a href="/uk/pricing">See IPTV plans (UK)</a></li>
+        <li><a href="/iptv-free-trial">Try a free 24-hour trial</a></li>
+        <li><a href="/blog/how-much-internet-speed-for-iptv">Read: how much speed for IPTV</a></li>
+        <li><a href="/tools/cable-savings-calculator">Cable savings calculator</a></li>
+      </ul>
+    </article>
+  </ToolShell>
+</Layout>
+
+<script>
+  const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+  const rates = { sd: 3, hd: 8, k4: 25 };
+  function calc() {
+    const n = (id: string) => Math.max(0, Math.min(20, parseInt($(id).value || '0', 10) || 0));
+    const sd = n('n-sd'), hd = n('n-hd'), k4 = n('n-4k');
+    const other = parseFloat($('other').value);
+    const conn = parseFloat($('conn').value);
+    const streams = sd * rates.sd + hd * rates.hd + k4 * rates.k4;
+    const need = Math.ceil(((streams + other) * conn) * 1.2);
+    $('out-mbps').textContent = String(need);
+    const li = (a: string, b: string) => `<li><span>${a}</span><strong>${b}</strong></li>`;
+    ($('out-breakdown') as unknown as HTMLElement).innerHTML =
+      li('Streams', `${streams} Mbps`) + li('Other use', `${other} Mbps`) + li('Connection margin', `x${conn.toFixed(2)}`) + li('Headroom', '+20%');
+    const v = $('out-verdict') as unknown as HTMLElement;
+    const mine = parseFloat($('mine').value);
+    if (!isNaN(mine) && mine > 0) {
+      v.hidden = false;
+      v.className = 'tool-verdict ' + (mine >= need ? 'ok' : mine >= need * 0.75 ? 'warn' : 'bad');
+      v.textContent = mine >= need
+        ? `Your ${mine} Mbps is enough for this set-up.`
+        : mine >= need * 0.75
+        ? `Your ${mine} Mbps is close. Expect occasional buffering at peak times; use Ethernet or lower one stream to HD.`
+        : `Your ${mine} Mbps is likely too low for this set-up. Reduce the number of 4K streams or upgrade your broadband.`;
+    } else { v.hidden = true; }
+  }
+  document.getElementById('speedForm')?.addEventListener('input', calc);
+  calc();
+</script>

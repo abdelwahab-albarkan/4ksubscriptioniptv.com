@@ -1,0 +1,11 @@
+# Netlify: connect the repo, nothing else to configure.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[build.processing.html]
+  pretty_urls = true
+# 301 redirects live in public/_redirects and cache/security headers in public/_headers (both generated/kept in sync by the build).
